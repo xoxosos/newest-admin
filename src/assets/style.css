@@ -1,0 +1,49 @@
+@charset "UTF-8";
+.el-container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.common-header {
+  background: rgb(48, 55, 66);
+}
+.common-header .common-header-logo {
+  width: 80px;
+}
+.common-header .common-header-title {
+  color: #fff;
+}
+
+.common-aside {
+  background: rgb(48, 55, 65);
+}
+
+.flex-float {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+/**
+水平剧中 flex方法
+ */
+.login-wrap {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: cornflowerblue;
+}
+
+.login-form {
+  background: #fff;
+  margin: auto;
+  padding: 35px 55px 30px 35px;
+  border-radius: 5px;
+}
+
+/*# sourceMappingURL=style.css.map */
