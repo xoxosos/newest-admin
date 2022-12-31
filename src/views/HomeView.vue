@@ -1,7 +1,7 @@
 <!--
  * @Author: LinRenJie
  * @Date: 2022-12-22 18:42:33
- * @LastEditTime: 2022-12-24 14:38:49
+ * @LastEditTime: 2022-12-31 17:22:12
  * @Description: 
  * @FilePath: /admin/src/views/HomeView.vue
  * @Email: xoxosos666@gmail.com
@@ -15,7 +15,7 @@
           <h1 class="common-header-title">通用管理系统</h1>
         </div>
         <div>
-          <el-button type="primary" @click='loginOut'>退出</el-button>
+          <el-button type="primary" @click="loginOut">退出</el-button>
         </div>
       </el-header>
       <el-container>
@@ -23,7 +23,7 @@
           <Index></Index>
         </el-aside>
         <el-container>
-          <el-main>
+          <el-main style="background: #efefef">
             <RouterView></RouterView>
           </el-main>
           <el-footer> </el-footer>
@@ -33,10 +33,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
-import Index from '@/views/aside/index.vue'
 import router from '@/router'
-
+import Index from '@/views/aside/index.vue'
+import { onMounted, ref } from 'vue'
 
 interface Person {
   name: string
@@ -51,7 +50,7 @@ let tom: Person = {
   date: '2016-05-03'
 }
 const tableData = ref<any[]>([])
-const loginOut = ():void=>{
+const loginOut = (): void => {
   sessionStorage.clear()
   router.push('/login')
 }

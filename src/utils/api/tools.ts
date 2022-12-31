@@ -19,7 +19,7 @@ export const handleChangeRequestHeader = (config: any) => {
  * @param config
  */
 export const handleConfigureAuth = (config: any) => {
-  config.headers['token'] = sessionStorage.getItem('token')  || ''
+  config.headers['Authorization'] = sessionStorage.getItem('token')  || ''
   // config.header['token'] = localStorage.getItem('token') || token || ''
   return config
 }

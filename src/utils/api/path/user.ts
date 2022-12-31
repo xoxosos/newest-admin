@@ -9,8 +9,8 @@ interface FcResponse<T> {
 
 type ApiResponse<T> = Promise<[any, FcResponse<T> | undefined]>
 
-function getUserInfo<T extends { id: string; name: string; }>(id?:any): ApiResponse<T> {
-  return Get<T>(urlPix+'/getToken' )
+function getUserInfo<T>(id?:any): ApiResponse<T> {
+  return Get<T>(urlPix+'/getUserList' )
 }
 function getUserToken<T extends { token: string }>(id?:any): ApiResponse<T> {
   return Get<T>(urlPix+'/getToken' )

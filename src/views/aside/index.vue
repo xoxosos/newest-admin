@@ -24,7 +24,7 @@
         <el-menu-item index="1-2">item two</el-menu-item>
       </el-menu-item-group>
     </el-sub-menu>
-    <el-sub-menu index="2">
+    <el-sub-menu index="3">
       <template #title>
         <el-icon>
           <document />
@@ -32,7 +32,7 @@
         <span>权限管理</span>
       </template>
       <el-menu-item-group title="Group One">
-        <el-menu-item index="/user">权限列表</el-menu-item>
+        <el-menu-item index="/auth">权限列表</el-menu-item>
         <el-menu-item index="1-2">item two</el-menu-item>
       </el-menu-item-group>
     </el-sub-menu>

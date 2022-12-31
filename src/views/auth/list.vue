@@ -1,11 +1,11 @@
 <template>
-$END$
+  <div>
+ qx
+  </div>
 </template>
 
-<script>
-export default {
-name: "authList"
-}
+<script setup lang="ts">
+
 </script>
 
 <style scoped>

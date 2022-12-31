@@ -24,8 +24,21 @@ $prefix: common;
   display: flex;
   align-items: center;
 }
+.main-content{
+  padding: 20px;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin-top: 30px;
+  background: #fff;
+  .main-content-header{
+    display: flex;
+    justify-content: space-between;
+  }
+
+}
 /**
-水平剧中 flex方法
+水平剧中登陆 flex方法
  */
 .login-wrap{
   width: 100vw;
