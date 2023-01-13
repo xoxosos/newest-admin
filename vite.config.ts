@@ -20,7 +20,7 @@ const viteConfig = defineConfig({
     vue(),
     vueJsx(),
     AutoImport({
-      imports:['vue','pinia','vue-router'],
+      imports: ['vue', 'pinia', 'vue-router'],
       resolvers: [ElementPlusResolver()]
     }),
     Components({
@@ -30,6 +30,15 @@ const viteConfig = defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:4523/m1/2120640-0-2c46b26a',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
     }
   }
 })
