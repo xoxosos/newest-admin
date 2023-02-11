@@ -1,13 +1,29 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "types"
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      // 解决找不到模块
+      "vue-echarts": [
+        "node_modules/vue-echarts/"
+      ],
+      "vue": [
+        "node_modules/vue"
+      ],
+      "vue-router": [
+        "node_modules/vue-router"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
-
   "references": [
     {
       "path": "./tsconfig.config.json"

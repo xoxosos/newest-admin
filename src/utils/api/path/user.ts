@@ -11,11 +11,11 @@ interface FcResponse<T> {
 type ApiResponse<T> = Promise<[any, FcResponse<T> | undefined]>
 
 function getUserInfo<T>(id?: any): ApiResponse<T> {
-  return Get<T>('api/getUserList')
+  return Get<T>('/api/getUserList')
 }
 
 function getUserToken<T extends { token: string }>(id?: any): ApiResponse<T> {
-  return Get<T>('api/getToken')
+  return Get<T>('/api/getToken')
 }
 
 export function getUserName(id: any) {

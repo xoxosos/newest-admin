@@ -3,14 +3,13 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import 'element-plus/dist/index.css'
+import 'ant-design-vue/dist/antd.less'
 import './assets/main.css'
 import './assets/style.scss'
 import { useUsers } from '@/stores/user'
-const app = createApp(App)
-app.use(createPinia())
-app.use(router)
 
-app.mount('#app')
+const app = createApp(App)
+app.use(createPinia()).use(router).mount('#app')
 /**
  * 路由跳转执行的钩子
  */

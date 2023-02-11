@@ -1,5 +1,5 @@
-import { ElMessage } from 'element-plus'
 import router from '@/router'
+import { ElMessage } from 'element-plus'
 const logout = () => {
   sessionStorage.clear()
   return router.push('/login')
@@ -10,7 +10,10 @@ const logout = () => {
  * @param config
  */
 export const handleChangeRequestHeader = (config: any) => {
+  console.log(config)
   config['xxx'] = 'xxx'
+  // api mock用
+  config.headers.apifoxToken = 'dROD5webTSINtKEixUxWWBYNnjoRsSXn'
   // config.headers.token = window.sessionStorage.getItem('token')
   return config
 }
@@ -19,8 +22,7 @@ export const handleChangeRequestHeader = (config: any) => {
  * @param config
  */
 export const handleConfigureAuth = (config: any) => {
-  config.headers['Authorization'] = sessionStorage.getItem('token')  || ''
-  // config.header['token'] = localStorage.getItem('token') || token || ''
+  config.headers['Authorization'] = sessionStorage.getItem('token') || ''
   return config
 }
 /**

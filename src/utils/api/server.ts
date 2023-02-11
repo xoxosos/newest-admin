@@ -1,12 +1,20 @@
+/*
+ * @Author: LinRenJie
+ * @Date: 2022-12-24 21:30:35
+ * @LastEditTime: 2023-02-11 18:09:39
+ * @Description:
+ * @FilePath: /admin/src/utils/api/server.ts
+ * @Email: xoxosos666@gmail.com
+ */
+import { useUsers } from '@/stores/user'
 import axios from 'axios'
 import {
+  handleAuthError,
   handleChangeRequestHeader,
   handleConfigureAuth,
-  handleAuthError,
   handleGeneralError,
   handleNetworkError
 } from './tools'
-import { useUsers } from "@/stores/user";
 type Fn = (data: FcResponse<any>) => unknown
 
 interface IAnyObj {
@@ -25,11 +33,10 @@ interface FcResponse<T> {
  * 我们需要两块内容，一是请求的调整 ，二是 配置用户标识
  */
 axios.interceptors.request.use((config) => {
-
-  if (!useUsers().token) return config
   config = handleChangeRequestHeader(config)
+  if (!useUsers().token) return config
   config = handleConfigureAuth(config)
-  console.log(config);
+  console.log(config)
   return config
 })
 /**
@@ -46,13 +53,17 @@ axios.interceptors.response.use(
     return response
   },
   (err) => {
-    console.log(err);
+    console.log(err)
     handleNetworkError(err.response.status)
     Promise.reject(err.response)
   }
 )
 
-export const Get = <T,>(url: string, params: IAnyObj = {}, clearFn?: Fn): Promise<[any, FcResponse<T> | undefined]> =>
+export const Get = <T>(
+  url: string,
+  params: IAnyObj = {},
+  clearFn?: Fn
+): Promise<[any, FcResponse<T> | undefined]> =>
   new Promise((resolve) => {
     axios
       .get(url, { params })
@@ -70,7 +81,11 @@ export const Get = <T,>(url: string, params: IAnyObj = {}, clearFn?: Fn): Promis
       })
   })
 
-export const Post = <T,>(url: string, data: IAnyObj, params: IAnyObj = {}): Promise<[any, FcResponse<T> | undefined]> => {
+export const Post = <T>(
+  url: string,
+  data: IAnyObj,
+  params: IAnyObj = {}
+): Promise<[any, FcResponse<T> | undefined]> => {
   return new Promise((resolve) => {
     axios
       .post(url, data, { params })
