@@ -1,7 +1,7 @@
 /*
  * @Author: LinRenJie
  * @Date: 2022-12-19 14:28:57
- * @LastEditTime: 2023-02-11 19:53:13
+ * @LastEditTime: 2023-02-11 20:09:05
  * @Description:
  * @FilePath: /admin/.eslintrc.cjs
  * @Email: xoxosos666@gmail.com
@@ -26,9 +26,14 @@ module.exports = {
     }
   },
   rules: {
+    'no-debugger': 'error',
     // 禁止使用 var
     'no-var': 'error',
     // 优先使用 interface 而不是 type
-    '@typescript-eslint/consistent-type-definitions': ['error', 'interface']
+    '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+    eqeqeq: 2, //必须使用全等
+    'max-lines': ['error', 500], //限制行数 请勿修改 请优化你的代码
+    complexity: ['error', 6], // 限制复杂度
+    'require-await': 'error'
   }
 }

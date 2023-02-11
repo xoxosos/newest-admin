@@ -1,7 +1,7 @@
 <!--
  * @Author: LinRenJie
  * @Date: 2022-12-22 18:42:33
- * @LastEditTime: 2023-02-11 19:43:07
+ * @LastEditTime: 2023-02-11 20:01:00
  * @Description: 
  * @FilePath: /admin/src/views/HomeView.vue
  * @Email: xoxosos666@gmail.com
@@ -203,7 +203,9 @@ import type { MenuProps } from 'ant-design-vue'
 import { uniqBy } from 'lodash-es'
 import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-
+const toHome = () => {
+  console.log('toHome')
+}
 const activeKey = ref()
 const routes = useRouter()
 const routesMap = computed(() => routes.options.routes[0]).value.children
