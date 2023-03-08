@@ -1,7 +1,7 @@
 <!--
  * @Author: LinRenJie
  * @Date: 2022-12-22 18:42:33
- * @LastEditTime: 2023-02-11 20:01:00
+ * @LastEditTime: 2023-03-08 14:20:44
  * @Description: 
  * @FilePath: /admin/src/views/HomeView.vue
  * @Email: xoxosos666@gmail.com
@@ -18,7 +18,9 @@
         :class="theme === 'dark' ? ['new-admin-logo-dark'] : ''"
         :style="{
           width: collapsed ? '80px' : '200px',
-          transition: 'all .3s cubic-bezier(.2, 0, 0, 1) 0s'
+          transition: changeTransition
+            ? 'all .3s  ease-in-out'
+            : 'all .3s cubic-bezier(.2, 0, 0, 1) 0s'
         }"
         class="new-admin-logo"
       >
@@ -26,12 +28,8 @@
         <span :style="{ color: '#333', display: collapsed ? 'none' : '' }">Newest Admin</span>
       </div>
       <div class="new-admin-header-tool">
-        <menu-unfold-outlined
-          v-if="collapsed"
-          class="trigger"
-          @click="() => (collapsed = !collapsed)"
-        />
-        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+        <menu-unfold-outlined v-if="collapsed" class="trigger" @click="changeCollapsed" />
+        <menu-fold-outlined v-else class="trigger" @click="changeCollapsed" />
       </div>
       <div class="new-admin-header-tool">
         <a-switch
@@ -87,7 +85,7 @@
         <a-menu
           v-model:selectedKeys="selectedKeys"
           :open-keys="state.openKeys"
-          :style="{ height: '100%', borderRight: 0 }"
+          :style="{ height: '100%', borderRight: 0, transition: 'all .3s  ease-in-out' }"
           :theme="theme"
           mode="inline"
         >
@@ -281,11 +279,17 @@ const remove = (targetKey: string) => {
 const onEdit = (targetKey: any, action: any) => {
   remove(targetKey)
 }
+const changeTransition = ref(false)
 const changeTheme = (checked: boolean) => {
+  changeTransition.value = true
   theme.value = checked ? 'dark' : 'light'
 }
 const theme = ref('dark')
 const collapsed = ref(false)
+const changeCollapsed = () => {
+  changeTransition.value = false
+  collapsed.value = !collapsed.value
+}
 const onClick: MenuProps['onClick'] = ({ key }) => {
   key === '3' && loginOut()
 }
@@ -293,20 +297,5 @@ const loginOut = (): void => {
   sessionStorage.clear()
   router.push('/login')
 }
-const height = ref()
-window.onresize = () => {
-  return (() => {
-    document.documentElement.clientWidth //实时宽度
-    height.value = document.documentElement.clientHeight //实时高度
-    console.log(height)
-  })()
-}
-watch(
-  height.value,
-  () => {
-    console.log(height)
-  },
-  { immediate: true, deep: true }
-)
 </script>
 <style lang="scss"></style>

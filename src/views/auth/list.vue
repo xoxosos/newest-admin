@@ -4,8 +4,7 @@
     <a-table
       :columns="columns"
       :data-source="tableData"
-      :rowKey="(record: tableProps
-) => record.id"
+      :rowKey="(record: tableProps) => record.id"
     >
       <template #bodyCell="{ column, record, index }">
         <template v-if="column.key === 'firstContactListName'">

@@ -1,5 +1,13 @@
+/*
+ * @Author: LinRenJie
+ * @Date: 2023-01-13 18:12:53
+ * @LastEditTime: 2023-02-23 14:05:21
+ * @Description:
+ * @FilePath: /admin/src/utils/api/tools.ts
+ * @Email: xoxosos666@gmail.com
+ */
 import router from '@/router'
-import { ElMessage } from 'element-plus'
+import { message } from 'ant-design-vue'
 const logout = () => {
   sessionStorage.clear()
   return router.push('/login')
@@ -51,11 +59,7 @@ export const handleNetworkError = (errStatus: number) => {
   } else {
     errMessage = `无法连接到服务器！`
   }
-  ElMessage({
-    showClose: true,
-    message: errMessage,
-    type: 'error'
-  })
+  message.error(errMessage)
 }
 
 /**
@@ -75,11 +79,7 @@ export const handleAuthError = (errno: string) => {
   }
 
   if (authErrMap.hasOwnProperty(errno)) {
-    ElMessage({
-      showClose: true,
-      message: authErrMap[errno],
-      type: 'error'
-    })
+    message.error(authErrMap[errno])
     // message.error(authErrMap[errno])
     // 授权错误，登出账户
     logout()
@@ -95,11 +95,7 @@ export const handleAuthError = (errno: string) => {
  */
 export const handleGeneralError = (errno: any, errMsg: any) => {
   if (errno) {
-    ElMessage({
-      showClose: true,
-      message: errMsg,
-      type: 'error'
-    })
+    message.error(errMsg)
     return false
   }
 

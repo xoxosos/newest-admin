@@ -1,7 +1,7 @@
 /*
  * @Author: LinRenJie
  * @Date: 2023-01-13 18:12:53
- * @LastEditTime: 2023-01-14 18:30:37
+ * @LastEditTime: 2023-02-23 10:51:47
  * @Description:
  * @FilePath: /admin/src/router/index.ts
  * @Email: xoxosos666@gmail.com
@@ -73,10 +73,10 @@ const router = createRouter({
           ]
         },
         {
-          path: '/works',
-          name: 'works',
-          component: () => import('../views/dashboard/WorkView.vue'),
-          meta: { title: 'works' }
+          path: '/generate-form',
+          name: 'generate',
+          component: () => import('../views/genarateform/drawableView.vue'),
+          meta: { title: '表单生成器' }
         }
       ]
     },

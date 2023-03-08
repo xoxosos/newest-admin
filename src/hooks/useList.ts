@@ -60,12 +60,9 @@ export default function useList<ItemType extends Object, FilterOption extends Ob
     // 设置加载中
     loading.value = true
     try {
-      const {
-        data,
-        meta: { total: count }
-      } = await listRequestFn(pageSize.value, page, filterOption.value)
-      list.value = data
-      total.value = count
+      const [e, r] = await listRequestFn(pageSize.value, page, filterOption.value)
+      list.value = r?.data || []
+      total.value = r?.meta?.total || 0
       options?.message?.GET_DATA_IF_SUCCEED && message(options.message.GET_DATA_IF_SUCCEED)
       options?.requestSuccess?.()
     } catch (error) {

@@ -5,17 +5,17 @@
         <a-row :gutter="24">
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item label="姓名">
-              <a-input :value(v-model)="formState.name"> </a-input>
+              <a-input v-model:value="formState.name"> </a-input>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item label="性别">
-              <a-input :value(v-model)="formState.gender"> </a-input>
+              <a-input :v-model:value="formState.gender"> </a-input>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item label="手机号">
-              <a-input :value(v-model)="formState.mobile"> </a-input>
+              <a-input v-model:value="formState.mobile"> </a-input>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="12" :sm="24" :xs="24" style="text-align: right">
@@ -37,7 +37,7 @@
         <a-row :gutter="24">
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item v-if="expand" label="年龄">
-              <a-input :value(v-model)="formState.birthday"> </a-input>
+              <a-input v-model:value="formState.birthday"> </a-input>
             </a-form-item>
           </a-col>
         </a-row>
@@ -65,6 +65,7 @@
           </div>
         </div>
         <a-table
+          @change="handleTableChange"
           :bordered="bordered"
           :class="classObj"
           :columns="columns"
@@ -83,13 +84,13 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import useList from '@/hooks/useList'
 import useTableSwitch from '@/hooks/useTable/useHeader'
 import { api } from '@/utils/api'
-import columns from '@/views/user/table'
+// import columns from '@/views/user/table'
 import { DownOutlined, ReloadOutlined, UpOutlined } from '@ant-design/icons-vue'
-import { onMounted, reactive } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 const {
   handleSwitch,
@@ -114,7 +115,7 @@ interface data {
 }
 
 // const tableData = ref<data>()
-const formState = reactive<data>({
+const formState = ref<data>({
   age: 0,
   birthday: '',
   email: '',
@@ -127,17 +128,87 @@ const init = async () => {
   console.log('initData')
   loading.value = true
   try {
-    const [e, r] = await api.getUserInfo()
-    list.value = e ?? r?.data
+    await loadData()
+    // list.value = e ?? r?.data
   } finally {
     loading.value = false
   }
 }
 
-const { list, loading, reset, curPage, pageSize, reload, total, loadData } = useList(
-  init,
+const listRequestFn = api.getUserInfo
+const { list, loading, reset, curPage, pageSize, total, loadData } = useList(
+  listRequestFn,
   formState
 )
+const handleTableChange = (p, f, s) => {
+  console.log('sorter', s)
+}
+const formRef = ref()
+const clean = () => {
+  console.log(11)
+  formRef.value.resetFields()
+}
+const columns = computed(() => {
+  return [
+    {
+      title: 'id',
+      dataIndex: 'id',
+      width: 120,
+      fixed: 'left' as 'left'
+    },
+    {
+      title: '姓名',
+      dataIndex: 'name',
+      width: 150,
+      fixed: 'left' as 'left',
+      sorter: (a: any, b: any) => a.name.length - b.name.length,
+      sortDirections: ['descend']
+    },
+    {
+      title: '年龄',
+      dataIndex: 'age',
+      width: 100
+    },
+    {
+      title: '性别',
+      dataIndex: 'gender',
+      width: 100,
+      customRender({ text }: { text: string }) {
+        return <span>{text === '1' ? '男' : '女'}</span>
+      }
+    },
+    {
+      title: '生日',
+      dataIndex: 'birthday',
+      width: 120
+    },
+    {
+      title: '电话号码',
+      dataIndex: 'mobile',
+      width: 120
+    },
+    {
+      title: '邮箱',
+      dataIndex: 'email',
+      width: 150
+    },
+
+    {
+      title: '操作',
+      dataIndex: 'operation',
+      customRender({ record }) {
+        return (
+          <div>
+            <a>edit</a>
+            <a-divider type="vertical"></a-divider>
+            <a>delete</a>
+          </div>
+        )
+      },
+      width: 100
+    }
+  ]
+})
 onMounted(() => init())
 </script>
 

@@ -1,83 +1,115 @@
 <template>
-  <div class="login-wrap login">
-    <div class="login-form login_box">
-      <el-form
+  <div class="login-wrap">
+    <transition name="fade">
+      <a-form
         ref="ruleFormRef"
         :model="formState"
-        :rules="rules"
-        class="login_box"
-        label-position="right"
-        label-width="80px"
-        status-icon
-        style="height: 350px;padding-top:60px"
+        name="normal_login"
+        :label-col="{ span: 8 }"
+        :wrapper-col="{ span: 16 }"
+        class="login-form"
+        @finish="onFinish"
+        @finishFailed="onFinishFailed"
       >
-        <el-form-item label="用户名:" prop="userName">
-          <el-input v-model="formState.userName" placeholder="Please input userName"></el-input>
-        </el-form-item>
-        <el-form-item label="密码:" prop="passWord">
-          <el-input
-            v-model="formState.passWord"
-            placeholder="Please input password"
-            show-password
-            type="password"
-          />
-        </el-form-item>
-        <el-form-item>
-          <p>
-            还没有账号？
-            <el-link>点此注册</el-link>
-          </p>
-        </el-form-item>
-        <el-form-item>
-          <a @click="submitForm"> 登陆</a>
-          <a @click="resetForm">Reset</a>
-        </el-form-item>
-      </el-form>
-    </div>
+        <a-from-item>
+          <h1 class="title">Welcome</h1>
+        </a-from-item>
+        <a-form-item
+          label="Username"
+          name="username"
+          :rules="[{ required: true, message: 'Please input your username!' }]"
+        >
+          <a-input v-model:value="formState.username" size="large">
+            <template #prefix>
+              <UserOutlined class="site-form-item-icon" />
+            </template>
+          </a-input>
+        </a-form-item>
+
+        <a-form-item
+          label="Password"
+          name="password"
+          :rules="[{ required: true, message: 'Please input your password!' }]"
+        >
+          <a-input-password v-model:value="formState.password" size="large">
+            <template #prefix>
+              <LockOutlined class="site-form-item-icon" />
+            </template>
+          </a-input-password>
+        </a-form-item>
+
+        <a-form-item>
+          <a-form-item name="remember" no-style>
+            <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
+          </a-form-item>
+          <a class="login-form-forgot" href="">Forgot password</a>
+        </a-form-item>
+
+        <a-form-item>
+          <a-button block :disabled="disabled" type="primary" size="large" @click="submitForm">
+            Log in
+          </a-button>
+          Or
+          <a href="">register now!</a>
+        </a-form-item>
+      </a-form>
+    </transition>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import router from '@/router'
 import { useCounterStore } from '@/stores/counter'
 import { useUsers } from '@/stores/user'
-import router from '@/router'
-import { api } from "@/utils/api";
-
+import { api } from '@/utils/api'
+import { LockOutlined, UserOutlined } from '@ant-design/icons-vue'
+import { computed, reactive, ref } from 'vue'
 const counterStore = useCounterStore()
 counterStore.increment()
 console.log(counterStore.count)
 const ruleFormRef = ref()
 
-interface userInfo {
-  userName: String
-  passWord: String
+interface FormState {
+  username: string
+  password: string
+  remember: boolean
+}
+const formState = reactive<FormState>({
+  username: '',
+  password: '',
+  remember: true
+})
+const onFinish = (values: any) => {
+  console.log('Success:', values)
+  submitForm()
 }
 
-const formState: userInfo = reactive({
-  userName: '',
-  passWord: ''
+const onFinishFailed = (errorInfo: any) => {
+  console.log('Failed:', errorInfo)
+}
+const disabled = computed(() => {
+  return !(formState.username && formState.password)
 })
-const validateName = (rule: any, value: any, callback: any) => {
+const validateName = (_rule: any, value: any) => {
   if (value === '') {
-    callback(new Error('Please input the userName'))
+    return Promise.reject('Please input the userName')
   } else {
-    if (formState.userName !== '') {
+    if (formState.username !== '') {
       if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('checkPass', () => null)
+      ruleFormRef.value.validateFields('checkPass', () => null)
     }
-    callback()
+    return Promise.resolve()
   }
 }
-const validatePass = (rule: any, value: any, callback: any) => {
+const validatePass = (_rule: any, value: any) => {
   if (value === '') {
-    callback(new Error('Please input the password'))
+    return Promise.reject('Please input the password')
   } else {
-    if (formState.passWord !== '') {
+    if (formState.password !== '') {
       if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('checkPass', () => null)
+      ruleFormRef.value.validateFields('checkPass', () => null)
     }
-    callback()
+    return Promise.resolve()
   }
 }
 const rules = reactive({
@@ -85,23 +117,16 @@ const rules = reactive({
   passWord: [{ validator: validatePass, trigger: 'blur', required: true }]
 })
 const users = useUsers()
-const submitForm = () => {
-  ruleFormRef.value.validate(async (valid: any) => {
-    if (valid) {
-      const setSessionStorage = (token: string) => {
-        sessionStorage.setItem('token', token)
-      }
-      // 模拟登陆后拿到token
-      const [e, r] = await api.getUserToken()
-      r?.data?.token && setSessionStorage(r.data.token)
-      console.log(e, r);
-      // 勾选记住我可以存在localstorage
-      await router.push('/dashboard')
-    } else {
-      console.log('error submit!')
-      return false
-    }
-  })
+const submitForm = async () => {
+  const setSessionStorage = (token: string) => {
+    sessionStorage.setItem('token', token)
+  }
+  // 模拟登陆后拿到token
+  const [e, r] = await api.getUserToken()
+  r?.data?.token && setSessionStorage(r.data.token)
+  console.log(e, r)
+  // 勾选记住我可以存在localstorage
+  await router.push('/dashboard')
 }
 const resetForm = () => {
   ruleFormRef.value.resetFields()
@@ -109,123 +134,48 @@ const resetForm = () => {
 </script>
 
 <style lang="scss" scoped>
+.login-form {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7ecec;
+  transition: background-color 0.5s;
+}
 
-.login a {
+.login-form:hover {
+  background-color: #f7e8e8;
+}
 
-  /*overflow: hidden;*/
-  position: relative;
-  padding: 10px 20px;
-  color: #03e9f4;
-  /*取消a表现原有的下划线*/
-  text-decoration: none;
-  /*同样加个过渡*/
+.login-form a-form-item {
+  margin-top: 50px;
+}
+.login-form a-input {
+  width: 200px;
+}
+
+.login-form a-button {
+  margin-top: 50px;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.login-form a-button:hover {
+  background-color: #40a9ff;
+  color: #fff;
+}
+
+.fade-enter-active,
+.fade-leave-active {
   transition: all 0.5s;
 }
 
-.login a:hover {
-
-  color: #fff;
-  border-radius: 5px;
-  background-color: #03e9f4;
-  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
 }
-
-.login a span:first-child {
-
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  /*to right 就是往右边 下面的同理*/
-  background: linear-gradient(to right, transparent, #03e9f4);
-  /*动画 名称 时长 linear是匀速运动 infinite是无限次运动*/
-  animation: move1 1s linear infinite;
-
+:deep(.ant-row) {
+  align-items: center;
 }
-
-.login a span:nth-child(2) {
-
-  right: 0;
-  top: -100%;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(transparent, #03e6f4);
-  /*这里多了个0.25s其实是延迟时间*/
-  animation: move2 1s linear 0.25s infinite;
-}
-
-.login a span:nth-child(3) {
-
-  right: -100%;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(to left, transparent, #03e9f4);
-
-  animation: move3 1s linear 0.5s infinite;
-}
-
-.login a span:last-child {
-
-  left: 0;
-  bottom: -100%;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(#03e9f4, transparent);
-  animation: move4 1s linear 0.75s infinite;
-}
-
-/*写一下动画 */
-@keyframes move1 {
-
-  0% {
-
-    left: -100%;
-
-  }
-  50%, 100% {
-
-    left: 100%;
-  }
-}
-
-@keyframes move2 {
-
-  0% {
-
-    top: -100%;
-
-  }
-  50%, 100% {
-
-    top: 100%;
-  }
-}
-
-@keyframes move3 {
-
-  0% {
-
-    right: -100%;
-
-  }
-  50%, 100% {
-
-    right: 100%;
-  }
-}
-
-@keyframes move4 {
-
-  0% {
-
-    bottom: -100%;
-
-  }
-  50%, 100% {
-
-    bottom: 100%;
-  }
-}
-
 </style>
