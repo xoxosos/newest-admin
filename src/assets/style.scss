@@ -237,6 +237,7 @@ $text-color: rgba(0, 0, 0, .85);
 }
 
 .new-admin-body .new-admin-content .new-admin-content-view {
+  height: calc(100vh - 88px);
   flex: auto;
   box-sizing: border-box;
 }

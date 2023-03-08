@@ -210,12 +210,6 @@
   flex-direction: column;
   box-sizing: border-box;
 }
-
-.new-admin-body .new-admin-content .new-admin-content-view {
-  flex: auto;
-  box-sizing: border-box;
-}
-
 .new-admin-shade {
   position: fixed;
   top: 0;

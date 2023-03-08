@@ -11,7 +11,7 @@
     class="new-admin-layout new-admin-fixed-header new-admin-fixed-sidebar new-admin-side-dark new-admin-show-tabs new-admin-responsive"
   >
     <a-layout-header
-      :style="{ transition: 'all .3s cubic-bezier(.2, 0, 0, 1) 0s' }"
+      :style="{ transition: 'all .3s cubic-bezier(.2, 0, 0, 1) 0s', height: '48px' }"
       class="new-admin-header"
     >
       <div
@@ -201,6 +201,7 @@ import type { MenuProps } from 'ant-design-vue'
 import { uniqBy } from 'lodash-es'
 import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+
 const toHome = () => {
   console.log('toHome')
 }
