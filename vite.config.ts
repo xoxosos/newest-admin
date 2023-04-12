@@ -11,7 +11,7 @@ import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
-import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 // https://vitejs.dev/config/
@@ -21,10 +21,10 @@ const viteConfig = defineConfig({
     vueJsx(),
     AutoImport({
       imports: ['vue', 'pinia', 'vue-router'],
-      resolvers: [ElementPlusResolver(), AntDesignVueResolver()]
+      resolvers: [AntDesignVueResolver()]
     }),
     Components({
-      resolvers: [ElementPlusResolver(), AntDesignVueResolver({ importStyle: 'less' })]
+      resolvers: [AntDesignVueResolver({ importStyle: 'less' })]
     })
   ],
   // 开启less支持
@@ -56,7 +56,8 @@ const viteConfig = defineConfig({
     proxy: {
       '/api': {
         // target: 'http://127.0.0.1:4523/m1/2120640-0-2c46b26a', // '/api' 代理的接口路径
-        target: 'https://mock.apifox.cn/m1/2120640-0-2c46b26a', // '/api' 代理的接口路径
+        // target: 'https://mock.apifox.cn/m1/2120640-0-2c46b26a', // '/api' 代理的接口路径
+        target: 'http://172.29.228.250:8080/test', // '/api' 代理的接口路径
         changeOrigin: true, // 跨域
         rewrite: (path) => path.replace(/^\/api/, '')
       }

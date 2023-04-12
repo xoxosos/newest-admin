@@ -5,17 +5,17 @@
         <a-row :gutter="24">
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item label="姓名">
-              <a-input v-model:value="formState.name"> </a-input>
+              <a-input v-model:value="formState.name"></a-input>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item label="性别">
-              <a-input :v-model:value="formState.gender"> </a-input>
+              <a-input :v-model:value="formState.gender"></a-input>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item label="手机号">
-              <a-input v-model:value="formState.mobile"> </a-input>
+              <a-input v-model:value="formState.mobile"></a-input>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="12" :sm="24" :xs="24" style="text-align: right">
@@ -37,7 +37,7 @@
         <a-row :gutter="24">
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item v-if="expand" label="年龄">
-              <a-input v-model:value="formState.birthday"> </a-input>
+              <a-input v-model:value="formState.birthday"></a-input>
             </a-form-item>
           </a-col>
         </a-row>
@@ -49,7 +49,7 @@
       <div class=" ">
         <div class="new-table-tool">
           <div class="new-table-tool-title">
-            <a-button ghost type="primary">新增用户</a-button>
+            <!--            <a-button ghost type="primary">新增用户</a-button>-->
           </div>
           <div>
             <a-space align="center">
@@ -58,25 +58,27 @@
               <a-divider type="vertical"></a-divider>
               斑马线
               <a-switch v-model:checked="isZebra" @click="handleSwitch('isZebra')" />
-              <a-divider type="vertical"></a-divider>
-              高度铺满
-              <a-switch v-model:checked="isBoundless" @click="handleSwitch('isBoundless')" />
+              <!--              <a-divider type="vertical"></a-divider>-->
+              <!--              高度铺满-->
+              <!--              <a-switch v-model:checked="isBoundless" @click="handleSwitch('isBoundless')" />-->
             </a-space>
           </div>
         </div>
         <a-table
-          @change="handleTableChange"
           :bordered="bordered"
           :class="classObj"
           :columns="columns"
           :data-source="list"
           :loading="loading"
+          :pagination="pagination"
           :row-class-name="
   zebra ? (_record: {}, index:number) => (index % 2 === 1 ? 'table-striped' : null) : null
           "
           :scroll="scroll"
           class="table-list ant-table-striped"
           row-key="id"
+          size="middle"
+          @change="handleChange"
         >
         </a-table>
       </div>
@@ -85,12 +87,13 @@
 </template>
 
 <script lang="tsx" setup>
-import useList from '@/hooks/useList'
+import useList from '@/hooks/useTable/useList'
 import useTableSwitch from '@/hooks/useTable/useHeader'
 import { api } from '@/utils/api'
-// import columns from '@/views/user/table'
 import { DownOutlined, ReloadOutlined, UpOutlined } from '@ant-design/icons-vue'
 import { computed, onMounted, ref } from 'vue'
+import { useCommon } from '@/hooks/useTable/usePagination'
+import useUser from '@/views/user/useUser'
 
 const {
   handleSwitch,
@@ -104,83 +107,78 @@ const {
   classObj
 } = useTableSwitch()
 
-interface data {
-  age: number
-  birthday: string
-  email: string
-  gender: number
-  id: number
-  mobile: string
-  name: string
+interface DataProps {
+  [key: string]: string | number
 }
 
-// const tableData = ref<data>()
-const formState = ref<data>({
-  age: 0,
-  birthday: '',
-  email: '',
-  gender: 0,
-  id: 0,
-  mobile: '',
-  name: ''
-})
+const formState = ref<DataProps>({})
 const init = async () => {
-  console.log('initData')
-  loading.value = true
   try {
     await loadData()
-    // list.value = e ?? r?.data
-  } finally {
-    loading.value = false
+  } catch (error) {
+    console.log(error)
   }
 }
+const { pagination, tableSort } = useCommon()
 
-const listRequestFn = api.getUserInfo
-const { list, loading, reset, curPage, pageSize, total, loadData } = useList(
+const listRequestFn = api.getAllComment
+const { list, loading, reset, loadData, handleChange } = useList(
   listRequestFn,
-  formState
+  formState,
+  pagination,
+  tableSort
 )
-const handleTableChange = (p, f, s) => {
-  console.log('sorter', s)
-}
 const formRef = ref()
-const clean = () => {
-  console.log(11)
-  formRef.value.resetFields()
+const { handleOperation, clean } = useUser(init)
+
+interface RecordProps {
+  commentId: number
+
+  [key: string]: string | number
 }
+
 const columns = computed(() => {
   return [
     {
       title: 'id',
-      dataIndex: 'id',
-      width: 120,
+      dataIndex: 'commentId',
+      width: 60,
       fixed: 'left' as 'left'
     },
     {
-      title: '姓名',
-      dataIndex: 'name',
-      width: 150,
+      title: '头像',
+      dataIndex: 'avatar',
+      width: 80,
       fixed: 'left' as 'left',
-      sorter: (a: any, b: any) => a.name.length - b.name.length,
-      sortDirections: ['descend']
-    },
-    {
-      title: '年龄',
-      dataIndex: 'age',
-      width: 100
-    },
-    {
-      title: '性别',
-      dataIndex: 'gender',
-      width: 100,
       customRender({ text }: { text: string }) {
-        return <span>{text === '1' ? '男' : '女'}</span>
+        return <a-avatar src={text} />
       }
     },
     {
-      title: '生日',
-      dataIndex: 'birthday',
-      width: 120
+      title: '姓名',
+      dataIndex: 'username',
+      width: 100,
+      fixed: 'left' as 'left'
+      // sorter: (a: any, b: any) => a.name.length - b.name.length,
+      // sortDirections: ['descend']
+    },
+    {
+      title: '评论内容',
+      dataIndex: 'content',
+      width: 100
+    },
+    {
+      title: '审批',
+      dataIndex: 'gender',
+      width: 100,
+      customRender({ text }: { text: string }) {
+        return <span>{text === '1' ? '已审核' : '未审核'}</span>
+      }
+    },
+    {
+      title: '对应工厂id',
+      dataIndex: 'factoryId',
+      width: 60
     },
     {
       title: '电话号码',
@@ -196,12 +194,18 @@ const columns = computed(() => {
     {
       title: '操作',
       dataIndex: 'operation',
-      customRender({ record }) {
+      customRender({ record }: { record: RecordProps }) {
         return (
-          <div>
-            <a>edit</a>
-            <a-divider type="vertical"></a-divider>
-            <a>delete</a>
+          <div class="operation">
+            <a style="color:green" onClick={() => handleOperation('apply', record)}>
+              通过
+            </a>
+            <a-divider type="vertical" />
+            <a style="color:red" onClick={() => handleOperation('confuse', record)}>
+              拒绝
+            </a>
+            <a-divider type="vertical" />
+            <a onClick={() => handleOperation('delete', record)}>删除</a>
           </div>
         )
       },
@@ -212,4 +216,4 @@ const columns = computed(() => {
 onMounted(() => init())
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>

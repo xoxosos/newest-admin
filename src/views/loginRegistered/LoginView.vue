@@ -3,11 +3,11 @@
     <transition name="fade">
       <a-form
         ref="ruleFormRef"
-        :model="formState"
-        name="normal_login"
         :label-col="{ span: 8 }"
+        :model="formState"
         :wrapper-col="{ span: 16 }"
         class="login-form"
+        name="normal_login"
         @finish="onFinish"
         @finishFailed="onFinishFailed"
       >
@@ -15,11 +15,11 @@
           <h1 class="title">Welcome</h1>
         </a-from-item>
         <a-form-item
-          label="Username"
-          name="username"
-          :rules="[{ required: true, message: 'Please input your username!' }]"
+          :rules="[{ required: true, message: 'Please input your userAccount!' }]"
+          label="userAccount"
+          name="userAccount"
         >
-          <a-input v-model:value="formState.username" size="large">
+          <a-input v-model:value="formState.userAccount" size="large">
             <template #prefix>
               <UserOutlined class="site-form-item-icon" />
             </template>
@@ -27,9 +27,9 @@
         </a-form-item>
 
         <a-form-item
+          :rules="[{ required: true, message: 'Please input your password!' }]"
           label="Password"
           name="password"
-          :rules="[{ required: true, message: 'Please input your password!' }]"
         >
           <a-input-password v-model:value="formState.password" size="large">
             <template #prefix>
@@ -46,7 +46,7 @@
         </a-form-item>
 
         <a-form-item>
-          <a-button block :disabled="disabled" type="primary" size="large" @click="submitForm">
+          <a-button :disabled="disabled" block size="large" type="primary" @click="submitForm">
             Log in
           </a-button>
           Or
@@ -64,18 +64,20 @@ import { useUsers } from '@/stores/user'
 import { api } from '@/utils/api'
 import { LockOutlined, UserOutlined } from '@ant-design/icons-vue'
 import { computed, reactive, ref } from 'vue'
+
 const counterStore = useCounterStore()
 counterStore.increment()
 console.log(counterStore.count)
 const ruleFormRef = ref()
 
 interface FormState {
-  username: string
+  userAccount: string
   password: string
   remember: boolean
 }
+
 const formState = reactive<FormState>({
-  username: '',
+  userAccount: '',
   password: '',
   remember: true
 })
@@ -88,13 +90,13 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo)
 }
 const disabled = computed(() => {
-  return !(formState.username && formState.password)
+  return !(formState.userAccount && formState.password)
 })
 const validateName = (_rule: any, value: any) => {
   if (value === '') {
-    return Promise.reject('Please input the userName')
+    return Promise.reject('Please input the userAccount')
   } else {
-    if (formState.username !== '') {
+    if (formState.userAccount !== '') {
       if (!ruleFormRef.value) return
       ruleFormRef.value.validateFields('checkPass', () => null)
     }
@@ -113,7 +115,7 @@ const validatePass = (_rule: any, value: any) => {
   }
 }
 const rules = reactive({
-  userName: [{ validator: validateName, trigger: 'blur', required: true }],
+  userAccount: [{ validator: validateName, trigger: 'blur', required: true }],
   passWord: [{ validator: validatePass, trigger: 'blur', required: true }]
 })
 const users = useUsers()
@@ -122,11 +124,17 @@ const submitForm = async () => {
     sessionStorage.setItem('token', token)
   }
   // 模拟登陆后拿到token
-  const [e, r] = await api.getUserToken()
-  r?.data?.token && setSessionStorage(r.data.token)
+  const param = {
+    password: formState.password,
+    userAccount: formState.userAccount
+  }
+  const [e, r] = await api.getUserToken(param)
+  const token = r?.data?.token as string
+  token && setSessionStorage(token)
   console.log(e, r)
   // 勾选记住我可以存在localstorage
-  await router.push('/dashboard')
+  router.push('/user-manage')
+  console.log('success')
 }
 const resetForm = () => {
   ruleFormRef.value.resetFields()
@@ -151,6 +159,7 @@ const resetForm = () => {
 .login-form a-form-item {
   margin-top: 50px;
 }
+
 .login-form a-input {
   width: 200px;
 }
@@ -175,6 +184,7 @@ const resetForm = () => {
   opacity: 0;
   transform: translateY(-20px);
 }
+
 :deep(.ant-row) {
   align-items: center;
 }

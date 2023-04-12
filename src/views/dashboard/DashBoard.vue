@@ -35,7 +35,7 @@
       :tab-list="tabList"
       style="width: 100%"
       title="Card title"
-      @tabChange="(key) => onTabChange(key, 'key')"
+      @tabChange="(key:string) => onTabChange(key, 'key')"
     >
       <template #customTab="item">
         <span v-if="item.key === 'tab1'">
@@ -47,10 +47,20 @@
         <a href="#">More</a>
       </template>
       <template v-if="key === 'tab1'">
-        <v-chart :option="option" autoresize class="chart" style="height: 320px;position: relative;" />
+        <v-chart
+          :option="option"
+          autoresize
+          class="chart"
+          style="height: 320px; position: relative"
+        />
       </template>
       <template v-if="key === 'tab2'">
-        <v-chart :option="barOption" autoresize class="chart" style="height: 320px;position: relative;" />
+        <v-chart
+          :option="barOption"
+          autoresize
+          class="chart"
+          style="height: 320px; position: relative"
+        />
       </template>
     </a-card>
   </div>
@@ -58,16 +68,16 @@
 <script lang="ts" setup>
 import { HomeOutlined } from '@ant-design/icons-vue'
 import { ref } from 'vue'
-import { use } from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
-import { BarChart, LineChart, PieChart } from 'echarts/charts';
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { BarChart, LineChart, PieChart } from 'echarts/charts'
 import {
   GridComponent,
   LegendComponent,
   TitleComponent,
   TooltipComponent
-} from 'echarts/components';
-import VChart, { THEME_KEY } from 'vue-echarts';
+} from 'echarts/components'
+import VChart, { THEME_KEY } from 'vue-echarts'
 
 const tabList = [
   {
@@ -100,7 +110,7 @@ use([
   TooltipComponent,
   GridComponent,
   LegendComponent
-]);
+])
 
 // pie
 const option = ref({
@@ -139,10 +149,10 @@ const option = ref({
       }
     }
   ]
-});
-const data: number[] = [];
+})
+const data: number[] = []
 for (let i = 0; i < 5; ++i) {
-  data.push(Math.round(Math.random() * 200));
+  data.push(Math.round(Math.random() * 200))
 }
 
 const barOption = ref({
@@ -177,25 +187,23 @@ const barOption = ref({
   animationDurationUpdate: 3000,
   animationEasing: 'linear',
   animationEasingUpdate: 'linear'
-});
+})
 
 function run() {
   for (let i = 0; i < data.length; ++i) {
     if (Math.random() > 0.9) {
-      data[i] += Math.round(Math.random() * 2000);
+      data[i] += Math.round(Math.random() * 2000)
     } else {
-      data[i] += Math.round(Math.random() * 200);
+      data[i] += Math.round(Math.random() * 200)
     }
   }
 }
 
-setTimeout(function() {
-  run();
-}, 0);
-setInterval(function() {
-  run();
-}, 3000);
-
-
+setTimeout(function () {
+  run()
+}, 0)
+setInterval(function () {
+  run()
+}, 3000)
 </script>
 <style></style>

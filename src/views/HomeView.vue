@@ -1,7 +1,7 @@
 <!--
  * @Author: LinRenJie
  * @Date: 2022-12-22 18:42:33
- * @LastEditTime: 2023-03-08 14:20:44
+ * @LastEditTime: 2023-04-06 18:24:08
  * @Description: 
  * @FilePath: /admin/src/views/HomeView.vue
  * @Email: xoxosos666@gmail.com
@@ -45,7 +45,7 @@
             transition: 'left .3s cubic-bezier(.2, 0, 0, 1) 0s'
           }"
         >
-          <a-breadcrumb-item v-for="(item, index) of $route.matched" :key="index">
+          <a-breadcrumb-item v-for="(item, index) of matched" :key="index">
             <template v-if="index === 0">
               <home-outlined class="admin-header-home" @click="toHome" />
             </template>
@@ -200,8 +200,15 @@ import {
 import type { MenuProps } from 'ant-design-vue'
 import { uniqBy } from 'lodash-es'
 import { computed, reactive, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
+const route = useRoute()
+let matched = ref(route.matched)
+watch(route, () => {
+  matched.value = route.matched
+})
+console.log(matched)
+// console.log($route.matched)
 const toHome = () => {
   console.log('toHome')
 }
@@ -233,11 +240,11 @@ const add = (title: any, path: string) => {
   console.log('2:', panes.value)
 }
 
-interface stateProps {
+interface StateProps {
   openKeys: any
 }
 
-const state = reactive<stateProps>({
+const state = reactive<StateProps>({
   openKeys: ['index']
 })
 //  默认选中当前路由的名字
@@ -299,4 +306,8 @@ const loginOut = (): void => {
   router.push('/login')
 }
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+//div {
+//  background-color: rgb(104, 185, 185);
+//}
+</style>

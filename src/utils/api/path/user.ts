@@ -1,28 +1,36 @@
 import { Get, Post } from '../server'
 
-// const urlPix = 'http://127.0.0.1:4523/m1/2120640-0-2c46b26a'
+const urlPix = '/api/comment/'
 
 interface FcResponse<T> {
   errno: string
   errMsg: string
   data: T
+
+  [key: string]: any
 }
 
 type ApiResponse<T> = Promise<[any, FcResponse<T> | undefined]>
 
-function getUserInfo<T>(id?: any): ApiResponse<T> {
-  return Get<T>('/api/getUserList')
+function getAllComment<T>(param?: any): ApiResponse<any> {
+  return Get<T>(`${urlPix}adminGetAllComment`, param)
 }
 
-function getUserToken<T extends { token: string }>(id?: any): ApiResponse<T> {
-  return Get<T>('/api/getToken')
+function getUserToken(param: any): ApiResponse<any> {
+  return Post('/api/admin/login', param)
 }
 
-export function getUserName(id: any) {
-  return Post('/getUserName', id)
+function deleteComment<T>(param: { commentId: number }): ApiResponse<any> {
+  return Get<T>(`${urlPix}deleteComment`, param)
+}
+
+export function approvalComment(data: any): ApiResponse<any> {
+  return Post(`${urlPix}approvalComment`, data)
 }
 
 export const userApi = {
-  getUserInfo,
-  getUserToken
+  getAllComment,
+  approvalComment,
+  getUserToken,
+  deleteComment
 }

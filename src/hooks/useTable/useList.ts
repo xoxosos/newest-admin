@@ -41,28 +41,37 @@ export function infoMessage(message: string) {
 
 export default function useList<ItemType extends Object, FilterOption extends Object>(
   listRequestFn: Function,
-  filterOption: Ref<Object>,
+  filterOption: Ref<Object | any>,
+  paginationOption: any,
+  tableSort: Function,
+  formatDataFn?: Function,
   exportRequestFn?: Function,
   options?: OptionsType
 ) {
   // 加载态
   const loading = ref(false)
-  // 当前页
-  const curPage = ref(1)
-  // 总数量
-  const total = ref(0)
-  // 分页大小
-  const pageSize = ref(10)
+  // // 当前页
+  // const curPage = ref(1)
+  // // 总数量
+  // const total = ref(0)
+  // // 分页大小
+  // const pageSize = ref(10)
   const list = ref<ItemType[]>([])
   // 过滤数据
   // 获取列表数据
-  const loadData = async (page = curPage.value) => {
+  const loadData = async (noParams = true, sortedInfo: any = {}) => {
+    const { pageSize, current: page } = paginationOption
     // 设置加载中
     loading.value = true
     try {
-      const [e, r] = await listRequestFn(pageSize.value, page, filterOption.value)
-      list.value = r?.data || []
-      total.value = r?.meta?.total || 0
+      console.log('loadData')
+      const [e, r] = await listRequestFn({
+        page,
+        pageSize,
+        ...sortedInfo
+      })
+      list.value = r?.data.list || []
+      paginationOption.total = r?.data?.count || 0
       options?.message?.GET_DATA_IF_SUCCEED && message(options.message.GET_DATA_IF_SUCCEED)
       options?.requestSuccess?.()
     } catch (error) {
@@ -75,9 +84,18 @@ export default function useList<ItemType extends Object, FilterOption extends Ob
     }
   }
   // 监听分页数据改变
-  watch([curPage, pageSize], () => {
-    loadData(curPage.value)
-  })
+  // 执行分页
+  const handleChange = ({ pageSize, current }: any, filters: any, sorter: any) => {
+    tableSort(
+      {
+        pageSize,
+        current
+      },
+      filters,
+      sorter,
+      loadData
+    )
+  }
   const reset = () => {
     if (!filterOption.value) return
     const keys = Reflect.ownKeys(filterOption.value)
@@ -115,9 +133,7 @@ export default function useList<ItemType extends Object, FilterOption extends Ob
     list,
     loading,
     reset,
-    curPage,
-    pageSize,
-    total,
-    loadData
+    loadData,
+    handleChange
   }
 }

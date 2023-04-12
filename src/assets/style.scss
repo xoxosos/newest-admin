@@ -94,6 +94,11 @@ $text-color: rgba(0, 0, 0, .85);
 
 .new-admin-layout {
   background: $new-body-background;
+
+  .ant-layout-header {
+    padding: 0;
+  }
+
 }
 
 .new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
@@ -101,10 +106,6 @@ $text-color: rgba(0, 0, 0, .85);
   transition: padding-left .3s cubic-bezier(.2, 0, 0, 1) 0s, box-shadow .3s cubic-bezier(.2, 0, 0, 1) 0s;
 }
 
-//.new-admin-responsive .new-admin-body, .new-admin-responsive .new-admin-header {
-//  padding-left: 0 !important;
-//  width: 100% !important;
-//}
 
 .new-admin-responsive.new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
   box-shadow: 0 -1px 0 #f0f0f0 inset !important;
@@ -576,4 +577,8 @@ img {
   margin-bottom: 6px;
   display: flex;
   align-items: center;
+}
+
+.ant-table-pagination.ant-pagination {
+  margin: 16px 0 0 0 !important;
 }

@@ -8,6 +8,7 @@
  */
 import router from '@/router'
 import { message } from 'ant-design-vue'
+
 const logout = () => {
   sessionStorage.clear()
   return router.push('/login')
@@ -21,8 +22,8 @@ export const handleChangeRequestHeader = (config: any) => {
   console.log(config)
   config['xxx'] = 'xxx'
   // api mock用
-  config.headers.apifoxToken = 'dROD5webTSINtKEixUxWWBYNnjoRsSXn'
-  // config.headers.token = window.sessionStorage.getItem('token')
+  // config.headers.apifoxToken = 'dROD5webTSINtKEixUxWWBYNnjoRsSXn'
+  config.headers.token = window.sessionStorage.getItem('token')
   return config
 }
 /**
