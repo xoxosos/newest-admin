@@ -65,7 +65,7 @@
 <br>
 ### UI 框架
 
-- [antd-vue](https://next.vuetifyjs.com/en/) - Vuetify 是一个不要求设计能力的 Vue 界面组件框架，自带了许多自行设计实现的 Vue 组件。
+- [antd-vue](https://next.vuetifyjs.com/en/) - Antd 是一个不要求设计能力的 Vue 界面组件框架，自带了许多自行设计实现的 Vue 组件。
 
 ### Icons
 
