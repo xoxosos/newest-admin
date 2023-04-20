@@ -1,17 +1,9 @@
-/*
- * @Author: LinRenJie
- * @Date: 2022-12-22 18:42:33
- * @LastEditTime: 2023-02-11 18:03:34
- * @Description:
- * @FilePath: /admin/vite.config.ts
- * @Email: xoxosos666@gmail.com
- */
 import { fileURLToPath, URL } from 'node:url'
 
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
-import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 // https://vitejs.dev/config/
@@ -21,10 +13,10 @@ const viteConfig = defineConfig({
     vueJsx(),
     AutoImport({
       imports: ['vue', 'pinia', 'vue-router'],
-      resolvers: [ElementPlusResolver(), AntDesignVueResolver()]
+      resolvers: [ AntDesignVueResolver()]
     }),
     Components({
-      resolvers: [ElementPlusResolver(), AntDesignVueResolver({ importStyle: 'less' })]
+      resolvers: [ AntDesignVueResolver({ importStyle: 'less' })]
     })
   ],
   // 开启less支持
@@ -59,6 +51,16 @@ const viteConfig = defineConfig({
         target: 'https://mock.apifox.cn/m1/2120640-0-2c46b26a', // '/api' 代理的接口路径
         changeOrigin: true, // 跨域
         rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  },
+  build: {
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        //生产环境时移除console
+        drop_console: true,
+        drop_debugger: true
       }
     }
   }

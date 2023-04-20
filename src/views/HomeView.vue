@@ -66,7 +66,10 @@
               <a-menu @click="onClick">
                 <a-menu-item key="1">1st menu item</a-menu-item>
                 <a-menu-item key="2">2nd menu item</a-menu-item>
-                <a-menu-item key="3">退出登录</a-menu-item>
+                <a-menu-item key="logout">         <span>
+                    退出登录
+                    <logout-outlined />
+                  </span></a-menu-item>
               </a-menu>
             </template>
           </a-dropdown>
@@ -195,13 +198,17 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   RightOutlined,
-  SettingOutlined
+  SettingOutlined,
+  LogoutOutlined
 } from '@ant-design/icons-vue'
 import type { MenuProps } from 'ant-design-vue'
 import { uniqBy } from 'lodash-es'
 import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-
+import { useAuthStore } from "@/stores/useAuthStore";
+import { Modal } from 'ant-design-vue'
+import { createVNode } from 'vue'
+import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
 const toHome = () => {
   console.log('toHome')
 }
@@ -292,7 +299,18 @@ const changeCollapsed = () => {
   collapsed.value = !collapsed.value
 }
 const onClick: MenuProps['onClick'] = ({ key }) => {
-  key === '3' && loginOut()
+  key === 'logout' &&
+  Modal.confirm({
+    title: '是否注销用户',
+    content: '注销后将返回登录页面',
+    icon: createVNode(ExclamationCircleOutlined),
+    okText: '确认',
+    cancelText: '取消',
+    onOk() {
+      useAuthStore().logout()
+    },
+    onCancel: () => {}
+  })
 }
 const loginOut = (): void => {
   sessionStorage.clear()

@@ -1,29 +1,35 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": [
-    "env.d.ts",
-    "src/**/*",
-    "src/**/*.vue",
-    "types"
-  ],
+  //  "extends": "@vue/tsconfig/tsconfig.web.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": [
+      "ESNext",
+      "dom"
+    ],
+    "skipLibCheck": true,
     "paths": {
-      // 解决找不到模块
-      "vue-echarts": [
-        "node_modules/vue-echarts/"
-      ],
-      "vue": [
-        "node_modules/vue"
-      ],
-      "vue-router": [
-        "node_modules/vue-router"
-      ],
       "@/*": [
         "./src/*"
       ]
     }
   },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "auto-imports.d.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.config.json"

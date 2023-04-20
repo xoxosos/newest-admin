@@ -1,36 +1,29 @@
 <template>
-  <div class="login-wrap">
-    <transition name="fade">
+  <div class="login-container login-box">
+    <transition name="login-form">
       <a-form
+        :rules="rules"
+        v-bind="layout"
         ref="ruleFormRef"
         :model="formState"
+        class="login-form login-form-enter-active login-form-leave-active"
         name="normal_login"
-        :label-col="{ span: 8 }"
-        :wrapper-col="{ span: 16 }"
-        class="login-form"
         @finish="onFinish"
         @finishFailed="onFinishFailed"
+        @validate="handleValidate"
       >
         <a-from-item>
           <h1 class="title">Welcome</h1>
         </a-from-item>
-        <a-form-item
-          label="Username"
-          name="username"
-          :rules="[{ required: true, message: 'Please input your username!' }]"
-        >
-          <a-input v-model:value="formState.username" size="large">
+        <a-form-item class="item-form" label="帐号" name="userAccount">
+          <a-input v-model:value="formState.userAccount" size="large">
             <template #prefix>
               <UserOutlined class="site-form-item-icon" />
             </template>
           </a-input>
         </a-form-item>
 
-        <a-form-item
-          label="Password"
-          name="password"
-          :rules="[{ required: true, message: 'Please input your password!' }]"
-        >
+        <a-form-item class="item-form" label="密码" name="password">
           <a-input-password v-model:value="formState.password" size="large">
             <template #prefix>
               <LockOutlined class="site-form-item-icon" />
@@ -38,19 +31,42 @@
           </a-input-password>
         </a-form-item>
 
+        <a-form-item class="item-form" label="验证码" name="code">
+          <a-input v-model:value="formState.code" size="large"></a-input>
+          <a-tooltip placement="right">
+            <template #title>
+              <span>点击刷新</span>
+            </template>
+            <canvas
+              @click="refreshCode"
+              ref="canvasRef"
+              style="height: 60px; width: 100px; cursor: pointer"
+            ></canvas>
+          </a-tooltip>
+        </a-form-item>
         <a-form-item>
           <a-form-item name="remember" no-style>
-            <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
+            <a-checkbox style="margin-left: 53px" v-model:checked="formState.remember"
+            >记住密码
+            </a-checkbox>
           </a-form-item>
-          <a class="login-form-forgot" href="">Forgot password</a>
+          <!--          <a class="login-form-forgot" href="">Forgot password</a>-->
         </a-form-item>
-
-        <a-form-item>
-          <a-button block :disabled="disabled" type="primary" size="large" @click="submitForm">
-            Log in
+        <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
+          <a-button
+            :loading="loading"
+            html-type="submit"
+            :disabled="disabled"
+            block
+            size="large"
+            type="primary"
+          >
+            登录
           </a-button>
-          Or
-          <a href="">register now!</a>
+          <span style="width: 15px"></span>
+          <a-button :loading="loading" block size="large" type="danger" @click="resetForm"
+          >重置
+          </a-button>
         </a-form-item>
       </a-form>
     </transition>
@@ -58,27 +74,37 @@
 </template>
 
 <script lang="ts" setup>
-import router from '@/router'
-import { useCounterStore } from '@/stores/counter'
-import { useUsers } from '@/stores/user'
-import { api } from '@/utils/api'
+import { useAuthStore } from '@/stores/useAuthStore'
 import { LockOutlined, UserOutlined } from '@ant-design/icons-vue'
+import type { FormInstance } from 'ant-design-vue'
 import { computed, reactive, ref } from 'vue'
-const counterStore = useCounterStore()
-counterStore.increment()
-console.log(counterStore.count)
-const ruleFormRef = ref()
+
+const layout = {
+  labelCol: {
+    span: 4
+  },
+  wrapperCol: {
+    span: 16
+  }
+}
+const ruleFormRef = ref<FormInstance>()
 
 interface FormState {
-  username: string
+  userAccount: string
   password: string
   remember: boolean
+  code: string
 }
+
 const formState = reactive<FormState>({
-  username: '',
+  userAccount: '',
   password: '',
-  remember: true
+  remember: true,
+  code: ''
 })
+const handleValidate = (...args: any[]) => {
+  console.log(args)
+}
 const onFinish = (values: any) => {
   console.log('Success:', values)
   submitForm()
@@ -88,94 +114,203 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo)
 }
 const disabled = computed(() => {
-  return !(formState.username && formState.password)
+  return !(formState.userAccount && formState.password && formState.code)
 })
 const validateName = (_rule: any, value: any) => {
   if (value === '') {
-    return Promise.reject('Please input the userName')
+    return Promise.reject('请输入帐号')
   } else {
-    if (formState.username !== '') {
+    if (formState.userAccount !== '') {
       if (!ruleFormRef.value) return
-      ruleFormRef.value.validateFields('checkPass', () => null)
     }
     return Promise.resolve()
   }
 }
 const validatePass = (_rule: any, value: any) => {
   if (value === '') {
-    return Promise.reject('Please input the password')
+    return Promise.reject('请输入密码')
   } else {
     if (formState.password !== '') {
       if (!ruleFormRef.value) return
-      ruleFormRef.value.validateFields('checkPass', () => null)
+    }
+    return Promise.resolve()
+  }
+}
+const validateCode = (_rule: any, value: any) => {
+  if (value === '') {
+    return Promise.reject('请输入验证码')
+  } else {
+    if (formState.code !== '') {
+      // const [e, r] = await api.getVerifiCode()
+      if (code.value.toUpperCase() !== formState.code.toUpperCase()) {
+        return Promise.reject('验证码错误')
+      }
+      if (!ruleFormRef.value) return
     }
     return Promise.resolve()
   }
 }
 const rules = reactive({
-  userName: [{ validator: validateName, trigger: 'blur', required: true }],
-  passWord: [{ validator: validatePass, trigger: 'blur', required: true }]
+  userAccount: [{ validator: validateName, trigger: 'blur', required: true }],
+  password: [{ validator: validatePass, trigger: 'blur', required: true }],
+  code: [{ validator: validateCode, trigger: 'blur', required: true }]
 })
-const users = useUsers()
+const useAuth = useAuthStore()
+const loading = ref(false)
 const submitForm = async () => {
-  const setSessionStorage = (token: string) => {
-    sessionStorage.setItem('token', token)
-  }
-  // 模拟登陆后拿到token
-  const [e, r] = await api.getUserToken()
-  r?.data?.token && setSessionStorage(r.data.token)
-  console.log(e, r)
-  // 勾选记住我可以存在localstorage
-  await router.push('/dashboard')
+  // 登陆
+  loading.value = true
+  await useAuth.login(formState)
+  loading.value = false
 }
+
 const resetForm = () => {
-  ruleFormRef.value.resetFields()
+  ruleFormRef?.value?.resetFields()
 }
+
+type Code = string
+
+const CHARACTERS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const CODE_LENGTH = 4
+const COLORS = ['#000', '#333', '#666', '#999', '#ccc', '#eee']
+const PI_OVER_4 = Math.PI / 4
+
+let canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D | null
+const code = ref<Code>('')
+const userInput = ref<Code>('')
+const canvasRef = ref<HTMLCanvasElement>()
+
+function refreshCode() {
+  if (!ctx) return
+
+  // 生成随机字符串
+  let newCode = ''
+  for (let i = 0; i < CODE_LENGTH; i++) {
+    newCode += CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)]
+  }
+  code.value = newCode
+
+  // 绘制字符
+  const { width, height } = canvas
+  ctx.clearRect(0, 0, width, height)
+  ctx.font = '50px sans-serif'
+  ctx.textBaseline = 'middle'
+  ctx.fillStyle = getRandomColor()
+  for (let i = 0; i < CODE_LENGTH; i++) {
+    const char = newCode.charAt(i)
+    const x = (i + 1) * (width / (CODE_LENGTH + 1))
+    const y = height / 1.5
+    const angle = (Math.random() - 0.5) * PI_OVER_4
+    ctx.save()
+    ctx.translate(x, y)
+    ctx.rotate(angle)
+    ctx.fillText(char, 0, 0)
+    ctx.restore()
+  }
+
+  // 绘制干扰线
+  for (let i = 0; i < 10; i++) {
+    const x1 = Math.random() * width
+    const y1 = Math.random() * height
+    const x2 = Math.random() * width
+    const y2 = Math.random() * height
+    ctx.beginPath()
+    ctx.moveTo(x1, y1)
+    ctx.lineTo(x2, y2)
+    ctx.strokeStyle = getRandomColor()
+    ctx.stroke()
+  }
+}
+
+function getRandomColor() {
+  return COLORS[Math.floor(Math.random() * COLORS.length)]
+}
+
+onMounted(() => {
+  canvas = canvasRef.value as HTMLCanvasElement
+  ctx = canvas.getContext('2d')
+  refreshCode()
+  // 从localstorage中获取上次的登录信息
+  const historyForm = JSON.parse(localStorage.getItem('userFormState') as string)
+  if (historyForm) {
+    const { remember, userAccount, password } = historyForm
+    if (remember) {
+      formState.userAccount = userAccount
+      formState.password = password
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>
-.login-form {
-  margin: auto;
+.login-form-forgot {
+  float: right;
+}
+
+:deep(.item-form .ant-form-item-label) {
+  line-height: 40.14px;
+}
+
+:deep(.ant-form-item-control-input-content) {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+}
+
+.login-container {
+  /* 使用渐变背景颜色 */
+  background-image: linear-gradient(to bottom right, #667eea, #764ba2);
+  display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f7ecec;
-  transition: background-color 0.5s;
+  height: 100vh;
+}
+
+.login-form {
+  background-image: linear-gradient(to bottom right, #6a81e8, #764ba2);
+  width: 500px;
+  // background-color: #fff;
+  padding: 24px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /* 添加hover特效 */
+  transition: all 0.3s ease-in-out;
 }
 
 .login-form:hover {
-  background-color: #f7e8e8;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  /* 将border颜色更改为蓝色 */
+  // border: 1px solid #1890ff;
+  transform: scale(1.05);
 }
 
-.login-form a-form-item {
-  margin-top: 50px;
-}
-.login-form a-input {
-  width: 200px;
+.login-form-enter-active {
+  animation: login-form-enter 0.4s;
 }
 
-.login-form a-button {
-  margin-top: 50px;
-  transition: background-color 0.5s, color 0.5s;
+.login-form-leave-active {
+  animation: login-form-leave 0.4s;
 }
 
-.login-form a-button:hover {
-  background-color: #40a9ff;
-  color: #fff;
+/* 过渡过程 */
+@keyframes login-form-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.5s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-:deep(.ant-row) {
-  align-items: center;
+@keyframes login-form-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 </style>

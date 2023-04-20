@@ -6,6 +6,7 @@ interface FcResponse<T> {
   errno: string
   errMsg: string
   data: T
+  [key: string]: any
 }
 
 type ApiResponse<T> = Promise<[any, FcResponse<T> | undefined]>

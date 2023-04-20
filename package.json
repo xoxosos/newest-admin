@@ -23,6 +23,7 @@
     "@element-plus/icons-vue": "^2.0.10",
     "ant-design-vue": "^3.2.15",
     "axios": "^1.2.1",
+    "dayjs": "^1.11.7",
     "echarts": "^5.4.1",
     "lodash-es": "^4.17.21",
     "pinia": "^2.0.28",
