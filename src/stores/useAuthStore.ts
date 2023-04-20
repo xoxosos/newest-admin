@@ -16,7 +16,6 @@ interface User {
   }
 }
 
-
 export const useAuthStore = defineStore({
   id: 'auth',
   state: (): User => ({
@@ -38,7 +37,7 @@ export const useAuthStore = defineStore({
           remember && localStorage.setItem('userFormState', JSON.stringify(user))
           localStorage.setItem('user', JSON.stringify(r?.data))
           // 可替换为任意首页
-          router.push('/user-manage')
+          router.push('/dashboard')
         } else if (r?.msg) {
           message.error(r?.msg)
         }

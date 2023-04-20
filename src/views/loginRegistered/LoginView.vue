@@ -2,12 +2,12 @@
   <div class="login-container login-box">
     <transition name="login-form">
       <a-form
-        :rules="rules"
-        v-bind="layout"
         ref="ruleFormRef"
         :model="formState"
+        :rules="rules"
         class="login-form login-form-enter-active login-form-leave-active"
         name="normal_login"
+        v-bind="layout"
         @finish="onFinish"
         @finishFailed="onFinishFailed"
         @validate="handleValidate"
@@ -38,26 +38,26 @@
               <span>点击刷新</span>
             </template>
             <canvas
-              @click="refreshCode"
               ref="canvasRef"
-              style="height: 60px; width: 100px; cursor: pointer"
+              style="height: 45px; width: 100px; cursor: pointer"
+              @click="refreshCode"
             ></canvas>
           </a-tooltip>
         </a-form-item>
         <a-form-item>
           <a-form-item name="remember" no-style>
-            <a-checkbox style="margin-left: 53px" v-model:checked="formState.remember"
-            >记住密码
+            <a-checkbox v-model:checked="formState.remember" style="margin-left: 53px"
+              >记住密码
             </a-checkbox>
           </a-form-item>
           <!--          <a class="login-form-forgot" href="">Forgot password</a>-->
         </a-form-item>
         <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
           <a-button
-            :loading="loading"
-            html-type="submit"
             :disabled="disabled"
+            :loading="loading"
             block
+            html-type="submit"
             size="large"
             type="primary"
           >
@@ -65,7 +65,7 @@
           </a-button>
           <span style="width: 15px"></span>
           <a-button :loading="loading" block size="large" type="danger" @click="resetForm"
-          >重置
+            >重置
           </a-button>
         </a-form-item>
       </a-form>

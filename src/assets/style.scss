@@ -324,11 +324,6 @@ $text-color: rgba(0, 0, 0, 0.85);
   height: calc(100vh - 48px);
 }
 
-//.new-admin-sidebar, .new-admin-sidebar>.new-admin-sidebar-menus, .new-admin-sidebar-nav, .new-admin-sidebar-nav>.new-admin-sidebar-nav-menu, .ant-menu-submenu-popup>.ant-menu.ant-menu-vertical {
-//  overflow-y: overlay;
-//  scrollbar-width: thin;
-//  scrollbar-color: var(--sidebar-light-scrollbar-thumb-color) transparent;
-//}
 .new-admin-sidebar {
   flex-shrink: 0;
   min-height: calc(100vh - 48px);

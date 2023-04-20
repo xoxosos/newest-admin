@@ -19,7 +19,7 @@ const viteConfig = defineConfig({
       resolvers: [ AntDesignVueResolver({ importStyle: 'less' })]
     })
   ],
-  // 开启less支持
+  // 开启css预处理器支持
   css: {
     preprocessorOptions: {
       less: {
@@ -31,7 +31,8 @@ const viteConfig = defineConfig({
           'disabled-color': 'rgba(0, 0, 0, 0.25)'
         },
         javascriptEnabled: true
-      }
+      },
+      scss: {javascriptEnabled: true}
     }
   },
   resolve: {

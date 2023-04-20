@@ -1,6 +1,6 @@
 {
-  "name": "admin",
-  "version": "0.0.0",
+  "name": "newest-admin",
+  "version": "1.0.0",
   "private": true,
   "lint-staged": {
     "src/**/*.{js,ts,vue}": [
@@ -20,7 +20,6 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
-    "@element-plus/icons-vue": "^2.0.10",
     "ant-design-vue": "^3.2.15",
     "axios": "^1.2.1",
     "dayjs": "^1.11.7",

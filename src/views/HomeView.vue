@@ -47,9 +47,11 @@
         >
           <a-breadcrumb-item v-for="(item, index) of $route.matched" :key="index">
             <template v-if="index === 0">
-              <home-outlined class="admin-header-home" @click="toHome" />
+              <router-link to="/dashboard">
+                <home-outlined class="admin-header-home" />
+              </router-link>
             </template>
-            <router-link :to="item.path">{{ item.meta.title }}</router-link>
+            <span>{{ item.meta.title }}</span>
           </a-breadcrumb-item>
         </a-breadcrumb>
       </div>
@@ -66,10 +68,11 @@
               <a-menu @click="onClick">
                 <a-menu-item key="1">1st menu item</a-menu-item>
                 <a-menu-item key="2">2nd menu item</a-menu-item>
-                <a-menu-item key="logout">         <span>
+                <a-menu-item key="logout">
+                  <span>
                     退出登录
-                    <logout-outlined />
-                  </span></a-menu-item>
+                    <logout-outlined /> </span
+                ></a-menu-item>
               </a-menu>
             </template>
           </a-dropdown>
@@ -205,10 +208,11 @@ import type { MenuProps } from 'ant-design-vue'
 import { uniqBy } from 'lodash-es'
 import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from "@/stores/useAuthStore";
+import { useAuthStore } from '@/stores/useAuthStore'
 import { Modal } from 'ant-design-vue'
 import { createVNode } from 'vue'
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
+
 const toHome = () => {
   console.log('toHome')
 }
@@ -300,21 +304,17 @@ const changeCollapsed = () => {
 }
 const onClick: MenuProps['onClick'] = ({ key }) => {
   key === 'logout' &&
-  Modal.confirm({
-    title: '是否注销用户',
-    content: '注销后将返回登录页面',
-    icon: createVNode(ExclamationCircleOutlined),
-    okText: '确认',
-    cancelText: '取消',
-    onOk() {
-      useAuthStore().logout()
-    },
-    onCancel: () => {}
-  })
-}
-const loginOut = (): void => {
-  sessionStorage.clear()
-  router.push('/login')
+    Modal.confirm({
+      title: '是否注销用户',
+      content: '注销后将返回登录页面',
+      icon: createVNode(ExclamationCircleOutlined),
+      okText: '确认',
+      cancelText: '取消',
+      onOk() {
+        useAuthStore().logout()
+      },
+      onCancel: () => {}
+    })
 }
 </script>
 <style lang="scss"></style>
