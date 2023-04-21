@@ -3,20 +3,22 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "allowSyntheticDefaultImports": true,
     "module": "ESNext",
     "moduleResolution": "node",
-    "strict": true,
+    "strict": false,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "skipLibCheck": true
+    /* Skip type checking all .d.ts files. */,
+    "allowSyntheticDefaultImports": true
+    /* 允许默认导入 */,
     "lib": [
       "ESNext",
       "dom"
     ],
-    "skipLibCheck": true,
     "paths": {
       "@/*": [
         "./src/*"
@@ -29,6 +31,11 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "auto-imports.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.js"
   ],
   "references": [
     {
