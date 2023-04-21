@@ -10,10 +10,10 @@
     <img src="https://img.shields.io/badge/vue-v3.2.47-brightgreen.svg" alt="vue">
   </a>
   <a href="https://vuetifyjs.com/">
-    <img src="https://img.shields.io/badge/vuetify-v3.1.13-blue.svg" alt="element-ui">
+    <img src="https://img.shields.io/badge/Ant%20Design%20Vue-3.2.16-blue.svg" alt="antd">
   </a>
     <a href="https://vitejs.dev/">
-    <img src="https://img.shields.io/badge/vite-v4.2.1-blueviolet.svg" alt="element-ui">
+    <img src="https://img.shields.io/badge/vite-v4.2.1-blueviolet.svg" alt="antd">
   </a>
   
   <a href="https://github.com/yangjiakai/lux-admin-vuetify3/blob/main/LICENSE">
@@ -62,7 +62,6 @@
 
 ## 预览
 
-<br>
 ### UI 框架
 
 - [antd-vue](https://next.vuetifyjs.com/en/) - Antd 是一个不要求设计能力的 Vue 界面组件框架，自带了许多自行设计实现的 Vue 组件。
@@ -142,9 +141,16 @@
 ## 现在可以试试!
 
 ```
+# 安装 pnpm
+npm install pnpm -g
 
+# 安装依赖
+pnpm install
 
-npm install
+# 项目运行
+pnpm dev
 
-npm run dev
+# 项目打包
+pnpm build:prod
+
 ```
