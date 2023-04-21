@@ -481,9 +481,6 @@ img {
   transition: color 0.2s, background-color 0.2s;
   cursor: pointer;
 }
-.new-admin-header-avatar span {
-  padding: 0 4px 0 6px;
-}
 .new-admin-header-avatar .ant-avatar {
   background-color: #722ed1;
   font-size: 30px;

@@ -4,7 +4,7 @@ import { message } from 'ant-design-vue'
 import { defineStore } from 'pinia'
 
 interface Props {
-  userAccount: string
+  username: string
   password: string
   remember: boolean
 }
@@ -25,13 +25,17 @@ export const useAuthStore = defineStore({
   }),
   actions: {
     async login(user: Props) {
-      const { userAccount, password, remember } = user
+      const { username, password, remember } = user
       try {
         // const [e, r] = await api.getUserToken({
         //   userAccount,
         //   password
         // })
-        const [e, r] = await api.getUserToken({ apifoxToken: 'dROD5webTSINtKEixUxWWBYNnjoRsSXn' })
+        const [e, r] = await api.getUserToken({
+          username,
+          password,
+          apifoxToken: 'dROD5webTSINtKEixUxWWBYNnjoRsSXn'
+        })
         if (r?.code === 0) {
           this.user = r?.data
           remember && localStorage.setItem('userFormState', JSON.stringify(user))

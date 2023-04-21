@@ -5,17 +5,17 @@
         <a-row :gutter="24">
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item label="姓名">
-              <a-input v-model:value="formState.name"> </a-input>
+              <a-input v-model:value="formState.name"></a-input>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item label="性别">
-              <a-input :v-model:value="formState.gender"> </a-input>
+              <a-input :v-model:value="formState.gender"></a-input>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item label="手机号">
-              <a-input v-model:value="formState.mobile"> </a-input>
+              <a-input v-model:value="formState.mobile"></a-input>
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="12" :sm="24" :xs="24" style="text-align: right">
@@ -37,7 +37,7 @@
         <a-row :gutter="24">
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item v-if="expand" label="年龄">
-              <a-input v-model:value="formState.birthday"> </a-input>
+              <a-input v-model:value="formState.birthday"></a-input>
             </a-form-item>
           </a-col>
         </a-row>
@@ -65,7 +65,6 @@
           </div>
         </div>
         <a-table
-          @change="handleTableChange"
           :bordered="bordered"
           :class="classObj"
           :columns="columns"
@@ -77,6 +76,7 @@
           :scroll="scroll"
           class="table-list ant-table-striped"
           row-key="id"
+          @change="handleTableChange"
         >
         </a-table>
       </div>
@@ -104,7 +104,7 @@ const {
   classObj
 } = useTableSwitch()
 
-interface data {
+interface DataProps {
   age: number
   birthday: string
   email: string
@@ -114,8 +114,7 @@ interface data {
   name: string
 }
 
-// const tableData = ref<data>()
-const formState = ref<data>({
+const formState = ref<DataProps>({
   age: 0,
   birthday: '',
   email: '',

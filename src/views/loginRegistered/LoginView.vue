@@ -15,8 +15,8 @@
         <a-from-item>
           <h1 class="title">Welcome</h1>
         </a-from-item>
-        <a-form-item class="item-form" label="帐号" name="userAccount">
-          <a-input v-model:value="formState.userAccount" size="large">
+        <a-form-item class="item-form" label="用户名" name="username">
+          <a-input v-model:value="formState.username" size="large">
             <template #prefix>
               <UserOutlined class="site-form-item-icon" />
             </template>
@@ -90,14 +90,14 @@ const layout = {
 const ruleFormRef = ref<FormInstance>()
 
 interface FormState {
-  userAccount: string
+  username: string
   password: string
   remember: boolean
   code: string
 }
 
 const formState = reactive<FormState>({
-  userAccount: '',
+  username: '',
   password: '',
   remember: true,
   code: ''
@@ -114,13 +114,13 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo)
 }
 const disabled = computed(() => {
-  return !(formState.userAccount && formState.password && formState.code)
+  return !(formState.username && formState.password && formState.code)
 })
 const validateName = (_rule: any, value: any) => {
   if (value === '') {
     return Promise.reject('请输入帐号')
   } else {
-    if (formState.userAccount !== '') {
+    if (formState.username !== '') {
       if (!ruleFormRef.value) return
     }
     return Promise.resolve()
@@ -151,7 +151,7 @@ const validateCode = (_rule: any, value: any) => {
   }
 }
 const rules = reactive({
-  userAccount: [{ validator: validateName, trigger: 'blur', required: true }],
+  username: [{ validator: validateName, trigger: 'blur', required: true }],
   password: [{ validator: validatePass, trigger: 'blur', required: true }],
   code: [{ validator: validateCode, trigger: 'blur', required: true }]
 })
@@ -233,9 +233,9 @@ onMounted(() => {
   // 从localstorage中获取上次的登录信息
   const historyForm = JSON.parse(localStorage.getItem('userFormState') as string)
   if (historyForm) {
-    const { remember, userAccount, password } = historyForm
+    const { remember, username, password } = historyForm
     if (remember) {
-      formState.userAccount = userAccount
+      formState.username = username
       formState.password = password
     }
   }

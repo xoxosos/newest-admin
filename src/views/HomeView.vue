@@ -60,8 +60,8 @@
         <div class="new-admin-header-tool-item">
           <a-dropdown>
             <div class="new-admin-header-avatar">
-              <a-avatar src="https://api.isoyu.com/ARU_GIF_S.php" />
-              <span style="padding: 0 4px 0 8px"> 赵日天 </span>
+              <a-avatar :src="avatar" />
+              <span style="padding: 0 4px 0 8px">{{ username }} </span>
               <DownOutlined />
             </div>
             <template #overlay>
@@ -212,6 +212,9 @@ import { useAuthStore } from '@/stores/useAuthStore'
 import { Modal } from 'ant-design-vue'
 import { createVNode } from 'vue'
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
+
+const username = useAuthStore().$state.user?.username
+const avatar = useAuthStore().$state.user?.avatar
 
 const toHome = () => {
   console.log('toHome')
