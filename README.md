@@ -66,10 +66,6 @@
 
 - [antd-vue](https://next.vuetifyjs.com/en/) - Antd 是一个不要求设计能力的 Vue 界面组件框架，自带了许多自行设计实现的 Vue 组件。
 
-### Icons
-
-- [Iconify](https://iconify.design) - 使用任意的图标集 [🔍Icônes](https://icones.netlify.app/)
-- [Pure CSS Icons via UnoCSS](https://github.com/antfu/unocss/tree/main/packages/preset-icons)
 
 ## 目标功能
 
