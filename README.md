@@ -47,15 +47,10 @@ AI 助手，以提供更智能化的体验。此外，我们确保所有页面�
 - 📦 组件自动导入
 - 🍍 通过 [Pinia](https://pinia.vuejs.org/)进行状态管理
 - 📔 使用新的 `<script setup>` 语法
-- 📚
-- ☁️
-- 🔑
 - 📈 Echarts
-- 🧭
 - 🌍 vue-i18n 多语言支持
 - 📚 virtual-scroller , vuedraggable , perfect-scrollbar
 - 📝 富文本编辑器
-- 📇
 
 ## 联络我
 
@@ -136,6 +131,10 @@ AI 助手，以提供更智能化的体验。此外，我们确保所有页面�
 支持现代浏览器, 不支持 IE
 
 ## 现在可以试试!
+```shell
+# 项目克隆 (推荐ssh)
+git clone git@github.com:xoxosos/newest-admin.git
+```
 
 ```shell
 # 安装 pnpm
@@ -157,7 +156,4 @@ pnpm dev
 pnpm build:prod
 ```
 
-```shell
-# 项目克隆 (推荐ssh)
-git clone git@github.com:xoxosos/newest-admin.git
-```
+
