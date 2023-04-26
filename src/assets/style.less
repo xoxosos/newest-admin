@@ -1,25 +1,33 @@
-@charset "UTF-8";
 /* CDN 服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
-  font-family: "Courier New";
+  font-family: 'Courier New';
   font-weight: 300;
-  src: url("//at.alicdn.com/wf/webfont/oUdqaQgJTW0y/NdXCR-6ifPCUMahze479P.woff2") format("woff2"), url("//at.alicdn.com/wf/webfont/oUdqaQgJTW0y/phhbPtPR7JIsAcS6TJMrx.woff") format("woff");
+  src: url('//at.alicdn.com/wf/webfont/oUdqaQgJTW0y/NdXCR-6ifPCUMahze479P.woff2') format('woff2'),
+    url('//at.alicdn.com/wf/webfont/oUdqaQgJTW0y/phhbPtPR7JIsAcS6TJMrx.woff') format('woff');
   font-display: swap;
 }
-.common-header {
+
+@prefix: common;
+.@{prefix}-header {
   background: rgb(48, 55, 66);
-}
-.common-header .common-header-logo {
-  width: 80px;
-}
-.common-header .common-header-title {
-  color: #fff;
+
+  .@{prefix}-header-logo {
+    width: 80px;
+  }
+
+  .@{prefix}-header-title {
+    color: #fff;
+  }
 }
 
+@new-primary-color: #722ed1;
+@common-background: #fff;
+@new-body-background: #f0f2f5;
 .new-admin-collapse .new-admin-sidebar .ant-menu-inline-collapsed {
   width: 100%;
 }
 
+@text-color: rgba(0, 0, 0, 0.85);
 .new-admin-fixed-header:not(.new-admin-fixed-body) .new-admin-tabs {
   position: fixed;
   right: 0;
@@ -29,7 +37,7 @@
   transition: left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 
-.common-aside {
+.@{prefix}-aside {
   background: rgb(48, 55, 65);
 }
 
@@ -51,25 +59,29 @@
   width: 100%;
   margin-top: 30px;
   background: #fff;
-}
-.main-content .main-content-header {
-  display: flex;
-  justify-content: space-between;
+
+  .main-content-header {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .new-admin-layout {
-  background: #f0f2f5;
-}
-.new-admin-layout .ant-layout-header {
-  padding: 0;
+  background: @new-body-background;
+
+  .ant-layout-header {
+    padding: 0;
+  }
 }
 
 .new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
   box-shadow: 210px -1px 0 var(--border-color-split) inset;
-  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
+    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 
-.new-admin-responsive.new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
+.new-admin-responsive.new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark)
+  .new-admin-header {
   box-shadow: 0 -1px 0 #f0f0f0 inset !important;
 }
 
@@ -80,6 +92,7 @@
     width: 100% !important;
   }
 }
+
 @media screen and (max-width: 768px) {
   .new-admin-responsive.new-admin-collapse .new-admin-sidebar,
   .new-admin-responsive.new-admin-collapse .new-admin-logo {
@@ -87,6 +100,7 @@
     box-shadow: none !important;
   }
 }
+
 .new-admin-side-dark .new-admin-logo {
   color: #fff;
   box-shadow: var(--logo-dark-shadow);
@@ -96,11 +110,15 @@
 .new-admin-header .new-admin-logo {
   width: 200px;
   height: 48px;
-  background: #fff;
-  transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  //box-shadow: #fff;
+  background: @common-background;
+  transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
+    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   font-weight: 600;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
   font-size: 18px;
+  //color: @common-background;
   white-space: nowrap;
   position: relative;
   overflow: hidden;
@@ -138,6 +156,7 @@
     display: none !important;
   }
 }
+
 .new-admin-sidebar > .new-admin-sidebar-menus {
   flex: auto;
   overflow-x: hidden;
@@ -159,7 +178,10 @@
     left: 0 !important;
   }
 }
+
 .new-admin-tabs {
+  //background: var(--component-background);
+  //box-shadow: var(--header-light-shadow);
   z-index: 99;
 }
 
@@ -193,7 +215,8 @@
   right: 0;
   bottom: 0;
   z-index: 2001;
-  transition: background-color 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  transition: background-color 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
+    left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   visibility: hidden;
 }
 
@@ -203,6 +226,7 @@
     display: none;
   }
 }
+
 @media screen and (max-width: 768px) {
   .new-admin-responsive .new-admin-logo,
   .new-admin-responsive .new-admin-sidebar {
@@ -212,9 +236,11 @@
     z-index: 2002 !important;
   }
 }
+
 .new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
   box-shadow: 210px -1px 0 var(--border-color-split) inset;
-  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
+    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 
 .new-admin-fixed-header:not(.new-admin-fixed-body) {
@@ -230,7 +256,7 @@
   align-items: center;
   height: 48px;
   line-height: 48px;
-  background: #fff !important;
+  background: @common-background !important;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   background: var(--header-light-background);
   z-index: 101;
@@ -251,12 +277,14 @@
 
 .new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
   box-shadow: 210px -1px 0 var(--border-color-split) inset;
-  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
+    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 
 .new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
   box-shadow: 210px -1px 0 var(--border-color-split) inset;
-  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
+    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 
 .new-admin-fixed-sidebar:not(.new-admin-fixed-body) .new-admin-sidebar,
@@ -278,6 +306,7 @@
     top: 48px !important;
   }
 }
+
 @media screen and (max-width: 768px) {
   .new-admin-responsive .new-admin-logo,
   .new-admin-responsive .new-admin-sidebar {
@@ -287,6 +316,7 @@
     z-index: 2002 !important;
   }
 }
+
 .new-admin-fixed-body .new-admin-sidebar,
 .new-admin-fixed-body .new-admin-sidebar-nav {
   height: calc(100vh - 48px);
@@ -298,7 +328,8 @@
   z-index: 102;
   background: var(--sidebar-light-background);
   box-shadow: var(--sidebar-light-shadow);
-  transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
+    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -322,7 +353,7 @@
   min-height: calc(100vh - 48px);
   box-sizing: border-box;
   width: 100%;
-  background: #f0f2f5;
+  background: @new-body-background;
 }
 
 @media screen and (max-width: 768px) {
@@ -330,6 +361,7 @@
     left: 0 !important;
   }
 }
+
 .new-admin-tabs {
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
@@ -384,27 +416,30 @@ img {
 
 .new-admin-header .new-admin-logo > img + span {
   font-weight: 600;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
   font-size: 18px;
   margin-left: 8px;
 }
 
 .new-admin-logo-dark {
   background: #001529 !important;
-}
-.new-admin-logo-dark span {
-  color: #fff !important;
+
+  span {
+    color: #fff !important;
+  }
 }
 
 .ant-tabs {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  //color: @text-color;
   font-size: 14px;
   font-variant: tabular-nums;
   line-height: 1.5715;
   list-style: none;
-  font-feature-settings: "tnum";
+  font-feature-settings: 'tnum';
   display: flex;
   overflow: hidden;
 }
@@ -413,6 +448,7 @@ img {
   background: none;
   height: 40px;
   line-height: 40px;
+  //text-shadow: 0 0 .05px currentcolor;
   transition: background-color 0.3s, color 0.3s;
   border-radius: 0 !important;
   border: none;
@@ -440,6 +476,7 @@ img {
   opacity: 0;
 }
 
+// 组合过渡
 .scale-slide-enter-active,
 .scale-slide-leave-active {
   position: absolute;
@@ -462,6 +499,7 @@ img {
   transform: scale(0.8);
 }
 
+// 缩放过渡
 .scale-enter-active,
 .scale-leave-active {
   transition: all 0.5s ease;
@@ -480,14 +518,16 @@ img {
   height: 100%;
   transition: color 0.2s, background-color 0.2s;
   cursor: pointer;
-}
-.new-admin-header-avatar .ant-avatar {
-  background-color: #722ed1;
-  font-size: 30px;
-  border: 1px solid #712fd1;
-}
-.new-admin-header-avatar .ant-avatar span {
-  padding: 0;
+
+  .ant-avatar {
+    span {
+      padding: 0;
+    }
+
+    background-color: @new-primary-color;
+    font-size: 30px;
+    border: 1px solid #712fd1;
+  }
 }
 
 .new-admin-header-avatar:hover {
@@ -538,5 +578,3 @@ img {
   width: 5px;
   height: 5px;
 }
-
-/*# sourceMappingURL=style.css.map */

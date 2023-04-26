@@ -1,7 +1,7 @@
 /*
  * @Author: LinRenJie
  * @Date: 2022-12-19 14:28:57
- * @LastEditTime: 2023-02-11 20:09:05
+ * @LastEditTime: 2023-04-26 12:49:51
  * @Description:
  * @FilePath: /admin/.eslintrc.cjs
  * @Email: xoxosos666@gmail.com
@@ -33,7 +33,7 @@ module.exports = {
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     eqeqeq: 2, //必须使用全等
     'max-lines': ['error', 500], //限制行数 请勿修改 请优化你的代码
-    complexity: ['error', 7], // 限制复杂度
+    complexity: ['error', 6], // 限制复杂度
     'require-await': 'error'
   }
 }

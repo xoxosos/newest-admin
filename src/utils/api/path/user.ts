@@ -1,29 +1,38 @@
+/*
+ * @Author: LinRenJie xoxosos666@gmail.com
+ * @Date: 2023-04-25 15:15:45
+ * @Description: 用户相关api
+ */
 import { Get, Post } from '../server'
 
 // const urlPix = 'http://127.0.0.1:4523/m1/2120640-0-2c46b26a'
+const urlPix = '/api/user'
 
 interface FcResponse<T> {
-  errno: string
-  errMsg: string
+  code: string | number
+  message: string
   data: T
   [key: string]: any
 }
 
 type ApiResponse<T> = Promise<[any, FcResponse<T> | undefined]>
 
-function getUserInfo<T>(id?: any): ApiResponse<T> {
-  return Get<T>('/api/getUserList')
+interface LoginProps {
+  username: string
+  password: string
 }
 
-function getUserToken<T extends { token: string }>(id?: any): ApiResponse<T> {
-  return Get<T>('/api/getToken')
+function login<T extends { token: string }>({ username, password }: LoginProps): ApiResponse<T> {
+  return Get<T>(urlPix + '/login', { username, password })
 }
-
-export function getUserName(id: any) {
+function registerUser<T extends { token: string }>(data: any): ApiResponse<T> {
+  return Post<T>(urlPix + '/register', data)
+}
+export function getUserName(id: any): ApiResponse<string> {
   return Post('/getUserName', id)
 }
 
 export const userApi = {
-  getUserInfo,
-  getUserToken
+  login,
+  registerUser
 }

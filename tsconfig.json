@@ -11,32 +11,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
-    /* Skip type checking all .d.ts files. */,
-    "allowSyntheticDefaultImports": true
-    /* 允许默认导入 */,
-    "lib": [
-      "ESNext",
-      "dom"
-    ],
+    "skipLibCheck": true,
+    /* Skip type checking all .d.ts files. */ "allowSyntheticDefaultImports": true,
+    /* 允许默认导入 */ "lib": ["ESNext", "dom"],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
+    // "types": ["pinia-plugin-persist"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "auto-imports.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.js"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "auto-imports.d.ts"],
+  "exclude": ["node_modules", "dist", "**/*.js"],
   "references": [
     {
       "path": "./tsconfig.config.json"

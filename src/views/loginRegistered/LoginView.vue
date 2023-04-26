@@ -1,76 +1,74 @@
 <template>
-  <div class="login-container login-box">
-    <transition name="login-form">
-      <a-form
-        ref="ruleFormRef"
-        :model="formState"
-        :rules="rules"
-        class="login-form login-form-enter-active login-form-leave-active"
-        name="normal_login"
-        v-bind="layout"
-        @finish="onFinish"
-        @finishFailed="onFinishFailed"
-        @validate="handleValidate"
+  <a-form
+    ref="ruleFormRef"
+    :model="formState"
+    :rules="rules"
+    class="login-form login-form-enter-active login-form-leave-active"
+    name="normal_login"
+    v-bind="layout"
+    @finish="onFinish"
+    @finishFailed="onFinishFailed"
+    @validate="handleValidate"
+  >
+    <a-from-item>
+      <h1 class="title">Welcome</h1>
+    </a-from-item>
+    <a-form-item class="item-form" label="用户名" name="username">
+      <a-input v-model:value="formState.username" size="large">
+        <template #prefix>
+          <UserOutlined class="site-form-item-icon" />
+        </template>
+      </a-input>
+    </a-form-item>
+
+    <a-form-item class="item-form" label="密码" name="password">
+      <a-input-password v-model:value="formState.password" size="large">
+        <template #prefix>
+          <LockOutlined class="site-form-item-icon" />
+        </template>
+      </a-input-password>
+    </a-form-item>
+
+    <a-form-item class="item-form" label="验证码" name="code">
+      <a-input v-model:value="formState.code" size="large"></a-input>
+      <a-tooltip placement="right">
+        <template #title>
+          <span>点击刷新</span>
+        </template>
+        <canvas
+          ref="canvasRef"
+          style="height: 45px; width: 100px; cursor: pointer"
+          @click="refreshCode"
+        ></canvas>
+      </a-tooltip>
+    </a-form-item>
+    <a-form-item>
+      <a-form-item name="remember" no-style>
+        <a-checkbox v-model:checked="formState.remember" style="margin-left: 53px"
+          >记住密码
+        </a-checkbox>
+      </a-form-item>
+      <a-typography-link class="login-form-forgot" underline @click="changeType"
+        >点我注册</a-typography-link
       >
-        <a-from-item>
-          <h1 class="title">Welcome</h1>
-        </a-from-item>
-        <a-form-item class="item-form" label="用户名" name="username">
-          <a-input v-model:value="formState.username" size="large">
-            <template #prefix>
-              <UserOutlined class="site-form-item-icon" />
-            </template>
-          </a-input>
-        </a-form-item>
-
-        <a-form-item class="item-form" label="密码" name="password">
-          <a-input-password v-model:value="formState.password" size="large">
-            <template #prefix>
-              <LockOutlined class="site-form-item-icon" />
-            </template>
-          </a-input-password>
-        </a-form-item>
-
-        <a-form-item class="item-form" label="验证码" name="code">
-          <a-input v-model:value="formState.code" size="large"></a-input>
-          <a-tooltip placement="right">
-            <template #title>
-              <span>点击刷新</span>
-            </template>
-            <canvas
-              ref="canvasRef"
-              style="height: 45px; width: 100px; cursor: pointer"
-              @click="refreshCode"
-            ></canvas>
-          </a-tooltip>
-        </a-form-item>
-        <a-form-item>
-          <a-form-item name="remember" no-style>
-            <a-checkbox v-model:checked="formState.remember" style="margin-left: 53px"
-              >记住密码
-            </a-checkbox>
-          </a-form-item>
-          <!--          <a class="login-form-forgot" href="">Forgot password</a>-->
-        </a-form-item>
-        <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
-          <a-button
-            :disabled="disabled"
-            :loading="loading"
-            block
-            html-type="submit"
-            size="large"
-            type="primary"
-          >
-            登录
-          </a-button>
-          <span style="width: 15px"></span>
-          <a-button :loading="loading" block size="large" type="danger" @click="resetForm"
-            >重置
-          </a-button>
-        </a-form-item>
-      </a-form>
-    </transition>
-  </div>
+    </a-form-item>
+    <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
+      <a-button
+        :disabled="disabled"
+        :loading="loading"
+        block
+        html-type="submit"
+        size="large"
+        type="primary"
+      >
+        登录
+      </a-button>
+      <span style="width: 15px"></span>
+      <a-button :loading="loading" block size="large" type="danger" @click="resetForm"
+        >重置
+      </a-button>
+    </a-form-item>
+  </a-form>
 </template>
 
 <script lang="ts" setup>
@@ -78,7 +76,7 @@ import { useAuthStore } from '@/stores/useAuthStore'
 import { LockOutlined, UserOutlined } from '@ant-design/icons-vue'
 import type { FormInstance } from 'ant-design-vue'
 import { computed, reactive, ref } from 'vue'
-
+const { changeType } = inject<any>('changeType')
 const layout = {
   labelCol: {
     span: 4
@@ -231,7 +229,7 @@ onMounted(() => {
   ctx = canvas.getContext('2d')
   refreshCode()
   // 从localstorage中获取上次的登录信息
-  const historyForm = JSON.parse(localStorage.getItem('userFormState') as string)
+  const historyForm = JSON.parse(localStorage.getItem('__persist__auth') as string)
   if (historyForm) {
     const { remember, username, password } = historyForm
     if (remember) {
@@ -242,75 +240,4 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
-.login-form-forgot {
-  float: right;
-}
-
-:deep(.item-form .ant-form-item-label) {
-  line-height: 40.14px;
-}
-
-:deep(.ant-form-item-control-input-content) {
-  display: flex;
-  align-items: center;
-}
-
-.login-container {
-  /* 使用渐变背景颜色 */
-  background-image: linear-gradient(to bottom right, #667eea, #764ba2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.login-form {
-  background-image: linear-gradient(to bottom right, #6a81e8, #764ba2);
-  width: 500px;
-  // background-color: #fff;
-  padding: 24px;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  /* 添加hover特效 */
-  transition: all 0.3s ease-in-out;
-}
-
-.login-form:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  /* 将border颜色更改为蓝色 */
-  // border: 1px solid #1890ff;
-  transform: scale(1.05);
-}
-
-.login-form-enter-active {
-  animation: login-form-enter 0.4s;
-}
-
-.login-form-leave-active {
-  animation: login-form-leave 0.4s;
-}
-
-/* 过渡过程 */
-@keyframes login-form-enter {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes login-form-leave {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-}
-</style>
+<style lang="less" scoped></style>

@@ -1,15 +1,13 @@
 /*
- * @Author: LinRenJie
- * @Date: 2023-01-13 18:12:53
- * @LastEditTime: 2023-02-23 14:05:21
- * @Description:
- * @FilePath: /admin/src/utils/api/tools.ts
- * @Email: xoxosos666@gmail.com
+ * @Author: LinRenJie xoxosos666@gmail.com
+ * @Date: 2023-04-20 17:41:06
+ * @Description: 配置处理
  */
 import router from '@/router'
+import { useAuthStore } from '@/stores/useAuthStore'
 import { message } from 'ant-design-vue'
 const logout = () => {
-  sessionStorage.clear()
+  localStorage.clear()
   return router.push('/login')
 }
 /**
@@ -21,8 +19,8 @@ export const handleChangeRequestHeader = (config: any) => {
   console.log(config)
   config['xxx'] = 'xxx'
   // api mock用
-  config.headers.apifoxToken = 'dROD5webTSINtKEixUxWWBYNnjoRsSXn'
-  // config.headers.token = window.sessionStorage.getItem('token')
+  // config.headers.apifoxToken = 'dROD5webTSINtKEixUxWWBYNnjoRsSXn'
+  config.headers.token = useAuthStore().getToken || ''
   return config
 }
 /**
@@ -30,22 +28,23 @@ export const handleChangeRequestHeader = (config: any) => {
  * @param config
  */
 export const handleConfigureAuth = (config: any) => {
-  config.headers['Authorization'] = sessionStorage.getItem('token') || ''
+  config.headers['Authorization'] = useAuthStore().getToken || ''
   return config
 }
 /**
- * 响应拦截 网络错误处理
+ * 响应拦截 http网络错误处理
  * @param errStatus
  */
 const errObj = new Map([
-  [400, '错误的请求'],
-  [401, '未授权，请重新登录'],
-  [403, '拒绝访问'],
-  [404, '请求错误,未找到该资源'],
+  [301, '请求资源被永久移动到新位置,请访问我们的新网址'],
+  [302, '我们的网站正在维护中'],
+  [400, '请检查您的输入是否正确，或者联系管理员获得帮助。'],
+  [401, '未授权，请先登录或注册，以访问此资源。'],
+  [403, '您正在尝试访问未授权的资源，请联系管理员获得进一步帮助。'],
+  [404, '您请求的页面不存在，请检查您访问的网址是否正确。'],
   [405, '请求方法未允许'],
-  [408, '请求超时'],
-  [408, '服务器端出错'],
-  [500, '错误的请求'],
+  [408, '我们的服务器响应时间较长，请您稍后再试。'],
+  [500, '很抱歉，系统似乎出了些问题，请稍后再试。'],
   [501, '网络未实现'],
   [502, '网络错误'],
   [503, '服务不可用'],

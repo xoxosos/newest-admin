@@ -68,9 +68,6 @@ const viteConfig = defineConfig(({ mode }: ConfigEnv): UserConfig => {
             'disabled-color': 'rgba(0, 0, 0, 0.25)'
           },
           javascriptEnabled: true
-        },
-        scss: {
-          javascriptEnabled: true
         }
       }
     }

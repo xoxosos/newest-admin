@@ -1,12 +1,9 @@
 /*
- * @Author: LinRenJie
- * @Date: 2022-12-24 21:30:35
- * @LastEditTime: 2023-02-11 18:09:39
- * @Description:
- * @FilePath: /admin/src/utils/api/server.ts
- * @Email: xoxosos666@gmail.com
+ * @Author: LinRenJie xoxosos666@gmail.com
+ * @Date: 2023-04-20 17:41:06
+ * @Description: 拦截器
  */
-import { useUsers } from '@/stores/user'
+import { useAuthStore } from '@/stores/useAuthStore'
 import axios from 'axios'
 import {
   handleAuthError,
@@ -22,8 +19,8 @@ interface IAnyObj {
 }
 
 interface FcResponse<T> {
-  errno: string
-  errMsg: string
+  code: string | number
+  message: string
   data: T
 }
 
@@ -34,7 +31,7 @@ interface FcResponse<T> {
  */
 axios.interceptors.request.use((config) => {
   config = handleChangeRequestHeader(config)
-  if (!useUsers().token) return config
+  if (!useAuthStore().getToken) return config
   config = handleConfigureAuth(config)
   console.log(config)
   return config
@@ -48,8 +45,8 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use(
   (response) => {
     if (response.status !== 200) return Promise.reject(response.data)
-    handleAuthError(response.data.errno)
-    handleGeneralError(response.data.errno, response.data.errmsg)
+    handleAuthError(response.data.code)
+    handleGeneralError(response.data.code, response.data.message)
     return response
   },
   (err) => {

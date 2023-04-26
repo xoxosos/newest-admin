@@ -1,11 +1,3 @@
-<!--
- * @Author: LinRenJie
- * @Date: 2022-12-22 18:42:33
- * @LastEditTime: 2023-03-08 14:20:44
- * @Description: 
- * @FilePath: /admin/src/views/HomeView.vue
- * @Email: xoxosos666@gmail.com
--->
 <template>
   <a-layout
     class="new-admin-layout new-admin-fixed-header new-admin-fixed-sidebar new-admin-side-dark new-admin-show-tabs new-admin-responsive"
@@ -193,25 +185,24 @@
 </template>
 <script lang="ts" setup>
 import router from '@/router'
+import { useAuthStore } from '@/stores/useAuthStore'
 import {
   AppstoreOutlined,
   DownOutlined,
+  ExclamationCircleOutlined,
   HomeOutlined,
   LeftOutlined,
+  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   RightOutlined,
-  SettingOutlined,
-  LogoutOutlined
+  SettingOutlined
 } from '@ant-design/icons-vue'
 import type { MenuProps } from 'ant-design-vue'
-import { uniqBy } from 'lodash-es'
-import { computed, reactive, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/useAuthStore'
 import { Modal } from 'ant-design-vue'
-import { createVNode } from 'vue'
-import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
+import { uniqBy } from 'lodash-es'
+import { computed, createVNode, reactive, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 const username = useAuthStore().$state.user?.username
 const avatar = useAuthStore().$state.user?.avatar
@@ -299,6 +290,10 @@ const changeTheme = (checked: boolean) => {
   changeTransition.value = true
   theme.value = checked ? 'dark' : 'light'
 }
+const changeCustomTheme = (checked: boolean) => {
+  changeTransition.value = true
+  theme.value = checked ? 'dark' : 'light'
+}
 const theme = ref('dark')
 const collapsed = ref(false)
 const changeCollapsed = () => {
@@ -320,4 +315,4 @@ const onClick: MenuProps['onClick'] = ({ key }) => {
     })
 }
 </script>
-<style lang="scss"></style>
+<style lang="less"></style>

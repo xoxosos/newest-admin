@@ -1,9 +1,9 @@
 /*
  * @Author: LinRenJie
  * @Date: 2023-01-13 18:12:53
- * @LastEditTime: 2023-02-23 10:51:47
+ * @LastEditTime: 2023-04-23 14:57:19
  * @Description:
- * @FilePath: /admin/src/router/index.ts
+ * @FilePath: /newest-admin/src/router/index.ts
  * @Email: xoxosos666@gmail.com
  */
 import { createRouter, createWebHistory } from 'vue-router'
@@ -83,7 +83,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/loginRegistered/LoginView.vue')
+      component: () => import('../views/loginRegistered/index.vue')
     }
   ]
 })

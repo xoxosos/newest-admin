@@ -1,12 +1,11 @@
+<!--
+ * @Author: LinRenJie xoxosos666@gmail.com
+ * @Date: 2023-04-20 17:41:06
+ * @Description: 程序入口
+-->
 <script lang="ts" setup>
-import { useAuthStore } from '@/stores/useAuthStore'
-import { onMounted } from 'vue'
-import { RouterView } from 'vue-router'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
-
-onMounted(() => {
-  useAuthStore().loadFromLocalStorage()
-})
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
@@ -15,4 +14,4 @@ onMounted(() => {
   </a-config-provider>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="less" scoped></style>
