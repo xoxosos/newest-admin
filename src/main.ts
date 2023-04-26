@@ -30,10 +30,18 @@ app.use(pinia).use(router).mount('#app')
 const auth = useAuthStore()
 router.beforeEach((to, from, next) => {
   console.log('routerBefore->hasToken:', auth.isLoggedIn)
-  // const token = auth.$state.user.token
+  if (to.path === '/') {
+    if (auth.isLoggedIn) {
+      next('/dashboard')
+      // 登录则放行
+      return
+    }
+    next('/login')
+    return
+  }
   if (auth.isLoggedIn) {
-    // 登录则放行
     next()
+    // 登录则放行
     return
   }
   // 如果没有token，那么就需要判断跳转到登录页面还是放行，需要使用history.length属性

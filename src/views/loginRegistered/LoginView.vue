@@ -175,7 +175,6 @@ const PI_OVER_4 = Math.PI / 4
 
 let canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D | null
 const code = ref<Code>('')
-const userInput = ref<Code>('')
 const canvasRef = ref<HTMLCanvasElement>()
 
 function refreshCode() {

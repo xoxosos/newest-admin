@@ -1,7 +1,7 @@
 /*
  * @Author: LinRenJie
  * @Date: 2023-01-13 18:12:53
- * @LastEditTime: 2023-04-23 14:57:19
+ * @LastEditTime: 2023-04-26 16:59:21
  * @Description:
  * @FilePath: /newest-admin/src/router/index.ts
  * @Email: xoxosos666@gmail.com
@@ -10,7 +10,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory((import.meta as any).env.BASE_URL),
   routes: [
     {
       path: '/',

@@ -6,8 +6,8 @@
 import router from '@/router'
 import { api } from '@/utils/api'
 import { message } from 'ant-design-vue'
+import Cookies from 'js-cookie'
 import { defineStore } from 'pinia'
-
 interface Props {
   username: string
   password: string
@@ -32,12 +32,15 @@ export const useAuthStore = defineStore({
     async login(user: Props) {
       const { username, password } = user
       try {
-        const [r] = await api.login({
+        const [e, r] = await api.login({
           username,
           password
         })
+        console.log(r)
         if (r?.code === 0) {
           this.user = r?.data
+          console.log(11)
+
           // 可替换为任意首页
           router.push('/dashboard')
         } else if (r?.message) {
@@ -68,15 +71,18 @@ export const useAuthStore = defineStore({
     logout() {
       console.log('logout')
       this.user = { token: '' }
+      Cookies.remove('satoken', { path: '' })
       localStorage.removeItem('__persist__auth')
       router.push('/login')
     }
   },
   getters: {
     isLoggedIn(): boolean {
+      this.user.token = Cookies.get('satoken') || ''
       return !!this.user.token
     },
     getToken(): string {
+      this.user.token = Cookies.get('satoken') || ''
       return this.user.token
     }
   }
