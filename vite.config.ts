@@ -67,7 +67,7 @@ const viteConfig = defineConfig(({ mode }: ConfigEnv): UserConfig => {
       preprocessorOptions: {
         less: {
           // 全局添加less
-          additionalData: `@import '@/assets/common/var.less';`,
+          additionalData: `@import '@/assets/styles/common/var.less';`,
           javascriptEnabled: true
         }
       }

@@ -1,4 +1,6 @@
 :root {
   --ant-primary-color: #18a058;
   --ant-primary-color-hover: gray;
+  --ant-primary-color-active: gray;
+  --ant-primary-5: rgb(89, 88, 88);
 }

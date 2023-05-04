@@ -188,7 +188,7 @@
             class="new-admin-content-view"
           >
             <router-view v-slot="{ Component }">
-              <transition name="scale-slide">
+              <transition name="zoom-fade">
                 <component :is="Component" />
               </transition>
             </router-view>
@@ -203,16 +203,16 @@ import ThemeDrawer from '@/components/theme/ThemeDrawer.vue'
 import router from '@/router'
 import { useAuthStore } from '@/stores/useAuthStore'
 import {
-  AppstoreOutlined,
-  DownOutlined,
-  ExclamationCircleOutlined,
-  HomeOutlined,
-  LeftOutlined,
-  LogoutOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  RightOutlined,
-  SettingOutlined
+AppstoreOutlined,
+DownOutlined,
+ExclamationCircleOutlined,
+HomeOutlined,
+LeftOutlined,
+LogoutOutlined,
+MenuFoldOutlined,
+MenuUnfoldOutlined,
+RightOutlined,
+SettingOutlined
 } from '@ant-design/icons-vue'
 import type { MenuProps } from 'ant-design-vue'
 import { Modal } from 'ant-design-vue'

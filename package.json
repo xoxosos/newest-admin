@@ -29,6 +29,7 @@
     "echarts": "^5.4.1",
     "js-cookie": "^3.0.4",
     "lodash-es": "^4.17.21",
+    "normalize.css": "^8.0.1",
     "pinia": "^2.0.28",
     "pinia-plugin-persistedstate": "^3.1.0",
     "sass": "^1.57.1",
