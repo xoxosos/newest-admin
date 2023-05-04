@@ -1,10 +1,7 @@
 /*
- * @Author: LinRenJie
- * @Date: 2023-01-13 18:12:53
- * @LastEditTime: 2023-04-26 16:59:21
- * @Description:
- * @FilePath: /newest-admin/src/router/index.ts
- * @Email: xoxosos666@gmail.com
+ * @Author: LinRenJie xoxosos666@gmail.com
+ * @Date: 2023-04-20 17:41:06
+ * @Description: 路由
  */
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'

@@ -1,4 +1,19 @@
 <template>
+  <a-button
+    style="position: absolute; z-index: 999; top: 50%; right: 0"
+    shape="circle"
+    @click="
+      () => {
+        ThemeDrawerRef.showDrawer()
+      }
+    "
+  >
+    <template #icon><SettingOutlined /></template>
+  </a-button>
+  <template>
+    <ThemeDrawer ref="ThemeDrawerRef" />
+  </template>
+
   <a-layout
     class="new-admin-layout new-admin-fixed-header new-admin-fixed-sidebar new-admin-side-dark new-admin-show-tabs new-admin-responsive"
   >
@@ -184,6 +199,7 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
+import ThemeDrawer from '@/components/theme/ThemeDrawer.vue'
 import router from '@/router'
 import { useAuthStore } from '@/stores/useAuthStore'
 import {
@@ -203,7 +219,7 @@ import { Modal } from 'ant-design-vue'
 import { uniqBy } from 'lodash-es'
 import { computed, createVNode, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-
+const ThemeDrawerRef = ref(null)
 const username = useAuthStore().$state.user?.username
 const avatar = useAuthStore().$state.user?.avatar
 

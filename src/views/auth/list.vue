@@ -30,10 +30,12 @@
       </template>
     </a-table>
   </a-form>
+  <a-upload> </a-upload>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+
 interface tableProps {
   id: ''
   status: ''

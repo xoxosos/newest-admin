@@ -20,7 +20,7 @@
   }
 }
 
-@new-primary-color: #722ed1;
+@new-primary-color: @primary-color;
 @common-background: #fff;
 @new-body-background: #f0f2f5;
 .new-admin-collapse .new-admin-sidebar .ant-menu-inline-collapsed {
@@ -462,8 +462,8 @@ img {
 
 .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active {
   background: #f7f0ff !important;
-  border-bottom: 2px solid #712fd1 !important;
-  text-shadow: 0 0 0.25px #712fd1 !important;
+  border-bottom: 2px solid @primary-color !important;
+  text-shadow: 0 0 0.25px @primary-color !important;
 }
 
 .v-enter-active,
@@ -526,7 +526,7 @@ img {
 
     background-color: @new-primary-color;
     font-size: 30px;
-    border: 1px solid #712fd1;
+    border: 1px solid @primary-color;
   }
 }
 

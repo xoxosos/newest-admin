@@ -5,8 +5,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
-import { loadEnv, defineConfig } from 'vite'
 import type { ConfigEnv, UserConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 // https://vitejs.dev/config/
 const viteConfig = defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, process.cwd())
@@ -20,7 +20,13 @@ const viteConfig = defineConfig(({ mode }: ConfigEnv): UserConfig => {
         resolvers: [AntDesignVueResolver()]
       }),
       Components({
-        resolvers: [AntDesignVueResolver({ importStyle: 'less' })]
+        resolvers: [
+          AntDesignVueResolver({
+            // 不加载css, 而是手动加载css. 通过手动加载less文件并将less变量绑定到css变量上, 即可实现动态主题色
+            importStyle: false
+            // importStyle: 'less'
+          })
+        ]
       })
     ],
     resolve: {
@@ -60,13 +66,8 @@ const viteConfig = defineConfig(({ mode }: ConfigEnv): UserConfig => {
     css: {
       preprocessorOptions: {
         less: {
-          modifyVars: {
-            'primary-color': '#722ed1',
-            'link-color': '#712fd1',
-            'border-radius-base': '2px',
-            'heading-color': 'rgba(0, 0, 0, 0.85)',
-            'disabled-color': 'rgba(0, 0, 0, 0.25)'
-          },
+          // 全局添加less
+          additionalData: `@import '@/assets/common/var.less';`,
           javascriptEnabled: true
         }
       }

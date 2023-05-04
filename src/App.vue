@@ -13,5 +13,3 @@ import { RouterView } from 'vue-router'
     <RouterView />
   </a-config-provider>
 </template>
-
-<style lang="less" scoped></style>

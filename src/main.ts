@@ -5,10 +5,12 @@
  */
 import 'ant-design-vue/dist/antd.css'
 import 'ant-design-vue/dist/antd.less'
+import 'ant-design-vue/dist/antd.variable.less'
 import { createPinia } from 'pinia'
 import { createPersistedState } from 'pinia-plugin-persistedstate'
 import { createApp } from 'vue'
 import App from './App.vue'
+import './assets/common/var.css'
 import './assets/main.css'
 import './assets/style.less'
 import router from './router'
