@@ -1,11 +1,3 @@
-###
- # @Author: CodeForBetter xoxosos666@gmail.com
- # @Date: 2023-05-05 21:02:27
- # @LastEditors: CodeForBetter xoxosos666@gmail.com
- # @LastEditTime: 2023-05-06 00:16:04
- # @FilePath: \newest-admin\.husky\pre-commit
- # @Description: 
-### 
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
