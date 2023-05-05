@@ -32,15 +32,19 @@ export const useAuthStore = defineStore({
     async login(user: Props) {
       const { username, password } = user
       try {
-        const [e, r] = await api.login({
+        // const [e, r] = await api.login({
+        //   username,
+        //   password
+        // })
+        const [e, r] = await api.apifoxLogin({
           username,
           password
         })
         console.log(r)
         if (r?.code === 0) {
           this.user = r?.data
-          console.log(11)
-
+          Cookies.set('satoken', this.user.token)
+          console.log(Cookies.get('satoken'))
           // 可替换为任意首页
           router.push('/dashboard')
         } else if (r?.message) {

@@ -1,10 +1,10 @@
 ###
- # @Author: LinRenJie
- # @Date: 2023-02-11 19:50:11
- # @LastEditTime: 2023-02-11 19:57:10
+ # @Author: CodeForBetter xoxosos666@gmail.com
+ # @Date: 2023-05-05 21:02:27
+ # @LastEditors: CodeForBetter xoxosos666@gmail.com
+ # @LastEditTime: 2023-05-06 00:16:04
+ # @FilePath: \newest-admin\.husky\pre-commit
  # @Description: 
- # @FilePath: /admin/.husky/pre-commit
- # @Email: xoxosos666@gmail.com
 ### 
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"

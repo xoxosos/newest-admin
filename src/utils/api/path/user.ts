@@ -5,7 +5,7 @@
  */
 import { Get, Post } from '../server'
 
-// const urlPix = 'http://127.0.0.1:4523/m1/2120640-0-2c46b26a'
+const urlApiFoxPix = 'https://mock.apifox.cn/m1/2120640-0-2c46b26a'
 const urlPix = '/api/user'
 
 interface FcResponse<T> {
@@ -21,7 +21,14 @@ interface LoginProps {
   username: string
   password: string
 }
-
+// apifoxToken=dROD5webTSINtKEixUxWWBYNnjoRsSXn
+function apifoxLogin<T extends { token: string }>({
+  username,
+  password,
+  apifoxToken = 'dROD5webTSINtKEixUxWWBYNnjoRsSXn'
+}: any): ApiResponse<T> {
+  return Get<T>(urlApiFoxPix + '/login', { username, password, apifoxToken })
+}
 function login<T extends { token: string }>({ username, password }: LoginProps): ApiResponse<T> {
   return Get<T>(urlPix + '/login', { username, password })
 }
@@ -34,5 +41,6 @@ export function getUserName(id: any): ApiResponse<string> {
 
 export const userApi = {
   login,
-  registerUser
+  registerUser,
+  apifoxLogin
 }

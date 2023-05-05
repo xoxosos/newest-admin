@@ -84,6 +84,9 @@
             </template>
           </a-dropdown>
         </div>
+        <div class="new-admin-header-tool-item">
+          <HeaderView />
+        </div>
       </div>
     </a-layout-header>
     <a-layout class="new-admin-main">
@@ -199,20 +202,21 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
+import HeaderView from '@/components/layout/HeaderView.vue'
 import ThemeDrawer from '@/components/theme/ThemeDrawer.vue'
 import router from '@/router'
 import { useAuthStore } from '@/stores/useAuthStore'
 import {
-AppstoreOutlined,
-DownOutlined,
-ExclamationCircleOutlined,
-HomeOutlined,
-LeftOutlined,
-LogoutOutlined,
-MenuFoldOutlined,
-MenuUnfoldOutlined,
-RightOutlined,
-SettingOutlined
+  AppstoreOutlined,
+  DownOutlined,
+  ExclamationCircleOutlined,
+  HomeOutlined,
+  LeftOutlined,
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  RightOutlined,
+  SettingOutlined
 } from '@ant-design/icons-vue'
 import type { MenuProps } from 'ant-design-vue'
 import { Modal } from 'ant-design-vue'

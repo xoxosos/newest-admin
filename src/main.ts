@@ -13,6 +13,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/styles/common/var.css'
 import './assets/styles/index.less'
+import i18n from './locales/lang/index'
 import router from './router'
 import { useAuthStore } from './stores/useAuthStore.js'
 const app = createApp(App)
@@ -25,7 +26,7 @@ pinia.use(
     auto: true
   })
 )
-app.use(pinia).use(router).mount('#app')
+app.use(pinia).use(router).use(i18n).mount('#app')
 /**
  * 路由跳转执行的钩子
  */

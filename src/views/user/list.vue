@@ -9,7 +9,7 @@
             </a-form-item>
           </a-col>
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
-            <a-form-item label="性别">
+            <a-form-item :label="$t('huanying')">
               <a-input :v-model:value="formState.gender"></a-input>
             </a-form-item>
           </a-col>
@@ -144,7 +144,6 @@ const handleTableChange = (p, f, s) => {
 }
 const formRef = ref()
 const clean = () => {
-  console.log(11)
   formRef.value.resetFields()
 }
 const columns = computed(() => {
