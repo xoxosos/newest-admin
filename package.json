@@ -32,7 +32,6 @@
     "normalize.css": "^8.0.1",
     "pinia": "^2.0.28",
     "pinia-plugin-persistedstate": "^3.1.0",
-    "sass": "^1.57.1",
     "vue": "^3.2.45",
     "vue-echarts": "latest",
     "vue-i18n": "9.3.0-beta.17",
