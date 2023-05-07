@@ -15,8 +15,8 @@ interface Props {
 }
 
 interface User {
+  token: string
   user: {
-    token: string
     [key: string]: any
   }
 }
@@ -24,9 +24,8 @@ interface User {
 export const useAuthStore = defineStore({
   id: 'auth',
   state: (): User => ({
-    user: {
-      token: ''
-    }
+    token: '',
+    user: {}
   }),
   actions: {
     async login(user: Props) {
@@ -43,7 +42,8 @@ export const useAuthStore = defineStore({
         console.log(r)
         if (r?.code === 0) {
           this.user = r?.data
-          Cookies.set('satoken', this.user.token)
+          this.token = r?.data.token
+          Cookies.set('satoken', this.token)
           console.log(Cookies.get('satoken'))
           // 可替换为任意首页
           router.push('/dashboard')
@@ -74,20 +74,26 @@ export const useAuthStore = defineStore({
     },
     logout() {
       console.log('logout')
-      this.user = { token: '' }
+      this.user = {}
+      this.token = ''
       Cookies.remove('satoken', { path: '' })
-      localStorage.removeItem('__persist__auth')
-      router.push('/login')
+      // localStorage.removeItem('__persist__auth')
+      localStorage.clear()
+    },
+    isLogin() {
+      const localToken = JSON.parse(localStorage.getItem('__persist__auth'))
+      const cookieToken = Cookies.get('satoken')
+      console.log(this.token)
+      return !!(cookieToken || localToken || null)
     }
   },
   getters: {
-    isLoggedIn(): boolean {
-      this.user.token = Cookies.get('satoken') || ''
-      return !!this.user.token
-    },
-    getToken(): string {
-      this.user.token = Cookies.get('satoken') || ''
-      return this.user.token
+    isLoggedIn: (state) => !!state.token,
+    getToken(state): string {
+      // const localToken = JSON.parse(localStorage.getItem('__persist__auth'))
+      // const cookieToken = Cookies.get('satoken')
+      // state.token = cookieToken || localToken || null
+      return state.token
     }
   }
 })

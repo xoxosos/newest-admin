@@ -2,8 +2,8 @@
  * @Author: CodeForBetter xoxosos666@gmail.com
  * @Date: 2023-05-06 20:49:05
  * @LastEditors: CodeForBetter xoxosos666@gmail.com
- * @LastEditTime: 2023-05-07 12:10:18
- * @FilePath: \newest-admin\src\components\svgicon\SvgIcon.vue
+ * @LastEditTime: 2023-05-07 18:43:06
+ * @FilePath: \newest-admin\src\components\iconfont\SvgIcon.vue
  * @Description: 
 -->
 <template>
@@ -43,8 +43,8 @@ const svgClass = computed(() => {
 
 <style scoped>
 .svg-icon {
-  width: 1em;
-  height: 1em;
+  width: 17px;
+  height: 17px;
   position: relative;
   fill: currentColor;
   vertical-align: -2px;

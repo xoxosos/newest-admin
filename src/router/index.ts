@@ -16,9 +16,9 @@ const router = createRouter({
       children: [
         {
           path: '/dashboard',
-          name: 'index',
+          name: 'dashboard',
           redirect: '/dashboard/workplace',
-          meta: { title: '首页' },
+          meta: { title: '首页', icon: 'home_line' },
           children: [
             {
               path: '/dashboard/workplace',
@@ -38,7 +38,7 @@ const router = createRouter({
           path: '/user-manage',
           name: 'user-manage',
           redirect: '/user-manage/users',
-          meta: { title: '用户管理' },
+          meta: { title: '用户管理', icon: 'user_line' },
           children: [
             {
               path: '/user-manage/users',
@@ -52,7 +52,7 @@ const router = createRouter({
           path: '/system-manage',
           name: 'system-manage',
           redirect: '/system-manage/auth',
-          meta: { title: '系统管理' },
+          meta: { title: '系统管理', icon: 'setting_line' },
           children: [
             {
               path: '/system-manage/auth-manage',
@@ -73,7 +73,7 @@ const router = createRouter({
           path: '/generate-form',
           name: 'generate',
           component: () => import('../views/genarateform/drawableView.vue'),
-          meta: { title: '表单生成器' }
+          meta: { title: '表单生成器', icon: 'classify_line' }
         }
       ]
     },

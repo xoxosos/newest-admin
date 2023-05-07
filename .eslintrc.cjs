@@ -1,12 +1,3 @@
-/*
- * @Author: LinRenJie
- * @Date: 2022-12-19 14:28:57
- * @LastEditTime: 2023-04-26 12:49:51
- * @Description:
- * @FilePath: /admin/.eslintrc.cjs
- * @Email: xoxosos666@gmail.com
- */
-/* eslint-env node */
 require('@rushstack/eslint-patch/modern-module-resolution')
 module.exports = {
   parser: 'vue-eslint-parser',

@@ -1,6 +1,7 @@
 :root {
   --ant-primary-color: orange;
-  --ant-primary-color-hover: gray;
+  --ant-primary-color-hover: var(--ant-primary-color);
   /* --ant-primary-color-active: gray; */
   --ant-primary-5: var(--ant-primary-color);
+  --ant-primary-color-outline: transparent;
 }

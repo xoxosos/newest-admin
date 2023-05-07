@@ -134,7 +134,7 @@ const init = async () => {
   }
 }
 
-const listRequestFn = api.getUserInfo
+const listRequestFn = api.apifoxGetUserList
 const { list, loading, reset, curPage, pageSize, total, loadData } = useList(
   listRequestFn,
   formState
@@ -153,6 +153,15 @@ const columns = computed(() => {
       dataIndex: 'id',
       width: 120,
       fixed: 'left' as 'left'
+    },
+    {
+      title: '头像',
+      dataIndex: 'avatar',
+      width: 120,
+      fixed: 'left' as 'left',
+      customRender({ text }: { text: string }) {
+        return <a-avatar src={text} />
+      }
     },
     {
       title: '姓名',

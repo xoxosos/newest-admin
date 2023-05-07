@@ -29,9 +29,15 @@ function apifoxLogin<T extends { token: string }>({
 }: any): ApiResponse<T> {
   return Get<T>(urlApiFoxPix + '/login', { username, password, apifoxToken })
 }
+function apifoxGetUserList<T extends { token: string }>({
+  apifoxToken = 'dROD5webTSINtKEixUxWWBYNnjoRsSXn'
+}: any): ApiResponse<T> {
+  return Get<T>(urlApiFoxPix + '/getUserList', { apifoxToken })
+}
 function login<T extends { token: string }>({ username, password }: LoginProps): ApiResponse<T> {
   return Get<T>(urlPix + '/login', { username, password })
 }
+
 function registerUser<T extends { token: string }>(data: any): ApiResponse<T> {
   return Post<T>(urlPix + '/register', data)
 }
@@ -42,5 +48,6 @@ export function getUserName(id: any): ApiResponse<string> {
 export const userApi = {
   login,
   registerUser,
-  apifoxLogin
+  apifoxLogin,
+  apifoxGetUserList
 }

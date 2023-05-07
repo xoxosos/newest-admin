@@ -65,6 +65,9 @@
       <div class="new-admin-header-nav" style="flex: 1; overflow: hidden"></div>
       <div class="new-admin-header-tool">
         <div class="new-admin-header-tool-item">
+          <HeaderView />
+        </div>
+        <div class="new-admin-header-tool-item">
           <a-dropdown>
             <div class="new-admin-header-avatar">
               <a-avatar :src="avatar" />
@@ -84,9 +87,6 @@
             </template>
           </a-dropdown>
         </div>
-        <div class="new-admin-header-tool-item">
-          <HeaderView />
-        </div>
       </div>
     </a-layout-header>
     <a-layout class="new-admin-main">
@@ -104,11 +104,12 @@
           :style="{ height: '100%', borderRight: 0, transition: 'all .3s  ease-in-out' }"
           :theme="theme"
           mode="inline"
+          @openChange="onOpenChange"
         >
           <template v-for="routes in routesMap">
             <a-sub-menu v-if="'children' in routes" :key="routes.name">
               <template #icon>
-                <AppstoreOutlined />
+                <SvgIcon class-name="svg-icon" :icon-name="`icon-${routes.meta?.icon}`" />
               </template>
               <template #title>{{ routes.meta?.title }}</template>
               <template v-for="route in routes.children">
@@ -130,7 +131,7 @@
             </a-sub-menu>
             <a-menu-item v-else :key="routes?.name">
               <template #icon>
-                <SettingOutlined />
+                <SvgIcon class-name="svg-icon" :icon-name="`icon-${routes.meta?.icon}`" />
               </template>
               <router-link :to="routes.path">{{ routes.meta?.title }}</router-link>
             </a-menu-item>
@@ -202,12 +203,12 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
+import SvgIcon from '@/components/iconfont/SvgIcon.vue'
 import HeaderView from '@/components/layout/HeaderView.vue'
 import ThemeDrawer from '@/components/theme/ThemeDrawer.vue'
 import router from '@/router'
 import { useAuthStore } from '@/stores/useAuthStore'
 import {
-  AppstoreOutlined,
   DownOutlined,
   ExclamationCircleOutlined,
   HomeOutlined,
@@ -280,10 +281,11 @@ const onOpenChange = (openKeys: string[]) => {
 watch(
   () => routes.currentRoute,
   () => {
-    console.log(routes.currentRoute.value)
+    const openKeys = routes.currentRoute.value.fullPath.split('/').slice(1, -1)
+    state.openKeys = openKeys
     add(routes.currentRoute?.value?.meta.title, routes.currentRoute?.value?.path)
   },
-  { deep: true }
+  { deep: true, immediate: true }
 )
 const remove = (targetKey: string) => {
   let lastIndex = 0
@@ -330,6 +332,7 @@ const onClick: MenuProps['onClick'] = ({ key }) => {
       cancelText: '取消',
       onOk() {
         useAuthStore().logout()
+        router.replace('/login')
       },
       onCancel: () => {}
     })
