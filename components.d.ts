@@ -43,6 +43,7 @@ declare module '@vue/runtime-core' {
     HeaderView: typeof import('./src/components/layout/HeaderView.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgIcon: typeof import('./src/components/iconfont/SvgIcon.vue')['default']
     ThemeDrawer: typeof import('./src/components/theme/ThemeDrawer.vue')['default']
     ThemeSetting: typeof import('./src/components/theme/ThemeSetting.vue')['default']
   }

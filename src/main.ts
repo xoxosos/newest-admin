@@ -13,11 +13,14 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/styles/common/var.css'
 import './assets/styles/index.less'
+import SvgIcon from './components/iconfont/SvgIcon.vue'
 import i18n from './locales/lang/index'
 import router from './router'
 import { useAuthStore } from './stores/useAuthStore.js'
 const app = createApp(App)
+app.component('svg-icon', SvgIcon)
 const pinia = createPinia()
+
 pinia.use(
   createPersistedState({
     // 全局 key 配置接受传入 Store key 的函数，并返回一个新的 storage 密钥。
