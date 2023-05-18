@@ -40,6 +40,11 @@
               <a-input v-model:value="formState.birthday"></a-input>
             </a-form-item>
           </a-col>
+          <a-col :lg="6" :md="12" :sm="24" :xs="24">
+            <a-form-item v-if="expand" label="时间">
+              <a-date-picker> v-model:value="formState.time"></a-date-picker>
+            </a-form-item>
+          </a-col>
         </a-row>
       </a-form>
     </a-card>
@@ -112,6 +117,7 @@ interface DataProps {
   id: number
   mobile: string
   name: string
+  time: string | null
 }
 
 const formState = ref<DataProps>({
@@ -121,7 +127,8 @@ const formState = ref<DataProps>({
   gender: 0,
   id: 0,
   mobile: '',
-  name: ''
+  name: '',
+  time: null
 })
 const init = async () => {
   console.log('initData')

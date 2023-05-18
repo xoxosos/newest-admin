@@ -1,12 +1,3 @@
-@font-face {
-  font-family: 'MyFont';
-  font-weight: normal;
-  font-style: normal;
-  src: url('../fonts/仓耳渔阳体.woff') format('woff'),
-    url('../fonts/仓耳渔阳体.woff2') format('woff2');
-  font-display: swap;
-}
-
 @prefix: common;
 .@{prefix}-header {
   background: rgb(48, 55, 66);
@@ -77,11 +68,11 @@
 .new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
   box-shadow: 210px -1px 0 var(--border-color-split) inset;
   transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
-    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 
 .new-admin-responsive.new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark)
-  .new-admin-header {
+.new-admin-header {
   box-shadow: 0 -1px 0 #f0f0f0 inset !important;
 }
 
@@ -113,9 +104,9 @@
   //box-shadow: #fff;
   background: @common-background;
   transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
-    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   // font-weight: 600;
-  font-family: 'MyFont';
+
   font-size: 18px;
   //color: @common-background;
   white-space: nowrap;
@@ -215,7 +206,7 @@
   bottom: 0;
   z-index: 2001;
   transition: background-color 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
-    left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   visibility: hidden;
 }
 
@@ -239,7 +230,7 @@
 .new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
   box-shadow: 210px -1px 0 var(--border-color-split) inset;
   transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
-    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 
 .new-admin-fixed-header:not(.new-admin-fixed-body) {
@@ -277,13 +268,13 @@
 .new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
   box-shadow: 210px -1px 0 var(--border-color-split) inset;
   transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
-    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 
 .new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
   box-shadow: 210px -1px 0 var(--border-color-split) inset;
   transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
-    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 
 .new-admin-fixed-sidebar:not(.new-admin-fixed-body) .new-admin-sidebar,
@@ -328,7 +319,7 @@
   background: var(--sidebar-light-background);
   box-shadow: var(--sidebar-light-shadow);
   transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
-    box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+  box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -415,7 +406,6 @@ img {
 
 .new-admin-header .new-admin-logo > img + span {
   font-weight: 600;
-  font-family: 'MyFont';
   font-size: 18px;
   margin-left: 8px;
 }
