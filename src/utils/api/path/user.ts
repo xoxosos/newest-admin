@@ -21,7 +21,8 @@ interface LoginProps {
   username: string
   password: string
 }
-// apifoxToken=dROD5webTSINtKEixUxWWBYNnjoRsSXn
+
+const apifoxToken = 'dROD5webTSINtKEixUxWWBYNnjoRsSXn'
 function apifoxLogin<T extends { token: string }>({
   username,
   password,
@@ -29,9 +30,11 @@ function apifoxLogin<T extends { token: string }>({
 }: any): ApiResponse<T> {
   return Get<T>(urlApiFoxPix + '/login', { username, password, apifoxToken })
 }
-function apifoxGetUserList<T extends { token: string }>({
-  apifoxToken = 'dROD5webTSINtKEixUxWWBYNnjoRsSXn'
-}: any): ApiResponse<T> {
+
+function apifoxGetMenuList<T>(): ApiResponse<T> {
+  return Get<T>(urlApiFoxPix + '/getMenuList', { apifoxToken })
+}
+function apifoxGetUserList<T extends { token: string }>(): ApiResponse<T> {
   return Get<T>(urlApiFoxPix + '/getUserList', { apifoxToken })
 }
 function login<T extends { token: string }>({ username, password }: LoginProps): ApiResponse<T> {
@@ -49,5 +52,6 @@ export const userApi = {
   login,
   registerUser,
   apifoxLogin,
+  apifoxGetMenuList,
   apifoxGetUserList
 }

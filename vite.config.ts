@@ -1,4 +1,9 @@
-import { fileURLToPath, URL } from 'node:url'
+/*
+ * @Author: LinRenJie xoxosos666@gmail.com
+ * @Date: 2023-05-04 10:15:50
+ * @Description:
+ */
+import { resolve } from 'path'
 
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -31,8 +36,7 @@ const viteConfig = defineConfig(({ mode }: ConfigEnv): UserConfig => {
     ],
     resolve: {
       alias: {
-        // 文件路径别名
-        '@': fileURLToPath(new URL('./src', import.meta.url))
+        '@': resolve(__dirname, './src')
       }
     },
     server: {
@@ -71,7 +75,8 @@ const viteConfig = defineConfig(({ mode }: ConfigEnv): UserConfig => {
           javascriptEnabled: true
         }
       }
-    }
+    },
+    base: './'
   }
 })
 export default viteConfig

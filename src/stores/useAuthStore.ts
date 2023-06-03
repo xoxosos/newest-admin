@@ -14,39 +14,41 @@ interface Props {
   [key: string]: any
 }
 
-interface User {
+interface AuthProp {
   token: string
   user: {
     [key: string]: any
   }
+  dynamicRoutes: []
+  menus: []
 }
 
 export const useAuthStore = defineStore({
   id: 'auth',
-  state: (): User => ({
+  state: (): AuthProp => ({
     token: '',
-    user: {}
+    dynamicRoutes: [],
+    user: {},
+    menus: []
   }),
   actions: {
     async login(user: Props) {
       const { username, password } = user
       try {
-        // const [e, r] = await api.login({
-        //   username,
-        //   password
-        // })
         const [e, r] = await api.apifoxLogin({
           username,
           password
         })
-        console.log(r)
         if (r?.code === 0) {
           this.user = r?.data
           this.token = r?.data.token
           Cookies.set('satoken', this.token)
           console.log(Cookies.get('satoken'))
-          // 可替换为任意首页
-          router.push('/dashboard')
+          // const { routes } = await useDynamicRoute(this.user.roleFlag)
+          // this.menus = routes
+          // this.dynamicRoutes = routes
+          // console.log(router)
+          router.push({ name: 'home' })
         } else if (r?.message) {
           message.error(r?.message)
         }
@@ -90,10 +92,10 @@ export const useAuthStore = defineStore({
   getters: {
     isLoggedIn: (state) => !!state.token,
     getToken(state): string {
-      // const localToken = JSON.parse(localStorage.getItem('__persist__auth'))
-      // const cookieToken = Cookies.get('satoken')
-      // state.token = cookieToken || localToken || null
       return state.token
+    },
+    getRoutes(state): [] {
+      return state.dynamicRoutes
     }
   }
 })

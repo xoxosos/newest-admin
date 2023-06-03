@@ -1,88 +1,93 @@
 /*
  * @Author: LinRenJie xoxosos666@gmail.com
- * @Date: 2023-04-20 17:41:06
- * @Description: 路由
+ * @Date: 2023-05-09 19:01:32
+ * @Description:
  */
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import router from '@/router/router'
+import { MenuStore } from '@/stores/modules/menu'
+import { TabsStore } from '@/stores/modules/tabs'
+import { useAuthStore } from '@/stores/useAuthStore'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
-const router = createRouter({
-  history: createWebHistory((import.meta as any).env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView,
-      children: [
-        {
-          path: '/dashboard',
-          name: 'dashboard',
-          redirect: '/dashboard/workplace',
-          meta: { title: '首页', icon: 'home_line' },
-          children: [
-            {
-              path: '/dashboard/workplace',
-              name: 'workplace',
-              component: () => import('../views/dashboard/WorkView.vue'),
-              meta: { title: '工作台' }
-            },
-            {
-              path: '/dashboard/analysis',
-              name: 'analysis',
-              component: () => import('../views/dashboard/DashBoard.vue'),
-              meta: { title: '分析页' }
-            }
-          ]
-        },
-        {
-          path: '/user-manage',
-          name: 'user-manage',
-          redirect: '/user-manage/users',
-          meta: { title: '用户管理', icon: 'user_line' },
-          children: [
-            {
-              path: '/user-manage/users',
-              name: 'users',
-              component: () => import('../views/user/list.vue'),
-              meta: { title: '用户列表' }
-            }
-          ]
-        },
-        {
-          path: '/system-manage',
-          name: 'system-manage',
-          redirect: '/system-manage/auth',
-          meta: { title: '系统管理', icon: 'setting_line' },
-          children: [
-            {
-              path: '/system-manage/auth-manage',
-              name: 'auth-manage',
-              meta: { title: '权限管理' },
-              children: [
-                {
-                  path: '/system-manage/auth-manage/auth',
-                  name: 'auth',
-                  component: () => import('../views/auth/list.vue'),
-                  meta: { title: '权限列表' }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          path: '/generate-form',
-          name: 'generate',
-          component: () => import('../views/genarateform/drawableView.vue'),
-          meta: { title: '表单生成器', icon: 'classify_line' }
-        }
-      ]
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/loginRegistered/index.vue')
+/**
+ * 路由拦截
+ */
+router.beforeEach(async (to, from, next) => {
+  console.log('beforeEach', to, from, next)
+
+  const auth = useAuthStore()
+  NProgress.start()
+
+  // 判断当前路由是否需要访问权限
+  const tabsStore = TabsStore()
+  const hasTabs = tabsStore.tabsOption.some((tab) => tab.key === to.path)
+
+  if (!hasTabs && to.matched.length > 0 && to.path !== '/login' && to.name !== 'not-found') {
+    tabsStore.addTab(to.meta.title as string, to.path)
+  }
+
+  if (auth.isLoggedIn) {
+    if (to.name === 'login' || to.matched.length > 0) {
+      next()
+    } else {
+      await MenuStore().setMenuList()
+      next({ ...to, replace: true })
     }
-  ]
+  } else if (to.path === '/login') {
+    next()
+  } else {
+    next({
+      path: '/login',
+      query: {
+        redirect: to.fullPath
+      }
+    })
+    NProgress.done()
+  }
+})
+
+// router.beforeEach(async (to, from, next) => {
+//   const auth = useAuthStore()
+//   NProgress.start()
+//   // 判断当前路由是否需要访问权限
+//   const tabsStore = TabsStore()
+
+//   const hasTabs = tabsStore.tabsOption.findIndex((tab) => tab.key === to.path) > -1
+
+//   if (!hasTabs && to.matched.length > 0) {
+//     const path = to.path === '/login' || to.name === 'not-found'
+//     if (!path) {
+//       tabsStore.addTab(to.meta.title, to.path)
+//     }
+//   }
+//   if (auth.isLoggedIn) {
+//     if (to.name === 'login') {
+//       next()
+//     } else {
+//       if (to.matched.length > 0) {
+//         next()
+//       } else {
+//         await MenuStore().setMenuList()
+//         next({ ...to, replace: true })
+//       }
+//     }
+//   } else {
+//     if (to.path === '/login') {
+//       next()
+//     } else {
+//       next({
+//         path: '/login',
+//         query: {
+//           redirect: to.fullPath
+//         }
+//       })
+//       NProgress.done()
+//     }
+//   }
+// })
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router

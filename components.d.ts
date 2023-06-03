@@ -42,6 +42,7 @@ declare module '@vue/runtime-core' {
     AUpload: typeof import('ant-design-vue/es')['Upload']
     HeaderView: typeof import('./src/components/layout/HeaderView.vue')['default']
     Language: typeof import('./src/components/layout/language.vue')['default']
+    RecursiveMenu: typeof import('./src/components/dynamicmenu/RecursiveMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/iconfont/SvgIcon.vue')['default']

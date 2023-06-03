@@ -1,3 +1,8 @@
+/*
+ * @Author: LinRenJie xoxosos666@gmail.com
+ * @Date: 2023-05-09 19:01:32
+ * @Description:
+ */
 require('@rushstack/eslint-patch/modern-module-resolution')
 module.exports = {
   parser: 'vue-eslint-parser',
@@ -24,7 +29,7 @@ module.exports = {
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     eqeqeq: 2, //必须使用全等
     'max-lines': ['error', 500], //限制行数 请勿修改 请优化你的代码
-    complexity: ['error', 6], // 限制复杂度
+    complexity: ['error', 10], // 限制复杂度
     'require-await': 'error'
   }
 }

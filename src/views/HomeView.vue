@@ -1,14 +1,16 @@
 <template>
   <a-button
-    style="position: absolute; z-index: 999; top: 50%; right: 0"
     shape="circle"
+    style="position: absolute; z-index: 999; top: 50%; right: 0"
     @click="
       () => {
         ThemeDrawerRef.showDrawer()
       }
     "
   >
-    <template #icon><SettingOutlined /></template>
+    <template #icon>
+      <SettingOutlined />
+    </template>
   </a-button>
   <template>
     <ThemeDrawer ref="ThemeDrawerRef" />
@@ -64,29 +66,7 @@
       </div>
       <div class="new-admin-header-nav" style="flex: 1; overflow: hidden"></div>
       <div class="new-admin-header-tool">
-        <div class="new-admin-header-tool-item">
-          <HeaderView />
-        </div>
-        <div class="new-admin-header-tool-item">
-          <a-dropdown>
-            <div class="new-admin-header-avatar">
-              <a-avatar :src="avatar" />
-              <span style="padding: 0 4px 0 8px">{{ username }} </span>
-              <DownOutlined />
-            </div>
-            <template #overlay>
-              <a-menu @click="onClick">
-                <a-menu-item key="1">1st menu item</a-menu-item>
-                <a-menu-item key="2">2nd menu item</a-menu-item>
-                <a-menu-item key="logout">
-                  <span>
-                    退出登录
-                    <logout-outlined /> </span
-                ></a-menu-item>
-              </a-menu>
-            </template>
-          </a-dropdown>
-        </div>
+        <HeaderView />
       </div>
     </a-layout-header>
     <a-layout class="new-admin-main">
@@ -106,35 +86,26 @@
           mode="inline"
           @openChange="onOpenChange"
         >
-          <template v-for="routes in routesMap">
-            <a-sub-menu v-if="'children' in routes" :key="routes.name">
-              <template #icon>
-                <SvgIcon class-name="svg-icon" :icon-name="`icon-${routes.meta?.icon}`" />
-              </template>
-              <template #title>{{ routes.meta?.title }}</template>
-              <template v-for="route in routes.children">
-                <a-sub-menu v-if="'children' in route" :key="route.name">
-                  <template #title>{{ route.meta?.title }}</template>
-                  <template v-for="grandRoute in route.children">
-                    <a-sub-menu v-if="'children' in grandRoute" :key="grandRoute.name">
-                      <template #title>{{ grandRoute.meta?.title }}</template>
-                    </a-sub-menu>
-                    <a-menu-item v-else :key="grandRoute?.name">
-                      <router-link :to="grandRoute.path">{{ grandRoute.meta?.title }}</router-link>
-                    </a-menu-item>
-                  </template>
-                </a-sub-menu>
-                <a-menu-item v-else :key="route?.name">
-                  <router-link :to="route.path">{{ route.meta?.title }}</router-link>
-                </a-menu-item>
-              </template>
-            </a-sub-menu>
-            <a-menu-item v-else :key="routes?.name">
-              <template #icon>
-                <SvgIcon class-name="svg-icon" :icon-name="`icon-${routes.meta?.icon}`" />
-              </template>
-              <router-link :to="routes.path">{{ routes.meta?.title }}</router-link>
-            </a-menu-item>
+          <template v-for="menuItem in (menus as any)">
+            <template v-if="menuItem.children">
+              <a-sub-menu :key="menuItem.name">
+                <template #icon>
+                  <SvgIcon :icon-name="`icon-${menuItem.meta?.icon}`" class-name="svg-icon" />
+                </template>
+                <template #title>
+                  <span>{{ menuItem.meta.title }}</span>
+                </template>
+                <recursive-menu :menuItems="menuItem.children" />
+              </a-sub-menu>
+            </template>
+            <template v-else>
+              <a-menu-item :key="menuItem.name">
+                <template #icon>
+                  <SvgIcon :icon-name="`icon-${menuItem.meta?.icon}`" class-name="svg-icon" />
+                </template>
+                <router-link :to="menuItem.path">{{ menuItem.meta.title }}</router-link>
+              </a-menu-item>
+            </template>
           </template>
         </a-menu>
       </a-layout-sider>
@@ -203,38 +174,35 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
-import SvgIcon from '@/components/iconfont/SvgIcon.vue'
 import HeaderView from '@/components/layout/HeaderView.vue'
+import RecursiveMenu from '@/components/dynamicmenu/RecursiveMenu.vue'
 import ThemeDrawer from '@/components/theme/ThemeDrawer.vue'
 import router from '@/router'
-import { useAuthStore } from '@/stores/useAuthStore'
+import { MenuOptions } from '@/stores/interface'
+import { MenuStore } from '@/stores/modules/menu'
 import {
-  DownOutlined,
-  ExclamationCircleOutlined,
   HomeOutlined,
   LeftOutlined,
-  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   RightOutlined,
   SettingOutlined
 } from '@ant-design/icons-vue'
-import type { MenuProps } from 'ant-design-vue'
-import { Modal } from 'ant-design-vue'
-import { uniqBy } from 'lodash-es'
-import { computed, createVNode, reactive, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
-const ThemeDrawerRef = ref(null)
-const username = useAuthStore().$state.user?.username
-const avatar = useAuthStore().$state.user?.avatar
 
-const toHome = () => {
-  console.log('toHome')
-}
+import { uniqBy } from 'lodash-es'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const ThemeDrawerRef = ref(null)
+onMounted(() => {
+  MenuStore().setMenuList()
+})
+// 侧边栏菜单
+const menus = computed((): MenuOptions[] =>
+  MenuStore().matchList.filter((path) => path['name'] !== 'login')
+)
 const activeKey = ref()
-const routes = useRouter()
-const routesMap = computed(() => routes.options.routes[0]).value.children
-console.log(routesMap)
 const push = (v: any) => {
   router.push(v)
 }
@@ -254,9 +222,7 @@ const add = (title: any, path: string) => {
     closable: true,
     path
   })
-  console.log('1:', panes.value)
   panes.value = uniqBy(panes.value, 'key')
-  console.log('2:', panes.value)
 }
 
 interface stateProps {
@@ -267,9 +233,11 @@ const state = reactive<stateProps>({
   openKeys: ['index']
 })
 //  默认选中当前路由的名字
-const selectedKeys = computed(() => [router.currentRoute.value.name])
-// 所有sub-menu key
-const rootSubmenuKeys = computed(() => routesMap?.map((route) => route.name))
+const selectedKeys = computed(() => [route.name])
+
+// 所有sub-dynamicmenu key
+const rootSubmenuKeys = computed(() => menus.value?.map((route) => route.name))
+console.log('rootSubmenuKeys', rootSubmenuKeys.value)
 const onOpenChange = (openKeys: string[]) => {
   const latestOpenKey = openKeys.find((key) => state.openKeys.indexOf(key) === -1)
   if (rootSubmenuKeys.value?.indexOf(latestOpenKey!) === -1) {
@@ -279,11 +247,10 @@ const onOpenChange = (openKeys: string[]) => {
   }
 }
 watch(
-  () => routes.currentRoute,
+  () => route.fullPath,
   () => {
-    const openKeys = routes.currentRoute.value.fullPath.split('/').slice(1, -1)
-    state.openKeys = openKeys
-    add(routes.currentRoute?.value?.meta.title, routes.currentRoute?.value?.path)
+    state.openKeys = route.fullPath.split('/').slice(1, -1)
+    add(route.meta?.title, route.path)
   },
   { deep: true, immediate: true }
 )
@@ -312,30 +279,11 @@ const changeTheme = (checked: boolean) => {
   changeTransition.value = true
   theme.value = checked ? 'dark' : 'light'
 }
-const changeCustomTheme = (checked: boolean) => {
-  changeTransition.value = true
-  theme.value = checked ? 'dark' : 'light'
-}
 const theme = ref('dark')
 const collapsed = ref(false)
 const changeCollapsed = () => {
   changeTransition.value = false
   collapsed.value = !collapsed.value
-}
-const onClick: MenuProps['onClick'] = ({ key }) => {
-  key === 'logout' &&
-    Modal.confirm({
-      title: '是否注销用户',
-      content: '注销后将返回登录页面',
-      icon: createVNode(ExclamationCircleOutlined),
-      okText: '确认',
-      cancelText: '取消',
-      onOk() {
-        useAuthStore().logout()
-        router.replace('/login')
-      },
-      onCancel: () => {}
-    })
 }
 </script>
 <style lang="less"></style>

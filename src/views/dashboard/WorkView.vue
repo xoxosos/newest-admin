@@ -30,7 +30,7 @@
           />
           <div style="flex: 1; box-sizing: border-box; padding-left: 12px">
             <h4 style="font-size: 20px; font-weight: 450">
-              {{ `${tips}管理员, 开始您一天的工作吧!` }}
+              {{ `${tips}${roleName[useAuthStore().$state?.user?.roleFlag]}, 开始您一天的工作吧!` }}
             </h4>
             <div style="color: rgba(0, 0, 0, 0.45)">
               <span> <cloud-outlined /> </span
@@ -60,6 +60,14 @@
 import { CloudOutlined } from '@ant-design/icons-vue'
 import day from 'dayjs'
 import { ref } from 'vue'
+import { useAuthStore } from '@/stores/useAuthStore'
+
+const roleName = {
+  '0': '超级管理员',
+  '1': '管理员',
+  '2': '普通用户'
+}
+// const roleName =names[useAuthStore().$state.user.roleFlag]
 const hour = day().hour()
 const tips = ref()
 if (hour < 6) {
