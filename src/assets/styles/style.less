@@ -49,7 +49,8 @@
   display: block;
   width: 100%;
   margin-top: 30px;
-  background: #fff;
+  background: var(--fixed-bg);
+  color: var(--text-color);
 
   .main-content-header {
     display: flex;
@@ -58,7 +59,8 @@
 }
 
 .new-admin-layout {
-  background: @new-body-background;
+  background: var(--fixed-bg);
+  color: var(--text-color);
 
   .ant-layout-header {
     padding: 0;
@@ -73,7 +75,7 @@
 
 .new-admin-responsive.new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark)
 .new-admin-header {
-  box-shadow: 0 -1px 0 #f0f0f0 inset !important;
+  box-shadow: var(--box-shadow) !important;
 }
 
 @media screen and (max-width: 768px) {
@@ -93,16 +95,16 @@
 }
 
 .new-admin-side-dark .new-admin-logo {
-  color: #fff;
+  color: var(--text-color);
   box-shadow: var(--logo-dark-shadow);
-  background: var(--sidebar-background);
+  // background: var(--sidebar-background);
 }
 
 .new-admin-header .new-admin-logo {
   width: 200px;
   height: 48px;
-  //box-shadow: #fff;
-  background: @common-background;
+  // //box-shadow: #fff;
+  // background: @common-background;
   transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
   box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   // font-weight: 600;
@@ -128,11 +130,139 @@
 
 .ant-layout-header {
   padding: 0;
+  background-color: var(--fixed-bg);
+  color: var(--text-color);
+}
+
+.ant-breadcrumb {
+  span {
+    color: var(--text-color);
+  }
+}
+
+.ant-menu {
+  background-color: var(--fixed-bg) !important;
+  color: var(--text-color) !important;
 }
 
 .new-admin-header .new-admin-breadcrumb {
   flex-shrink: 0;
 }
+
+.ant-layout-content {
+  background-color: var(--body-bg);
+  color: var(--text-color);
+
+  .ant-card * {
+    color: var(--text-color);
+    // background-color: var(--fixed-bg);
+    span {
+      background-color: transparent;
+    }
+  }
+
+  .ant-card-bordered {
+    border: none;
+  }
+}
+
+// .ant-layout-content * {
+//   color: var(--text-color);
+//   .ant-card-bordered {
+//     border: none;
+//   }
+//   .ant-card {
+//     border-radius: 5px;
+//   }
+//   .ant-card * {
+//     color: var(--text-color);
+//     background-color: var(--fixed-bg);
+//     span {
+//       background-color: transparent;
+//     }
+//   }
+//   .ant-table-column-sorters {
+//     background: transparent;
+//   }
+// }
+/*有固定行的ant-design-vue 表格滑动样式*/
+.ant-table-fixed .ant-table-row-hover {
+  background: var(--table-hover-row-bg);
+}
+
+.ant-table-fixed .ant-table-row-hover > td {
+  background: var(--table-hover-row-bg);
+}
+
+/*没有固定行的表格个样式*/
+.ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+  background-color: var(--table-hover-row-bg);
+}
+
+.ant-table-body .ant-table-row-hover {
+  background: var(--table-hover-row-bg);
+}
+
+.ant-table-body .ant-table-row-hover > td {
+  background: var(--table-hover-row-bg);
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td,
+.ant-table-tbody > tr > td.ant-table-cell-row-hover {
+  background: var(--table-hover-row-bg);
+}
+
+.ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-left:hover,
+.ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-right:hover {
+  background: var(--table-fix-title-bg);
+}
+
+.ant-table-thead th.ant-table-column-sort {
+  background: var(--table-fix-title-bg);
+}
+
+.ant-table-body {
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: 0px;
+    overflow-y: auto;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: var(--ant-primary-color);
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: 0;
+    border-radius: 0;
+    background: #1d4176;
+  }
+}
+
+.ant-table-thead > tr > th {
+  // border-bottom: 1px solid var(--body-bg);
+}
+
+.ant-table.ant-table-bordered th {
+  // border: 1px solid var(--body-bg) !important;
+}
+
+.ant-tabs-nav {
+  background-color: var(--fixed-bg);
+  color: var(--text-color);
+}
+
+.ant-tabs {
+  border-bottom: var(--tabs-border-bottom);
+}
+
+.ant-tabs {
+  .anticon svg {
+    color: grey;
+  }
+}
+
 
 .new-admin-header .new-admin-header-tool .new-admin-header-tool-item {
   padding: 0 12px;
@@ -246,9 +376,9 @@
   align-items: center;
   height: 48px;
   line-height: 48px;
-  background: @common-background !important;
+  // background: @common-background !important;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-  background: var(--header-light-background);
+  // background: var(--header-light-background);
   z-index: 101;
   box-sizing: border-box;
   position: relative;
@@ -316,8 +446,8 @@
   flex-shrink: 0;
   min-height: calc(100vh - 48px);
   z-index: 102;
-  background: var(--sidebar-light-background);
-  box-shadow: var(--sidebar-light-shadow);
+  // background: var(--sidebar-light-background);
+  box-shadow: var(--box-shadow);
   transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
   box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   box-sizing: border-box;
@@ -411,10 +541,10 @@ img {
 }
 
 .new-admin-logo-dark {
-  background: #001529 !important;
+  background: var(--fixed-bg);
 
   span {
-    color: #fff !important;
+    color: var(--text-color);
   }
 }
 
@@ -449,7 +579,7 @@ img {
 }
 
 .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active {
-  background: #f7f0ff !important;
+  background: var(--fixed-bg) !important;
   border-bottom: 2px solid @primary-color !important;
   text-shadow: 0 0 0.25px @primary-color !important;
 }
@@ -550,7 +680,7 @@ img {
 }
 
 .ant-table-scroll .ant-table-body::-webkit-scrollbar-track {
-  background-color: #f7f7f7;
+  background-color: #781f1f;
 }
 
 .ant-table-scroll .ant-table-body::-webkit-scrollbar-thumb {

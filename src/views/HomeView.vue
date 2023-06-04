@@ -34,7 +34,7 @@
         class="new-admin-logo"
       >
         <img alt="logo" src="../assets/logo.svg" />
-        <span :style="{ color: '#333', display: collapsed ? 'none' : '' }">Newest Admin</span>
+        <span :style="{ display: collapsed ? 'none' : '' }">Newest Admin</span>
       </div>
       <div class="new-admin-header-tool">
         <menu-unfold-outlined v-if="collapsed" class="trigger" @click="changeCollapsed" />
@@ -163,7 +163,7 @@
             class="new-admin-content-view"
           >
             <router-view v-slot="{ Component }">
-              <transition name="zoom-fade">
+              <transition name="slide-fade">
                 <component :is="Component" />
               </transition>
             </router-view>
@@ -174,8 +174,8 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
-import HeaderView from '@/components/layout/HeaderView.vue'
 import RecursiveMenu from '@/components/dynamicmenu/RecursiveMenu.vue'
+import HeaderView from '@/components/layout/HeaderView.vue'
 import ThemeDrawer from '@/components/theme/ThemeDrawer.vue'
 import router from '@/router'
 import { MenuOptions } from '@/stores/interface'
@@ -189,10 +189,12 @@ import {
   SettingOutlined
 } from '@ant-design/icons-vue'
 
+import useTheme from '@/utils/theme/useTheme'
 import { uniqBy } from 'lodash-es'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
+const { theme } = useTheme()
 const route = useRoute()
 const ThemeDrawerRef = ref(null)
 onMounted(() => {
@@ -279,11 +281,17 @@ const changeTheme = (checked: boolean) => {
   changeTransition.value = true
   theme.value = checked ? 'dark' : 'light'
 }
-const theme = ref('dark')
+// const theme = ref('dark')
 const collapsed = ref(false)
 const changeCollapsed = () => {
   changeTransition.value = false
   collapsed.value = !collapsed.value
 }
 </script>
-<style lang="less"></style>
+<style lang="less" scoped>
+.new-admin-header-tool {
+  .anticon svg {
+    color: grey;
+  }
+}
+</style>

@@ -11,6 +11,7 @@
 import { createI18n } from 'vue-i18n'
 import en from './en'
 import zhCN from './zh-CN'
+import ja from './ja'
 
 const locale = JSON.parse(localStorage.getItem('__persist__lang'))?.language || 'zhCN'
 const i18n = createI18n({
@@ -21,7 +22,8 @@ const i18n = createI18n({
   locale,
   messages: {
     en,
-    zhCN
+    zhCN,
+    ja
   }
 })
 export default i18n

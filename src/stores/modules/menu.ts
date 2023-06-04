@@ -55,7 +55,7 @@ export const MenuStore = defineStore({
         console.log(list)
 
         // 合并公共路由表
-        const routerList = routes.concat(list)
+        const routerList = list.concat(routes)
         routerList.forEach((route) => {
           const routeName: any = route.name
           if (!router.hasRoute(routeName)) {

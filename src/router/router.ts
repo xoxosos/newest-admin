@@ -12,19 +12,20 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/loginRegistered/index.vue')
   },
   {
-    path: '/',
-    name: 'home',
-    redirect: '/home',
+    path: '/utils',
+    name: 'utils',
+    redirect: '/utils/todo',
     component: () => import('@/views/HomeView.vue'),
     meta: {
-      title: '首页'
+      title: '内置组件',
+      icon: 'classify_line'
     },
     children: [
       {
-        path: '/home',
-        name: 'home',
-        component: () => import('@/views/test/index.vue'),
-        meta: { title: 'test' }
+        path: '/utils/todo',
+        name: 'todo',
+        component: () => import('@/views/applications/TodoList.vue'),
+        meta: { title: 'todoList' }
       }
     ]
   }

@@ -7,11 +7,14 @@
  * @Description:
  */
 import { defineStore } from 'pinia'
+import { message } from 'ant-design-vue'
+
 const langs = {
   en: 'en',
   'en-US': 'en',
   'en-GB': 'en',
-  zhCN: 'zhCN'
+  zhCN: 'zhCN',
+  jp: 'ja'
 }
 export const useLanguageStore = defineStore({
   id: 'lang',
@@ -21,6 +24,7 @@ export const useLanguageStore = defineStore({
   actions: {
     changeLanguage(lang) {
       this.language = lang
+      message.success('修改语言成功')
       console.log(' ', this.language)
     }
   },

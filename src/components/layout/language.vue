@@ -13,8 +13,8 @@
         <a-menu :selected-keys="[currentLanguage]">
           <a-menu-item
             v-for="(lang, index) in languages"
-            :selected="lang.key === currentLanguage"
             :key="lang.key"
+            :selected="lang.key === currentLanguage"
           >
             <a @click="handleChange(lang.key)">
               {{ lang.label }}
@@ -30,13 +30,16 @@
 import { useLanguageStore } from '@/stores/useLanguage'
 import { reactive, ref } from 'vue'
 import SvgIcon from '../iconfont/SvgIcon.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 const { changeLanguage, getLanguage } = useLanguageStore()
 // 当前选中的语言
 const currentLanguage = ref<string>(getLanguage)
 const languages = reactive([
-  { key: 'en', label: 'English' },
-  { key: 'zhCN', label: '中文' },
-  { key: 'ja', label: '日本語' }
+  { key: 'en', label: t('language.english') },
+  { key: 'zhCN', label: t('language.chinese') },
+  { key: 'ja', label: t('language.japanese') }
 ])
 const handleChange = (value: string) => {
   console.log('选中的语言为：', value)

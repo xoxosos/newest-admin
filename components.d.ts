@@ -32,6 +32,8 @@ declare module '@vue/runtime-core' {
     AMenuItemGroup: typeof import('ant-design-vue/es')['MenuItemGroup']
     ARow: typeof import('ant-design-vue/es')['Row']
     ASpace: typeof import('ant-design-vue/es')['Space']
+    AStatistic: typeof import('ant-design-vue/es')['Statistic']
+    AStatisticCountdown: typeof import('ant-design-vue/es')['StatisticCountdown']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     ASwitch: typeof import('ant-design-vue/es')['Switch']
     ATable: typeof import('ant-design-vue/es')['Table']

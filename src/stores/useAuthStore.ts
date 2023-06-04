@@ -44,11 +44,7 @@ export const useAuthStore = defineStore({
           this.token = r?.data.token
           Cookies.set('satoken', this.token)
           console.log(Cookies.get('satoken'))
-          // const { routes } = await useDynamicRoute(this.user.roleFlag)
-          // this.menus = routes
-          // this.dynamicRoutes = routes
-          // console.log(router)
-          router.push({ name: 'home' })
+          await router.push('/dashboard')
         } else if (r?.message) {
           message.error(r?.message)
         }

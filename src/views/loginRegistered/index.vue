@@ -6,23 +6,27 @@
 <template>
   <div class="login-container login-box">
     <transition name="login-form">
-      <component :is="pageType === 'login' ? LoginView : RegisterView"></component>
+      <component :is="component"></component>
     </transition>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import LoginView from './LoginView.vue'
 import RegisterView from './RegisterView.vue'
 
 const pageType = ref('login')
-const changeType = () => {
-  pageType.value = pageType.value === 'login' ? 'register' : 'login'
+const component = computed(() => {
+  return pageType.value === 'login' ? LoginView : RegisterView
+})
+const changeType = (type: string) => {
+  console.log(type)
+  pageType.value = type
 }
 provide('changeType', { changeType })
 </script>
 
-<style scoped lang="less">
+<style lang="less" scoped>
 .login-form-forgot {
   float: right;
 }

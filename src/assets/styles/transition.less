@@ -56,3 +56,26 @@
   opacity: 0;
   transform: scale(1.03);
 }
+
+// 滑动淡入淡出的过渡效果
+.slide-fade-enter-active {
+  opacity: 0.8;
+
+  transition: all 0.5s ease;
+}
+
+.slide-fade-leave-active {
+  position: absolute;
+  top: -50%;
+  width: 100%;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  transform: translateX(-100%);
+}

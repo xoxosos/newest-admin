@@ -8,6 +8,7 @@ import 'ant-design-vue/dist/antd.less'
 import 'ant-design-vue/dist/antd.variable.less'
 import 'normalize.css'
 import 'nprogress/nprogress.css'
+import i18n from '@/locales/lang/index'
 import { createPinia } from 'pinia'
 import { createPersistedState } from 'pinia-plugin-persistedstate'
 import { createApp } from 'vue'
@@ -16,8 +17,8 @@ import './assets/iconfont/iconfont.js'
 import './assets/styles/common/var.css'
 import './assets/styles/index.less'
 import SvgIcon from './components/iconfont/SvgIcon.vue'
-import i18n from './locales/lang/index'
 import router from './router'
+
 const app = createApp(App)
 app.component('SvgIcon', SvgIcon)
 
@@ -31,4 +32,4 @@ pinia.use(
     auto: true
   })
 )
-app.use(pinia).use(router).use(i18n).mount('#app')
+app.use(i18n).use(pinia).use(router).mount('#app')

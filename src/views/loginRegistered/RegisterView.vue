@@ -47,18 +47,19 @@
         注册
       </a-button>
       <span style="width: 15px"></span>
-      <a-button :loading="loading" block size="large" type="danger" @click="resetForm"
-        >重置
+      <a-button :loading="loading" block size="large" type="danger" @click="changeType('login')">
+        返回
       </a-button>
     </a-form-item>
   </a-form>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useAuthStore } from '@/stores/useAuthStore'
 import { LockOutlined, UserOutlined } from '@ant-design/icons-vue'
 import type { FormInstance } from 'ant-design-vue'
 import { computed, reactive, ref } from 'vue'
+
 const { changeType } = inject<any>('changeType')
 const layout = {
   labelCol: {
