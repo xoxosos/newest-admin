@@ -1,9 +1,8 @@
-<br><br>
 
-<p align='center' >
-
-</p>
-<br><br>
+<div align='center' >
+ <img alt="Logo" width="120" height="120" src="./src/assets/logo.svg">
+  <h1> Newest Admin Vite</h1>
+</div>
 
 <p align="center">
   <a href="https://vuejs.org/">
@@ -15,15 +14,14 @@
     <a href="https://vitejs.dev/">
     <img src="https://img.shields.io/badge/vite-v4.2.1-blueviolet.svg" alt="antd">
   </a>
-
   <a href="https://github.com/yangjiakai/lux-admin-vuetify3/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license">
   </a>
 </p>
 
-<h4 align='center'>
+<!-- <h4 align='center'>
 <a href="">在线 Demo</a>
-</h4>
+</h4> -->
 
 <br>
 
@@ -31,19 +29,23 @@
  <b>简体中文</b>
 </p>
 
-## 序文
+## ⚡ 简介
 
-> 目标搭建个人的 Admin 开源模板,集成多个Demo
+> 目标搭建一个免费开源的后台管理系统模版,基于 Vue3、TypeScript、Antd-vue3、Pinia 和 Vite 等主流技术,并集成多个Demo.
 
 在 Antd 精美的主题基础上，我们构建了一个清晰且高效的项目逻辑架构，整合了最新的技术框架。本项目旨在实现各种常见的技术需求和功能，同时融合了
-AI 助手，以提供更智能化的体验。此外，我们确保所有页面在多种设备上均能自适应展示，实现优雅的跨平台兼容性。
+AI 助手，以提供更智能化的体验。
 
 ## 特性
 
 - 📖 [Vue 3.2](https://github.com/vuejs/core)
 - 📖 [Vite 4.x](https://github.com/vitejs/vite)
-- 📖 UI Framework [AntdVue3](https://next.vuetifyjs.com/en/)
+- 📖 UI Framework [AntdVue3](https://antdv.com/docs/vue/introduce)
 - 📖 TypeScript
+- 🚀 **CSS 变量**：主要控制项目的布局和颜色
+- 🚀 **ESlint**：代码校验
+- 🚀 **Prettier**：代码格式化
+- 🚀 **Axios**：发送网络请求（已封装好）
 - 📦 组件自动导入
 - 🍍 通过 [Pinia](https://pinia.vuejs.org/)进行状态管理,集成持久化插件
 - 📔 使用新的 `<script setup>` 语法
@@ -60,16 +62,26 @@ AI 助手，以提供更智能化的体验。此外，我们确保所有页面�
 
 ### UI 框架
 
-- [antd-vue](https://next.vuetifyjs.com/en/) - Antd 是一个不要求设计能力的 Vue 界面组件框架，自带了许多自行设计实现的 Vue
-  组件。
+- [antd-vue](https://antdv.com/docs/vue/introduce) : ant-design-vue 是 Ant Design 的 Vue 实现，组件的风格与 Ant Design 保持同步，组件的 html 结构和 css 样式也保持一致，真正做到了样式 0 修改，组件 API 也尽量保持了一致。Ant Design Vue 致力于提供给程序员愉悦的开发体验。
 
-## 目标功能
 
+## 🚀 目标功能
+
+- **用户管理**：登录、登出
+- **权限管理**：动态路由、指令权限、权限函数、路由守卫
+- **多环境**：开发环境（development）、预发布环境（staging）、正式环境（production）
+- **多主题**：多种主题
+- **错误页面**: 403、404
+- **Dashboard**：根据不同用户显示不同的 Dashboard 页面
+- **其他内置功能**：SVG、动态侧边栏、动态面包屑、标签页快捷导航、Screenfull 全屏、自适应收缩侧边栏
+
+### UI 相关
 - [x] 明暗主题切换 -- 完成
 - [x] 主题色切换 -- 完成
 - [x] 中日英三语言切换-- 完成
-
-## 目标页面
+- [ ] 瀑布流布局 -- 施工中
+- [ ] 大数据虚拟列表 -- 施工中
+- [ ] 骨架屏 -- 施工中
 
 ### 认证相关
 
@@ -81,20 +93,15 @@ AI 助手，以提供更智能化的体验。此外，我们确保所有页面�
 ### 公共页面
 
 - [x] 404 -- 完成
-- [x] 500 -- 施工中
-- [x] 系统维护 -- 施工中
-- [x] 常见问题 -- 施工中
+- [ ] 500 -- 施工中
+- [ ] 系统维护 -- 施工中
+- [ ] 常见问题 -- 施工中
 
-### UI 相关
-
-- [x] 瀑布流布局 -- 完成
-- [x] 大数据虚拟列表 -- 完成
-- [ ] 骨架屏 -- 施工中
 
 ### 功能页面
 
+- [x] 任务列表() -- 完成
 - [x] 任务版(拖拽功能) -- 施工中
-- [x] 任务列表() -- 施工中
 
 ### 插件
 
