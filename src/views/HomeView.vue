@@ -56,11 +56,13 @@
         >
           <a-breadcrumb-item v-for="(item, index) of $route.matched" :key="index">
             <template v-if="index === 0">
-              <router-link to="/dashboard">
-                <home-outlined class="admin-header-home" />
-              </router-link>
+              <span style="margin-right: 5px">
+                <router-link to="/dashboard">
+                  <home-outlined class="admin-header-home" />
+                </router-link>
+              </span>
             </template>
-            <span>{{ item.meta.title }}</span>
+            <span class="breadcrumb-text">{{ item.meta.title }}</span>
           </a-breadcrumb-item>
         </a-breadcrumb>
       </div>

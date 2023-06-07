@@ -125,7 +125,7 @@
   max-height: 48px;
   display: flex;
   flex-shrink: 0;
-  padding: 0 12px;
+  padding: 0 10px;
 }
 
 .ant-layout-header {
@@ -134,9 +134,18 @@
   color: var(--text-color);
 }
 
+.ant-breadcrumb-separator {
+  margin: 0 4px;
+}
+
 .ant-breadcrumb {
-  span {
+  .breadcrumb-text, .ant-breadcrumb-separator {
     color: var(--text-color);
+  }
+
+
+  a {
+    color: var(--ant-primary-color-hover)
   }
 }
 
@@ -149,9 +158,20 @@
   flex-shrink: 0;
 }
 
+.ant-input {
+  border: 1px solid var(--input-border-color);
+  background-color: var(--fixed-bg);
+
+}
+
 .ant-layout-content {
   background-color: var(--body-bg);
   color: var(--text-color);
+
+  .ant-card-body {
+    background-color: var(--fixed-bg);
+
+  }
 
   .ant-card * {
     color: var(--text-color);
@@ -185,77 +205,96 @@
 //     background: transparent;
 //   }
 // }
-/*有固定行的ant-design-vue 表格滑动样式*/
-.ant-table-fixed .ant-table-row-hover {
-  background: var(--table-hover-row-bg);
-}
 
-.ant-table-fixed .ant-table-row-hover > td {
-  background: var(--table-hover-row-bg);
-}
-
-/*没有固定行的表格个样式*/
-.ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
-  background-color: var(--table-hover-row-bg);
-}
-
-.ant-table-body .ant-table-row-hover {
-  background: var(--table-hover-row-bg);
-}
-
-.ant-table-body .ant-table-row-hover > td {
-  background: var(--table-hover-row-bg);
-}
-
-.ant-table-tbody > tr.ant-table-row:hover > td,
-.ant-table-tbody > tr > td.ant-table-cell-row-hover {
-  background: var(--table-hover-row-bg);
-}
-
-.ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-left:hover,
-.ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-right:hover {
-  background: var(--table-fix-title-bg);
-}
-
-.ant-table-thead th.ant-table-column-sort {
-  background: var(--table-fix-title-bg);
-}
-
-.ant-table-body {
-  &::-webkit-scrollbar {
-    height: 8px;
-    width: 0px;
-    overflow-y: auto;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background: var(--ant-primary-color);
-  }
-
-  &::-webkit-scrollbar-track {
-    -webkit-box-shadow: 0;
-    border-radius: 0;
-    background: #1d4176;
+.table-list .ant-spin-nested-loading .ant-spin-container {
+  .ant-table-fixed .ant-table-row-hover {
+    background: var(--table-hover-row-bg);
   }
 }
 
-.ant-table-thead > tr > th {
-  // border-bottom: 1px solid var(--body-bg);
+.table-list {
+  /*有固定行的ant-design-vue 表格滑动样式*/
+
+  .ant-table-fixed .ant-table-row-hover {
+    background: var(--table-hover-row-bg);
+  }
+
+  .ant-table-fixed .ant-table-row-hover > td {
+    background: var(--table-hover-row-bg);
+  }
+
+  /*没有固定行的表格个样式*/
+
+  .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+    background-color: var(--table-hover-row-bg);
+  }
+
+  .ant-table-body .ant-table-row-hover {
+    background: var(--table-hover-row-bg);
+  }
+
+  .ant-table-body .ant-table-row-hover > td {
+    background: var(--table-hover-row-bg);
+  }
+
+  .ant-table-tbody > tr.ant-table-row:hover > td,
+  .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+    background: var(--table-hover-row-bg);
+  }
+
+  .ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-left:hover,
+  .ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-right:hover {
+    background: var(--table-fix-title-bg);
+  }
+
+  .ant-table-thead th.ant-table-column-sort {
+    background: var(--table-fix-title-bg);
+  }
+
+  .ant-table-body {
+    &::-webkit-scrollbar {
+      height: 8px;
+      width: 0px;
+      overflow-y: auto;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background: var(--ant-primary-color);
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 0;
+      background: #1d4176;
+    }
+  }
+
+  .ant-table-thead > tr > th {
+    border-bottom: 1px solid var(--body-bg);
+  }
+
+  .ant-table.ant-table-bordered th {
+    border: 1px solid var(--body-bg) !important;
+  }
 }
 
-.ant-table.ant-table-bordered th {
-  // border: 1px solid var(--body-bg) !important;
-}
 
-.ant-tabs-nav {
+.new-admin-tabs .ant-tabs-nav {
   background-color: var(--fixed-bg);
   color: var(--text-color);
 }
 
-.ant-tabs {
-  border-bottom: var(--tabs-border-bottom);
+.new-admin-tabs {
+  &.ant-tabs {
+    border-bottom: var(--tabs-border-bottom);
+  }
 }
+
+//.ant-tabs-nav {
+//  background-color: var(--fixed-bg);
+//  color: var(--text-color);
+//}
+
 
 .ant-tabs {
   .anticon svg {
