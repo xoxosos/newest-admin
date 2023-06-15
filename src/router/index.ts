@@ -47,45 +47,6 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 
-// router.beforeEach(async (to, from, next) => {
-//   const auth = useAuthStore()
-//   NProgress.start()
-//   // 判断当前路由是否需要访问权限
-//   const tabsStore = TabsStore()
-
-//   const hasTabs = tabsStore.tabsOption.findIndex((tab) => tab.key === to.path) > -1
-
-//   if (!hasTabs && to.matched.length > 0) {
-//     const path = to.path === '/login' || to.name === 'not-found'
-//     if (!path) {
-//       tabsStore.addTab(to.meta.title, to.path)
-//     }
-//   }
-//   if (auth.isLoggedIn) {
-//     if (to.name === 'login') {
-//       next()
-//     } else {
-//       if (to.matched.length > 0) {
-//         next()
-//       } else {
-//         await MenuStore().setMenuList()
-//         next({ ...to, replace: true })
-//       }
-//     }
-//   } else {
-//     if (to.path === '/login') {
-//       next()
-//     } else {
-//       next({
-//         path: '/login',
-//         query: {
-//           redirect: to.fullPath
-//         }
-//       })
-//       NProgress.done()
-//     }
-//   }
-// })
 router.afterEach(() => {
   NProgress.done()
 })

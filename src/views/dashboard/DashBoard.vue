@@ -10,7 +10,7 @@
   <div class="new-body new-body-card">
     <a-row :gutter="24">
       <a-col :lg="6" :md="12" :sm="24" :xs="24">
-        <a-card :bordered="false" title="Card title">
+        <a-card :bordered="false" class="dashBoard-statistic" title="Card title">
           <a-statistic
             :precision="2"
             :value="11.28"
@@ -26,7 +26,7 @@
         </a-card>
       </a-col>
       <a-col :lg="6" :md="12" :sm="24" :xs="24">
-        <a-card :bordered="false" title="Card title">
+        <a-card :bordered="false" class="dashBoard-statistic" title="Card title">
           <a-statistic
             :precision="2"
             :value="11.28"
@@ -42,7 +42,7 @@
         </a-card>
       </a-col>
       <a-col :lg="6" :md="12" :sm="24" :xs="24">
-        <a-card :bordered="false" title="Card title">
+        <a-card :bordered="false" class="dashBoard-statistic" title="Card title">
           <a-statistic
             :precision="2"
             :value="9.3"
@@ -58,7 +58,7 @@
         </a-card>
       </a-col>
       <a-col :lg="6" :md="12" :sm="24" :xs="24">
-        <a-card :bordered="false" title="Card title">
+        <a-card :bordered="false" class="dashBoard-statistic" title="Card title">
           <a-statistic-countdown
             :value="deadline"
             format="HH:mm:ss:SSS"
@@ -71,6 +71,7 @@
     <a-card
       :active-tab-key="key"
       :tab-list="tabList"
+      class="dashBoard-statistic"
       style="width: 100%"
       title="Card title"
       @tabChange="(key) => onTabChange(key, 'key')"
@@ -116,6 +117,7 @@ import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { ref } from 'vue'
 import VChart from 'vue-echarts'
+
 const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30
 const tabList = [
   {
@@ -244,4 +246,9 @@ setInterval(function () {
   run()
 }, 3000)
 </script>
-<style></style>
+<style lang="less" scoped>
+.dashBoard-statistic {
+  background-color: var(--fixed-bg);
+  color: var(--text-color);
+}
+</style>
