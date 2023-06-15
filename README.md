@@ -59,7 +59,7 @@ AI 助手，以提供更智能化的体验。
 - 邮箱 <a href="mailto:xoxosos666@gmail.com">xoxosos666@gmail.com</a>
 
 ## 预览
-- 预览地址 <a href="https://xoxosos.github.io/#/login">xoxosos666@gmail.com</a>
+- 预览地址 <a href="https://xoxosos.github.io/#/login">newest-admin</a>
 
 ### UI 框架
 
