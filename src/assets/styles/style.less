@@ -67,13 +67,8 @@
   }
 }
 
-.new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
-  box-shadow: 210px -1px 0 var(--border-color-split) inset;
-  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
-  box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
-}
 
-.new-admin-responsive.new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark)
+.new-admin-responsive.new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark),
 .new-admin-header {
   box-shadow: var(--box-shadow) !important;
 }
@@ -108,7 +103,6 @@
   transition: width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
   box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
   // font-weight: 600;
-
   font-size: 18px;
   //color: @common-background;
   white-space: nowrap;
@@ -126,6 +120,27 @@
   display: flex;
   flex-shrink: 0;
   padding: 0 10px;
+
+}
+
+.collapsed, .media-collapsed {
+  padding: 0 10px;
+}
+
+.media-collapsed {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .collapsed {
+    display: none;
+  }
+
+  .media-collapsed {
+    height: 48px;
+    width: 48px;
+    display: block;
+  }
 }
 
 .ant-layout-header {
@@ -161,7 +176,72 @@
 .ant-input {
   border: 1px solid var(--input-border-color);
   background-color: var(--fixed-bg);
+}
 
+.ant-picker {
+  color: var(--text-color);
+  border: 1px solid var(--input-border-color);
+  background-color: var(--fixed-bg);
+}
+
+.ant-picker-dropdown {
+  color: var(--text-color);
+
+  .ant-picker-panel-container {
+    background-color: var(--fixed-bg);
+    transition: margin .3s;
+    overflow: hidden;
+    //vertical-align: top;
+  }
+}
+
+.ant-picker-panel-container .ant-picker-panel {
+  background: transparent;
+}
+
+.ant-picker-header {
+  color: var(--text-color);
+  border-bottom: 1px solid var(--color-border-2);
+}
+
+.ant-picker-header button {
+  color: var(--text-color);
+}
+
+.ant-picker-header > button:hover {
+  color: var(--text-color-1);
+}
+
+.ant-picker-content th {
+  height: 30px;
+  line-height: 30px;
+  color: var(--text-color);
+}
+
+.ant-picker-cell {
+  color: var(--text-color);
+}
+
+.ant-picker-cell-in-view {
+  color: var(--text-color-1);
+}
+
+.ant-picker-cell-in-view :hover {
+  background: var(--text-color-hover) !important;
+
+}
+
+.ant-picker-cell :hover {
+  background: var(--text-color-hover) !important;
+}
+
+.ant-picker-panel .ant-picker-footer {
+  border-top: 1px solid var(--color-border-2);
+}
+
+.ant-picker-panel {
+  //border-bottom: 1px solid transparent;
+  border-bottom: 1px solid var(--color-border-2);
 }
 
 .ant-layout-content {
@@ -186,97 +266,165 @@
   }
 }
 
-// .ant-layout-content * {
-//   color: var(--text-color);
-//   .ant-card-bordered {
-//     border: none;
-//   }
-//   .ant-card {
-//     border-radius: 5px;
-//   }
-//   .ant-card * {
-//     color: var(--text-color);
-//     background-color: var(--fixed-bg);
-//     span {
-//       background-color: transparent;
-//     }
-//   }
-//   .ant-table-column-sorters {
-//     background: transparent;
-//   }
-// }
+.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
+  border: 1px solid var(--color-border-2);
+  background: var(--fixed-bg);
+}
 
-.table-list .ant-spin-nested-loading .ant-spin-container {
-  .ant-table-fixed .ant-table-row-hover {
-    background: var(--table-hover-row-bg);
+.ant-pagination-item-active {
+  border: 1px solid var(--ant-primary-color);
+  background: var(--fixed-bg);
+}
+
+.new-admin-header-avatar:hover {
+  background: var(--body-bg) !important;
+}
+
+.ant-dropdown-menu-item {
+  color: var(--text-color);
+}
+
+.ant-dropdown-menu-item:hover, .ant-dropdown-menu-submenu-title:hover {
+  background: var(--body-bg) !important;
+}
+
+/* 选中*/
+.ant-dropdown-menu-item-selected, .ant-dropdown-menu-submenu-title-selected {
+  background: var(--body-bg) !important;
+}
+
+.ant-dropdown-menu {
+  background-color: var(--fixed-bg);
+}
+
+.ant-drawer-wrapper-body * {
+  color: var(--text-color);
+}
+
+.ant-drawer-header {
+  border-bottom: 1px solid var(--color-border-2);
+  background-color: var(--fixed-bg);
+}
+
+.ant-drawer-body {
+  background-color: var(--fixed-bg);
+  color: var(--text-color);
+}
+
+.ant-drawer-body * {
+  background-color: var(--fixed-bg);
+  color: var(--text-color) !important;
+}
+
+/* table整体*/
+.ant-table {
+  background: var(--fixed-bg) !important;
+}
+
+.ant-table .ant-table-bordered {
+  border-bottom: 1px solid var(--color-border-2) !important;
+}
+
+/* table固定行*/
+
+.ant-table-cell-fix-left, .ant-table-cell-fix-right {
+  background: var(--fixed-bg) !important;
+}
+
+/* 斑马线*/
+.ant-table-striped .table-striped td {
+  background: var(--body-bg) !important;
+}
+
+/* table行*/
+.ant-table-thead > tr > th {
+  border-bottom: 1px solid var(--color-border-2);
+  background: var(--body-bg) !important;
+}
+
+
+//.ant-table-fixed .ant-table-row-hover {
+//  background: var(--table-hover-row-bg) !important;
+//}
+
+
+//.table-list .ant-spin-nested-loading .ant-spin-container {
+//  .ant-table-fixed .ant-table-row-hover {
+//    background: var(--table-hover-row-bg);
+//  }
+//}
+/* table行边框*/
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--color-border-2);
+  transition: background .3s;
+}
+
+// tableList下
+/*有固定行的ant-design-vue 表格滑动样式*/
+
+//.ant-table-fixed .ant-table-row-hover {
+//  background: var(--table-hover-row-bg) !important;
+//}
+
+//.ant-table-fixed .ant-table-row-hover > td {
+//  background: var(--table-hover-row-bg) !important;
+//}
+
+/*没有固定行的表格个样式*/
+
+//.ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+//  background-color: var(--table-hover-row-bg) !important;
+//}
+//
+//.ant-table-body .ant-table-row-hover {
+//  background: var(--table-hover-row-bg) !important;
+//}
+
+//.ant-table-body .ant-table-row-hover > td {
+//  background: var(--table-hover-row-bg) !important;
+//}
+
+/* 固定行hover*/
+
+.ant-table-tbody > tr.ant-table-row:hover > td,
+.ant-table-tbody > tr > td.ant-table-cell-row-hover {
+  background: var(--table-hover-row-bg) !important;
+}
+
+/* 排序的header*/
+
+.ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-left:hover,
+.ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-right:hover {
+  background: var(--table-fix-title-bg) !important;
+}
+
+//.ant-table-thead th.ant-table-column-sort {
+//  background: var(--table-fix-title-bg);
+//}
+
+.ant-table-body {
+  &::-webkit-scrollbar {
+    height: 6px;
+    width: 0;
+    overflow-y: auto;
+
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: var(--ant-primary-color);
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background: #1d4176;
   }
 }
 
-.table-list {
-  /*有固定行的ant-design-vue 表格滑动样式*/
 
-  .ant-table-fixed .ant-table-row-hover {
-    background: var(--table-hover-row-bg);
-  }
-
-  .ant-table-fixed .ant-table-row-hover > td {
-    background: var(--table-hover-row-bg);
-  }
-
-  /*没有固定行的表格个样式*/
-
-  .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
-    background-color: var(--table-hover-row-bg);
-  }
-
-  .ant-table-body .ant-table-row-hover {
-    background: var(--table-hover-row-bg);
-  }
-
-  .ant-table-body .ant-table-row-hover > td {
-    background: var(--table-hover-row-bg);
-  }
-
-  .ant-table-tbody > tr.ant-table-row:hover > td,
-  .ant-table-tbody > tr > td.ant-table-cell-row-hover {
-    background: var(--table-hover-row-bg);
-  }
-
-  .ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-left:hover,
-  .ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-right:hover {
-    background: var(--table-fix-title-bg);
-  }
-
-  .ant-table-thead th.ant-table-column-sort {
-    background: var(--table-fix-title-bg);
-  }
-
-  .ant-table-body {
-    &::-webkit-scrollbar {
-      height: 8px;
-      width: 0px;
-      overflow-y: auto;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-radius: 4px;
-      background: var(--ant-primary-color);
-    }
-
-    &::-webkit-scrollbar-track {
-      border-radius: 0;
-      background: #1d4176;
-    }
-  }
-
-  .ant-table-thead > tr > th {
-    border-bottom: 1px solid var(--body-bg);
-  }
-
-  .ant-table.ant-table-bordered th {
-    border: 1px solid var(--body-bg) !important;
-  }
-}
+//.ant-table.ant-table-bordered th {
+//  border: 1px solid var(--body-bg) !important;
+//}
 
 
 .new-admin-tabs .ant-tabs-nav {
@@ -311,10 +459,12 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .hidden-sm-and-down {
+  .new-admin-sidebar {
     display: none !important;
+    transition: all 0.2s ease-in-out;
   }
 }
+
 
 .new-admin-sidebar > .new-admin-sidebar-menus {
   flex: auto;
@@ -387,14 +537,11 @@
 }
 
 @media screen and (max-width: 768px) {
-  .new-admin-responsive .new-admin-logo,
-  .new-admin-responsive .new-admin-sidebar {
-    position: fixed !important;
-    left: 0 !important;
-    width: 200px !important;
-    z-index: 2002 !important;
+  .new-admin-header .new-admin-logo {
+    display: none;
   }
 }
+
 
 .new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
   box-shadow: 210px -1px 0 var(--border-color-split) inset;
@@ -434,17 +581,6 @@
   display: flex;
 }
 
-.new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
-  box-shadow: 210px -1px 0 var(--border-color-split) inset;
-  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
-  box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
-}
-
-.new-admin-show-tabs:not(.new-admin-tab-card):not(.new-admin-head-dark) .new-admin-header {
-  box-shadow: 210px -1px 0 var(--border-color-split) inset;
-  transition: padding-left 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,
-  box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
-}
 
 .new-admin-fixed-sidebar:not(.new-admin-fixed-body) .new-admin-sidebar,
 .new-admin-fixed-sidebar:not(.new-admin-fixed-body) .new-admin-sidebar-nav {
@@ -466,15 +602,6 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  .new-admin-responsive .new-admin-logo,
-  .new-admin-responsive .new-admin-sidebar {
-    position: fixed !important;
-    left: 0 !important;
-    width: 200px !important;
-    z-index: 2002 !important;
-  }
-}
 
 .new-admin-fixed-body .new-admin-sidebar,
 .new-admin-fixed-body .new-admin-sidebar-nav {

@@ -36,9 +36,12 @@
         <img alt="logo" src="../assets/logo.svg" />
         <span :style="{ display: collapsed ? 'none' : '' }">Newest Admin</span>
       </div>
-      <div class="new-admin-header-tool">
+      <div class="collapsed">
         <menu-unfold-outlined v-if="collapsed" class="trigger" @click="changeCollapsed" />
         <menu-fold-outlined v-else class="trigger" @click="changeCollapsed" />
+      </div>
+      <div class="media-collapsed">
+        <menu-unfold-outlined @click="showSider" />
       </div>
       <div class="new-admin-header-tool">
         <a-switch
@@ -174,6 +177,44 @@
       </a-layout>
     </a-layout>
   </a-layout>
+  <a-drawer
+    v-model:visible="visible"
+    class="custom-class"
+    placement="left"
+    style="color: red"
+    title="系统设置"
+  >
+    <a-menu
+      v-model:selectedKeys="selectedKeys"
+      :open-keys="state.openKeys"
+      :style="{ height: '100%', borderRight: 0, transition: 'all .3s  ease-in-out' }"
+      :theme="theme"
+      mode="inline"
+      @openChange="onOpenChange"
+    >
+      <template v-for="menuItem in (menus as any)">
+        <template v-if="menuItem.children">
+          <a-sub-menu :key="menuItem.name">
+            <template #icon>
+              <SvgIcon :icon-name="`icon-${menuItem.meta?.icon}`" class-name="svg-icon" />
+            </template>
+            <template #title>
+              <span>{{ menuItem.meta.title }}</span>
+            </template>
+            <recursive-menu :menuItems="menuItem.children" />
+          </a-sub-menu>
+        </template>
+        <template v-else>
+          <a-menu-item :key="menuItem.name">
+            <template #icon>
+              <SvgIcon :icon-name="`icon-${menuItem.meta?.icon}`" class-name="svg-icon" />
+            </template>
+            <router-link :to="menuItem.path">{{ menuItem.meta.title }}</router-link>
+          </a-menu-item>
+        </template>
+      </template>
+    </a-menu>
+  </a-drawer>
 </template>
 <script lang="ts" setup>
 import RecursiveMenu from '@/components/dynamicmenu/RecursiveMenu.vue'
@@ -195,10 +236,16 @@ import useTheme from '@/utils/theme/useTheme'
 import { uniqBy } from 'lodash-es'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import ThemeSetting from '@/components/theme/ThemeSetting.vue'
 
 const { theme } = useTheme()
 const route = useRoute()
 const ThemeDrawerRef = ref(null)
+const visible = ref(false)
+
+const showSider = () => {
+  visible.value = true
+}
 onMounted(() => {
   MenuStore().setMenuList()
 })
