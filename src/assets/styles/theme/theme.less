@@ -1,17 +1,22 @@
 :root {
   --text-color: #333; // 文本颜色
+  --text-color-1: rgb(140, 132, 132);
+  --text-color-hover: rgb(171, 167, 167);
   --fixed-bg: #fff; // 固定背景色
   --body-bg: #f3f3f3; // body内容区背景色
   --tabs-border-bottom: none; // tabs底部边框
   --box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08); // box-shadow
-  --table-fix-title-bg: #f5f5f5; // 表格固定列标题背景色
+  --table-fix-title-bg: #dadada; // 表格固定列标题背景色
   --table-hover-row-bg: #f5f5f5; // 表格hover行背景色
   --input-border-color: #d9d9d9; // input边框颜色
+  --color-border-2: #d9d9d9;
 }
 
 /* 暗色主题 */
 html[data-theme='dark'] {
   --text-color: rgba(229, 224, 216, 0.85);
+  --text-color-1: rgb(255, 255, 255);
+  --text-color-hover: rgb(105, 104, 104);
   --fixed-bg: rgb(37, 37, 37);
   --body-bg: rgb(44, 45, 45);
   --box-shadow: rgb(255 255 255 / 8%) 0px 1px 4px;
@@ -19,5 +24,7 @@ html[data-theme='dark'] {
   --table-fix-title-bg: #2a2a2a;
   --table-hover-row-bg: #2a2a2a;
   --input-border-color: gray; // input边框颜色
+  --color-border-2: rgba(255, 255, 255, 0.06);
+
 
 }
