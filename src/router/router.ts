@@ -3,7 +3,7 @@
  * @Date: 2023-06-03 20:36:15
  * @Description:
  */
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -50,7 +50,7 @@ export const notFound = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
   strict: false
 })
