@@ -49,8 +49,8 @@
         </a-checkbox>
       </a-form-item>
       <a-typography-link class="login-form-forgot" underline @click="changeType"
-        >点我注册</a-typography-link
-      >
+        >点我注册
+      </a-typography-link>
     </a-form-item>
     <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
       <a-button
@@ -76,6 +76,7 @@ import { useAuthStore } from '@/stores/useAuthStore'
 import { LockOutlined, UserOutlined } from '@ant-design/icons-vue'
 import type { FormInstance } from 'ant-design-vue'
 import { computed, reactive, ref } from 'vue'
+
 const { changeType } = inject<any>('changeType')
 const layout = {
   labelCol: {
@@ -110,6 +111,7 @@ const onFinish = (values: any) => {
 
 const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo)
+  refreshCode()
 }
 const disabled = computed(() => {
   return !(formState.username && formState.password && formState.code)

@@ -8,9 +8,11 @@ import { api } from '@/utils/api'
 import { message } from 'ant-design-vue'
 import Cookies from 'js-cookie'
 import { defineStore } from 'pinia'
+
 interface Props {
   username: string
   password: string
+
   [key: string]: any
 }
 
@@ -44,7 +46,7 @@ export const useAuthStore = defineStore({
           this.token = r?.data.token
           Cookies.set('satoken', this.token)
           console.log(Cookies.get('satoken'))
-          await router.push('/dashboard')
+          router.push('/dashboard')
         } else if (r?.message) {
           message.error(r?.message)
         }
