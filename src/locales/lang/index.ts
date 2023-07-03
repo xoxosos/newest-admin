@@ -26,4 +26,6 @@ const i18n = createI18n({
     ja
   }
 })
+const tt = i18n.global.t
 export default i18n
+export {tt}
